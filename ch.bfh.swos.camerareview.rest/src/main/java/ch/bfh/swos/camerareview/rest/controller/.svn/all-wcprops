@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/repos/projects/maven/!svn/ver/46/ch.bfh.swos.camerareview.rest/src/main/java/ch/bfh/swos/camerareview/rest/controller
+END
+CommentController.java
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/repos/projects/maven/!svn/ver/46/ch.bfh.swos.camerareview.rest/src/main/java/ch/bfh/swos/camerareview/rest/controller/CommentController.java
+END
+AuthorController.java
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/repos/projects/maven/!svn/ver/46/ch.bfh.swos.camerareview.rest/src/main/java/ch/bfh/swos/camerareview/rest/controller/AuthorController.java
+END
+IController.java
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/repos/projects/maven/!svn/ver/29/ch.bfh.swos.camerareview.rest/src/main/java/ch/bfh/swos/camerareview/rest/controller/IController.java
+END
+GenericController.java
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/repos/projects/maven/!svn/ver/46/ch.bfh.swos.camerareview.rest/src/main/java/ch/bfh/swos/camerareview/rest/controller/GenericController.java
+END
+TestReportController.java
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/repos/projects/maven/!svn/ver/46/ch.bfh.swos.camerareview.rest/src/main/java/ch/bfh/swos/camerareview/rest/controller/TestReportController.java
+END
+CameraController.java
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/repos/projects/maven/!svn/ver/46/ch.bfh.swos.camerareview.rest/src/main/java/ch/bfh/swos/camerareview/rest/controller/CameraController.java
+END

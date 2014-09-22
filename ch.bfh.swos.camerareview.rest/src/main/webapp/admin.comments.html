@@ -1,0 +1,32 @@
+<h2>Comments</h2>
+<div ng-controller="TestReportController">
+	<div class="well" ng-repeat="testReport in testReports">
+		<div ng-controller="CommentController">
+			<fieldset>
+	    		<legend>Comments of {{testReport.title}}</legend>
+		        <table id="table" class="table table-striped">
+		            <thead>
+			            <tr>
+			                <th>Title</th>
+			                <th>Author</th>
+			                <th>Date</th>
+			                <th>ID</th>
+			                <th></th>
+			            </tr>
+		            </thead>
+		            <tbody>
+			            <tr ng-repeat="comment in testReport.comments">
+			                <td>{{comment.title}}</td>
+			                <td>{{comment.author.forename}} {{comment.author.surname}}</td>
+			                <td>{{comment.date | date:'dd.MM.yyyy'}}</td>
+			                <td>{{comment.id}}</td>
+			                <td style="text-align: right;">		                
+								<button id="remove" ng-click="remove($index, comment.id)" class="btn">Delete</button>
+							</td>
+			            </tr>
+		            </tbody>
+		        </table>
+			</fieldset>
+		</div>
+	</div>
+</div>
