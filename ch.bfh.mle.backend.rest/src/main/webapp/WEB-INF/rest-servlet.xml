@@ -12,7 +12,7 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
 
-    <context:component-scan base-package="ch.bfh.mle.backend.rest.controller"/>
+    <context:component-scan base-package="ch.bfh.mle.backend.restlayer"/>
     <mvc:annotation-driven/>
     
 </beans>
