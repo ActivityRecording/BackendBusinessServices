@@ -2,7 +2,7 @@
 Test set: ch.bfh.swos.camerareview.model.UpdateTest
 -------------------------------------------------------------------------------
 Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.001 sec <<< FAILURE!
-test(ch.bfh.swos.camerareview.model.UpdateTest)  Time elapsed: 0.001 sec  <<< ERROR!
+test(ch.bfh.swos.camerareview.model.UpdateTest)  Time elapsed: 0 sec  <<< ERROR!
 javax.persistence.PersistenceException: No Persistence provider for EntityManager named ch.bfh.swos.camerareview.model
 	at javax.persistence.Persistence.createEntityManagerFactory(Unknown Source)
 	at javax.persistence.Persistence.createEntityManagerFactory(Unknown Source)
