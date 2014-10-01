@@ -16,6 +16,7 @@ import javax.ws.rs.PUT;
 
 
 import ch.bfh.mle.backend.servicelayer.*;
+import org.codehaus.jackson.map.ObjectMapper;
 //import ch.bfh.mle.backend.modellayer.Patient;
 
 /**
@@ -28,6 +29,8 @@ public class PatientResource {
 
     @Context
     private UriInfo context;
+    
+    private ObjectMapper mapper = new ObjectMapper();
 
     /**
      * Creates a new instance of PatientResource
@@ -40,12 +43,12 @@ public class PatientResource {
      * @return an instance of java.lang.String
      */
     @GET
-    @Produces("text/html")
-    public String getHtml() {
-        return "<h1>Get some REST!</h1>";
-//        try {
+    @Produces("application/json")
+    public String getJson() {
+      return "<h1>Get some REST!</h1>";
+//        try {  
 //            PatientDao patients = new PatientDao();          
-//            return  patients.read().toString();
+//            return  mapper.writeValueAsString(patients.read());
 //        } catch (Exception e) {
 //          throw new UnsupportedOperationException();
 //        }  
