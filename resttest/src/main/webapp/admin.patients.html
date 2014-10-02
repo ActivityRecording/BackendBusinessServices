@@ -8,15 +8,15 @@
 				<thead>
 					<tr>
                                             <th>Id</th>
-                                            <th>Forename</th>
-                                            <th>Surname</th>
+                                            <th>Firstname</th>
+                                            <th>Lastname</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr ng-repeat="patient in patients">
                                                 <td>{{patient.id}}</td>
-						<td>{{patient.forename}}</td>
-						<td>{{patient.surname}}</td>
+						<td>{{patient.firstName}}</td>
+						<td>{{patient.lastName}}</td>
 						
 						<td style="text-align: right;">
 							<button id="edit" ng-click="edit(patient)" class="btn">Edit</button>
@@ -38,11 +38,11 @@
 			</div>
 			<div class="control-group">
 				<label for="firstname">Firstnamename</label>
-				<input type="text" id="firstname" ng-model="currentPatient.firstname" ng-minlength="2" ng-minlength="255" required />
+				<input type="text" id="firstname" ng-model="currentPatient.firstName" ng-minlength="2" ng-minlength="255" required />
 			</div>
 			<div class="control-group">
 				<label for="lastname">Surname</label>
-				<input type="text" id="lastname" ng-model="currentPatient.lastname" ng-minlength="2" ng-minlength="255" required />
+				<input type="text" id="lastname" ng-model="currentPatient.lastName" ng-minlength="2" ng-minlength="255" required />
 			</div>
 
 			<div class="control-group">
