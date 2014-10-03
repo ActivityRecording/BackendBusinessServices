@@ -13,7 +13,7 @@ import org.junit.Test;
 public class CreateTest {
 
 //    @PersistenceContext(unitName = "ch.bfh.mle.backend_Model_PU")
-//    EntityManager em = null;
+//    EntityManager em;
 
     
     
@@ -29,11 +29,11 @@ public class CreateTest {
     @Test
     public void test() {
 
-//        EntityManager  em = (EntityManager) Persistence.createEntityManagerFactory("ch.bfh.mle.backend_Model_PU").createEntityManager();
-//        
-//        Patient patient = new Patient();
-//        patient.setFirstName("Gandalf");
-//        patient.setLastName("Der Graue");
+        EntityManager  em = (EntityManager) Persistence.createEntityManagerFactory("ch.bfh.mle.backend_Model_PU").createEntityManager();
+        
+        Patient patient = new Patient();
+        patient.setFirstName("Gandalf");
+        patient.setLastName("Der Graue");
 
 //	Author author2 = new Author();
 //      author2.setForename("Zweiter");
@@ -62,10 +62,10 @@ public class CreateTest {
 //      comment.setTestReport(testReport);
 //      comment.setText("Sehr guter Testbericht");
 //      comment.setTitle("Mein Kommentar");
-//	EntityManager em = Persistence.createEntityManagerFactory("ch.bfh.mle.backend_Model_PU").createEntityManager();
-//        em.getTransaction().begin();
-//        em.persist(patient);
-//        em.getTransaction().commit();
+
+        em.getTransaction().begin();
+        em.persist(patient);
+        em.getTransaction().commit();
     }
 
 }
