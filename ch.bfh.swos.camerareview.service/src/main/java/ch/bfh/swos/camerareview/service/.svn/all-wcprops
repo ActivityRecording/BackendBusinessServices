@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/repos/projects/maven/!svn/ver/54/ch.bfh.swos.camerareview.service/src/main/java/ch/bfh/swos/camerareview/service
+END
+IAuthorDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/repos/projects/maven/!svn/ver/51/ch.bfh.swos.camerareview.service/src/main/java/ch/bfh/swos/camerareview/service/IAuthorDao.java
+END
+GenericJpaDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/repos/projects/maven/!svn/ver/49/ch.bfh.swos.camerareview.service/src/main/java/ch/bfh/swos/camerareview/service/GenericJpaDao.java
+END
+CameraDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/repos/projects/maven/!svn/ver/49/ch.bfh.swos.camerareview.service/src/main/java/ch/bfh/swos/camerareview/service/CameraDao.java
+END
+ICommentDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/repos/projects/maven/!svn/ver/50/ch.bfh.swos.camerareview.service/src/main/java/ch/bfh/swos/camerareview/service/ICommentDao.java
+END
+TestReportDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/repos/projects/maven/!svn/ver/49/ch.bfh.swos.camerareview.service/src/main/java/ch/bfh/swos/camerareview/service/TestReportDao.java
+END
+IDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/repos/projects/maven/!svn/ver/50/ch.bfh.swos.camerareview.service/src/main/java/ch/bfh/swos/camerareview/service/IDao.java
+END
+AuthorDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/repos/projects/maven/!svn/ver/48/ch.bfh.swos.camerareview.service/src/main/java/ch/bfh/swos/camerareview/service/AuthorDao.java
+END
+ICameraDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/repos/projects/maven/!svn/ver/50/ch.bfh.swos.camerareview.service/src/main/java/ch/bfh/swos/camerareview/service/ICameraDao.java
+END
+CommentDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/repos/projects/maven/!svn/ver/54/ch.bfh.swos.camerareview.service/src/main/java/ch/bfh/swos/camerareview/service/CommentDao.java
+END
+ITestReportDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/repos/projects/maven/!svn/ver/50/ch.bfh.swos.camerareview.service/src/main/java/ch/bfh/swos/camerareview/service/ITestReportDao.java
+END

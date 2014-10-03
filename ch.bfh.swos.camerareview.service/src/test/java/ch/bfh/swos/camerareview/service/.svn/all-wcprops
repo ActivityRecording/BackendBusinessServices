@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/repos/projects/maven/!svn/ver/47/ch.bfh.swos.camerareview.service/src/test/java/ch/bfh/swos/camerareview/service
+END
+PeristenceServiceTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/repos/projects/maven/!svn/ver/47/ch.bfh.swos.camerareview.service/src/test/java/ch/bfh/swos/camerareview/service/PeristenceServiceTest.java
+END
+TestReportDaoTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/repos/projects/maven/!svn/ver/47/ch.bfh.swos.camerareview.service/src/test/java/ch/bfh/swos/camerareview/service/TestReportDaoTest.java
+END
+AuthorDaoTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/repos/projects/maven/!svn/ver/47/ch.bfh.swos.camerareview.service/src/test/java/ch/bfh/swos/camerareview/service/AuthorDaoTest.java
+END
+CameraDoaTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/repos/projects/maven/!svn/ver/47/ch.bfh.swos.camerareview.service/src/test/java/ch/bfh/swos/camerareview/service/CameraDoaTest.java
+END
