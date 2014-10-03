@@ -3,6 +3,8 @@
   <persistence-unit name="ch.bfh.mle.backend_Model_PU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>ch.bfh.mle.backend.modellayer.Patient</class>
+    <class>ch.bfh.mle.backend.modellayer.Behandlungsfall</class>
+    <class>ch.bfh.mle.backend.modellayer.Zeitraum</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/mle?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
