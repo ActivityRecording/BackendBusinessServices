@@ -31,6 +31,7 @@ public class PatDaoTest {
 
 	@Test
 	public void test() {
+
 		Patient patient = patientDao.create();
 		patient.setFirstName("Donald");
 		patient.setLastName("Duck");
