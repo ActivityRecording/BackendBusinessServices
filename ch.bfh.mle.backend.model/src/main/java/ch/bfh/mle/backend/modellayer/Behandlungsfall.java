@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
@@ -32,12 +31,13 @@ import javax.persistence.TemporalType;
 @Entity
 @Access(AccessType.FIELD)
 public class Behandlungsfall implements Serializable {
-    
-    /**
-     * Default Konstruktor für JPA. Der Konstruktor kann von aussen nicht verwendet werden.
+
+   /**
+     * Default Konstruktor für JPA. Der Konstruktor darf von aussen nicht verwendet werden.
      */
-    private Behandlungsfall(){
-        
+    protected Behandlungsfall(){
+        this.zeitraeume = new ArrayList<>();
+        this.leistungen = new ArrayList<>();
     }
  
     /**
@@ -45,9 +45,8 @@ public class Behandlungsfall implements Serializable {
      * @param patient 
      */
     public Behandlungsfall(Patient patient){
+        this();
         this.patient = patient;
-        this.zeitraeume = new ArrayList<Zeitraum>();
-        this.leistungen = new ArrayList<Leistung>();
     }
     
     /**
@@ -109,15 +108,6 @@ public class Behandlungsfall implements Serializable {
     }
 
     /**
-     * Setzt die technische Datenbank-ID. <br />
-     * Die ID wird automasich generiert und kann nicht direkt gesetzt werden.
-     * @param id
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    /**
      * Gibt die fachliche ID zurueck.
      * @return id
      */
@@ -175,14 +165,6 @@ public class Behandlungsfall implements Serializable {
     }
 
     /**
-     * Setzt den Patienten
-     * @param patient 
-     */
-    private void setPatient(Patient patient) {
-        this.patient = patient;
-    }
- 
-    /**
      * Gibt die Zeitraeume des Behandlungsfalls zurueck.
      * @return 
      */
@@ -190,15 +172,6 @@ public class Behandlungsfall implements Serializable {
         return zeitraeume;
     }
 
-    /**
-     * Setzt die Zeitraeume des Behandlungsfalls.
-     * Direktes Setzen ist von aussen nicht möglich. Zeitraeume werden mit addzeitraum() hinzugefuegt.
-     * @param zeitraeume 
-     */
-    private void setZeitraeume(List<Zeitraum> zeitraeume) {
-        this.zeitraeume = zeitraeume;
-    }
-    
     /**
      * Fuegt einen Zeitraum zum Behandlungsfall hinzu.
      * @param zeitraum 
@@ -215,16 +188,6 @@ public class Behandlungsfall implements Serializable {
         return leistungen;
     }
 
-    /**
-     * Setzt die Leistungen <br />
-     * Diese Methode kann von aussen nicht direkt aufgerufen werden.
-     * @param leistungen 
-     */
-    public void setLeistungen(List<Leistung> leistungen) {
-        this.leistungen = leistungen;
-    }
-
-    
     /**
      * Fuegt eine Leistung zum Behandlungsfall hinzu.
      * @param leistung 
@@ -246,7 +209,7 @@ public class Behandlungsfall implements Serializable {
  
     /**
      * Vergleicht zwei Behandlungsfaelle, ob sie gleich sind. <br />
-     * Fuer den Vergleich wird die technische Datenbank-ID und die fachliche ID verwendet.
+     * Fuer den Vergleich wird die technische Datenbank-ID verwendet.
      * @param object
      * @return boolean
      */
@@ -262,7 +225,10 @@ public class Behandlungsfall implements Serializable {
             return false;
         }
         Behandlungsfall other = (Behandlungsfall) object;
-        return this.id == other.id && this.fallId == other.fallId;
+        if (this.id == null || other.id == null){
+            return false;
+        }
+        return this.id.equals(other.id);
     }
 
     /**

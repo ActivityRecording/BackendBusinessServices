@@ -6,7 +6,7 @@
 package ch.bfh.mle.backend.modellayer;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -25,6 +25,13 @@ import javax.persistence.OneToMany;
 @Entity
 @Access(AccessType.FIELD)
 public class Patient implements Serializable {
+
+    /**
+     * Default Konstruktor fuer JPA
+     */
+    public Patient() {
+        this.behandlungsfaelle = new ArrayList<>();
+    }
     
     /**
      * Serial-ID
@@ -84,15 +91,6 @@ public class Patient implements Serializable {
     }
 
     /**
-     * Setzt die technische Datenbank-ID. <br />
-     * Die ID wird automatisch generiert und kann micht manuell gesetzt werden.
-     * @param id 
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
-    
-    /**
      * gibt den Vornamen zurueck.
      * @return firstName
      */
@@ -137,7 +135,7 @@ public class Patient implements Serializable {
      * Darf von aussen nicht gesetzt werden.
      * @param behandlungsfaelle 
      */
-    public void setBehandlungsfaelle(List<Behandlungsfall> behandlungsfaelle) {
+    private void setBehandlungsfaelle(List<Behandlungsfall> behandlungsfaelle) {
         this.behandlungsfaelle = behandlungsfaelle;
     }
     
@@ -162,7 +160,7 @@ public class Patient implements Serializable {
 
     /**
      * Vergleicht zwei Patienten, ob sie gleich sind. <br />
-     * Fuer den Vergleich wird die technische Datenbank-ID und die fachliche ID verwendet.
+     * Fuer den Vergleich wird die technische Datenbank-ID erwendet.
      * @param object
      * @return boolean
      */
@@ -178,7 +176,10 @@ public class Patient implements Serializable {
             return false;
         }
         Patient other = (Patient) object;
-        return this.id == other.id && this.patientID == other.patientID ;
+        if (this.id == null || other.id == null){
+            return false;
+        }
+        return this.id.equals(other.id);
     }
 
     /**

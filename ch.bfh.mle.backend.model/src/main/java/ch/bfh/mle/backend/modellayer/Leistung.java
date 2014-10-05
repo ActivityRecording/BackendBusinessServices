@@ -15,7 +15,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 /**
  * Die Klasse repraesentiert eine erbrachte Leistung gemaess Tarmed-Katalog
@@ -28,7 +27,7 @@ public class Leistung implements Serializable{
     /**
      * Default-Konstruktor fuer JPA
      */
-    private Leistung(){
+    protected Leistung(){
         
     }
     
@@ -62,12 +61,12 @@ public class Leistung implements Serializable{
     /**
      * Erbringer der Leistung.
      */
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Leistungserbringer leistungserbringer;
     /**
      * Referenzierte Leistung aus dem Tarmedkatalog.
      */
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Tarmedleistung tarmedleistung;
 
     /**
@@ -109,27 +108,11 @@ public class Leistung implements Serializable{
     }
 
     /**
-     * Setzt den Leistungserbringer.
-     * @param leistungserbringer 
-     */
-    public void setLeistungserbringer(Leistungserbringer leistungserbringer) {
-        this.leistungserbringer = leistungserbringer;
-    }
-
-    /**
      * Gibt die Tarmedleistung zu dieser erbrachten Leistung zurueck.
      * @return tarmedleistung
      */
     public Tarmedleistung getTarmedleistung() {
         return tarmedleistung;
-    }
-
-    /**
-     * Setzt die Tarmedleistung aus dem Tarmedkatalog.
-     * @param tarmedleistung 
-     */
-    public void setTarmedleistung(Tarmedleistung tarmedleistung) {
-        this.tarmedleistung = tarmedleistung;
     }
 
     /**
@@ -177,7 +160,10 @@ public class Leistung implements Serializable{
             return false;
         }
         Leistung other = (Leistung) object;
-        return this.id == other.id;
+        if (this.id == null || other.id == null){
+            return false;
+        }
+        return this.id.equals(other.id);
     }
 
     /**

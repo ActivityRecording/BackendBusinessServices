@@ -17,7 +17,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -35,16 +34,16 @@ public class Zeitraum implements Serializable {
     /**
      * Default Konstruktor fuer JPA
      */
-    private Zeitraum(){
-        
+    protected Zeitraum(){
     }
     
     /**
      * Konstruktor zum Erstellen einer Leistung mit einem Leistungserbringer.
      * @param leistungserbringer 
      */
-    public Zeitraum(Leistungserbringer leistungserbringer){
+    public Zeitraum(Leistungserbringer leistungserbringer, Behandlungsfall behandlungsfall){
         this.leistungserbringer = leistungserbringer;
+        this.behandlungsfall = behandlungsfall;
     }
 
     /**
@@ -69,7 +68,7 @@ public class Zeitraum implements Serializable {
      * Startzeitpunkt
      */
     @Temporal(TemporalType.TIMESTAMP)
-    private Date start;
+    private Date beginn;
     
     /**
      * Endzeitpunkt
@@ -86,7 +85,7 @@ public class Zeitraum implements Serializable {
     /**
      * Leistungserbringer, die diesen Zeitraum gemessen hat.
      */
-    @OneToOne
+    @ManyToOne
     private Leistungserbringer leistungserbringer;
 
     /**
@@ -95,15 +94,6 @@ public class Zeitraum implements Serializable {
      */
     public Long getId() {
         return id;
-    }
-
-    /**
-     * Setzt die technische Datenbank-ID. <br />
-     * Die ID wird generiert und kann nicht manuell gesetzt werden.
-     * @param id 
-     */
-    public void setId(Long id) {
-        this.id = id;
     }
 
     /**
@@ -127,7 +117,7 @@ public class Zeitraum implements Serializable {
      * @return start
      */
     public Date getStart() {
-        return start;
+        return beginn;
     }
 
     /**
@@ -135,7 +125,7 @@ public class Zeitraum implements Serializable {
      * @param start 
      */
     public void setStart(Date start) {
-        this.start = start;
+        this.beginn = start;
     }
 
     /**
@@ -155,6 +145,10 @@ public class Zeitraum implements Serializable {
         this.ende = ende;
     }
 
+    /**
+     * Ueberschreibt die Standard hashCode Methode.
+     * @return hash
+     */
     @Override
     public int hashCode() {
         int hash = 7;
@@ -180,7 +174,10 @@ public class Zeitraum implements Serializable {
             return false;
         }
         Zeitraum other = (Zeitraum) object;
-        return this.id == other.id ;
+        if (this.id == null || other.id == null){
+            return false;
+        }
+        return this.id.equals(other.id);
     }
     
     /**

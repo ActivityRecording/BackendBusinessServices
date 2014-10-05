@@ -39,8 +39,7 @@ public class CreateTest {
         fall1.setBeginn(new Date());
         fall1.setEnde(new Date());
         fall1.setFallId(1234L);
-        behandlungsfaelle.add(fall1);
-        patient.setBehandlungsfaelle(behandlungsfaelle);
+        patient.addBehandlungsfall(fall1);
 
 //	Author author2 = new Author();
 //      author2.setForename("Zweiter");

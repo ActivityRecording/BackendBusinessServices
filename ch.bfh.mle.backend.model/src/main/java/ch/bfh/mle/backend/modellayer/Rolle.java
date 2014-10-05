@@ -6,6 +6,7 @@
 package ch.bfh.mle.backend.modellayer;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Access;
@@ -19,7 +20,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 /**
  * Repraesentiert eine Mitarbeiterrolle <br />
@@ -30,7 +30,14 @@ import javax.persistence.OneToOne;
 @Access(AccessType.FIELD)
 public class Rolle implements Serializable{
 
-     /**
+    /**
+     * Default Konstruktor fuer JPA
+     */
+    public Rolle() {
+        this.standardkatalog = new ArrayList<>();
+    }
+
+    /**
      * Serial-ID
      */
     private static final long serialVersionUID = 1L;
@@ -59,21 +66,13 @@ public class Rolle implements Serializable{
      */
     @OneToMany(mappedBy = "rolle", fetch=FetchType.LAZY, cascade = CascadeType.ALL )
     private List<Standardleistung> standardkatalog;
-
+    
     /**
      * Gibt die technische Datenbank-ID zurueck.
      * @return id
      */
     public Long getId() {
         return id;
-    }
-
-    /**
-     * Setzt die Datenbank-ID
-     * @param id 
-     */
-    public void setId(Long id) {
-        this.id = id;
     }
 
     /**
@@ -153,7 +152,10 @@ public class Rolle implements Serializable{
             return false;
         }
         final Rolle other = (Rolle) object;
-        return this.id == other.id;
+        if (this.id == null || other.id == null){
+            return false;
+        }
+        return this.id.equals(other.id);
     }
 
     /**

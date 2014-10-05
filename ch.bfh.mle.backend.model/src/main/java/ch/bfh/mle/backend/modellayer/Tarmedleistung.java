@@ -58,14 +58,6 @@ public class Tarmedleistung implements Serializable{
     }
 
     /**
-     * Setzt die technische DatenbankID.
-     * @param id 
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    /**
      * Gibt die fachliche Tarmed-ID zurueck.
      * @return tarmedId
      */
@@ -141,7 +133,10 @@ public class Tarmedleistung implements Serializable{
             return true;
         }
         final Tarmedleistung other = (Tarmedleistung) obj;
-        return this.id == other.id;
+        if (this.id == null || other.id == null){
+            return false;
+        }
+        return this.id.equals(other.id);
     }
 
     /**

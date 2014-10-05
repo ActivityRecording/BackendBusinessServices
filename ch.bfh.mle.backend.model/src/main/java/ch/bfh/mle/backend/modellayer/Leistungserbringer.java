@@ -17,8 +17,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 /**
  * Repraesentiert einen Erbringer einer Leistung. Dies kann ein Arzt oder eine Plegeperson sein.
@@ -28,8 +28,11 @@ import javax.persistence.OneToOne;
 @Access(AccessType.FIELD)
 public class Leistungserbringer implements Serializable{
 
+    /**
+     * Default Konstruktor fuer JPA
+     */
     public Leistungserbringer() {
-        this.favoriten = new ArrayList<Favorit>();
+        this.favoriten = new ArrayList<>();
     }
 
     /**
@@ -62,7 +65,7 @@ public class Leistungserbringer implements Serializable{
     /**
      * Rolle des Mitarbeiters.
      */
-    @OneToOne
+    @ManyToOne
     private Rolle rolle;
     
     /**
@@ -70,21 +73,13 @@ public class Leistungserbringer implements Serializable{
      */
     @OneToMany(mappedBy = "leistungserbringer", fetch=FetchType.LAZY, cascade = CascadeType.ALL )
     private List<Favorit> favoriten;
-
+    
     /**
      * Gibt die technische Datenbank-ID zurueck.
      * @return id
      */
     public Long getId() {
         return id;
-    }
-
-    /**
-     * Setzt die Datenbank-ID. Diese Methode kann von aussen nicht verwendet werden.
-     * @param id 
-     */
-    public void setId(Long id) {
-        this.id = id;
     }
 
     /**
@@ -158,10 +153,18 @@ public class Leistungserbringer implements Serializable{
     public List<Favorit> getFavoriten() {
         return favoriten;
     }
+    
+    /**
+     * Setzt die Liste der Favoriten.
+     * @param favoriten 
+     */
+    public void setFavoriten(List<Favorit> favoriten){
+        this.favoriten = favoriten;
+    }
 
     /**
      * Fuegt einen Favoriten zur Liste der Favoriten hinzu. 
-     * @param favoriten 
+     * @param favorit 
      */
     public void addFavorit(Favorit favorit) {
         this.favoriten.add(favorit);
@@ -180,7 +183,7 @@ public class Leistungserbringer implements Serializable{
 
      /**
      * Vergleicht zwei Leistungserbringer, ob sie gleich sind. <br />
-     * Fuer den Vergleich wird die technische Datenbank-ID und die Mitarbeiter-ID verwendet.
+     * Fuer den Vergleich wird die technische Datenbank-ID verwendet.
      * @param object
      * @return boolean
      */
@@ -196,7 +199,10 @@ public class Leistungserbringer implements Serializable{
             return false;
         }
         final Leistungserbringer other = (Leistungserbringer) object;
-        return this.id == other.id && this.mitarbeiterID == other.mitarbeiterID;
+        if (this.id == null || other.id == null){
+            return false;
+        }
+        return this.id.equals(other.id);
     }
 
     /**

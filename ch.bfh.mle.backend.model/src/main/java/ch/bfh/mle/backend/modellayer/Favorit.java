@@ -5,8 +5,8 @@
  */
 package ch.bfh.mle.backend.modellayer;
 
-import com.sun.jndi.toolkit.dir.SearchFilter;
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
@@ -14,7 +14,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 /**
  * Repraesentiert eine Liste von Tarmedleistungen, die dem Anwender in der Liste seiner Favoriten angezeigt werden.
@@ -24,7 +23,7 @@ import javax.persistence.OneToMany;
 @Access(AccessType.FIELD)
 public class Favorit implements Serializable {
 
-        /**
+    /**
      * Serial-ID
      */
     private static final long serialVersionUID = 1L;
@@ -36,24 +35,99 @@ public class Favorit implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    /**
+     * Leistungserbringer, zu dem der Favorit gehoert.
+     */
     @ManyToOne
     private Leistungserbringer leistungserbringer;
+    
+    /**
+     * Zugehoerige Tarmedleistung.
+     */
+    @ManyToOne
+    private Tarmedleistung tarmedLeistung;
 
+    /**
+     * Gibt die technische Datenbank-ID zurueck.
+     * @return id
+     */
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
+    /**
+     * Gibt den Leistungserbringer zurueck.
+     * @return leistungserbringer
+     */
     public Leistungserbringer getLeistungserbringer() {
         return leistungserbringer;
     }
 
+    /**
+     * Setzt den Leistungserbringer.
+     * @param leistungserbringer 
+     */
     public void setLeistungserbringer(Leistungserbringer leistungserbringer) {
         this.leistungserbringer = leistungserbringer;
     }
-
     
+    /**
+     * Gibt die Tarmedleistung zurueck.
+     * @return tarmedLeistung
+     */
+    public Tarmedleistung getTarmedLeistung() {
+        return tarmedLeistung;
+    }
+    
+    /**
+     * Setzt die Tarmedleisung.
+     * @param tarmedLeistung 
+     */
+    public void setTarmedLeistung(Tarmedleistung tarmedLeistung) {
+        this.tarmedLeistung = tarmedLeistung;
+    }
+
+    /**
+     * Ueberschreibt die Standard hashCode Methode.
+     * @return hash
+     */
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    /**
+     * Vergleicht zwei Favoriten, ob sie gleich sind. <br />
+     * Fuer den Vergleich wird die technische Datenbank-ID verwendet.
+     * @param object
+     * @return boolean
+     */
+    @Override
+    public boolean equals(Object object) {
+        if (object == null) {
+            return false;
+        }
+        if (object == this) {
+            return true;
+        }
+        if (!(object instanceof Favorit)) {
+            return false;
+        }
+        Favorit other = (Favorit) object;
+        if (this.id == null || other.id == null){
+            return false;
+        }
+        return this.id.equals(other.id);
+    }
+
+    /**
+     * Gibt eine String-Raepresentation des Favoriten zurueck.
+     * @return string
+     */
+    @Override
+    public String toString() {
+        return "Favorit{" + "id=" + id + '}';
+    }
 }
