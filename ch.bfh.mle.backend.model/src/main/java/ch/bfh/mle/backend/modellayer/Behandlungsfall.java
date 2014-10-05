@@ -6,12 +6,16 @@
 package ch.bfh.mle.backend.modellayer;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,7 +25,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * Repraesentiert einen Zeitraum, während dem ein Patient im Spital in Behandlung ist.
+ * Repraesentiert einen Zeitraum, waehrend dem ein Patient im Spital in Behandlung ist.
  *  
  * @author Stefan Walle
  */
@@ -42,8 +46,13 @@ public class Behandlungsfall implements Serializable {
      */
     public Behandlungsfall(Patient patient){
         this.patient = patient;
+        this.zeitraeume = new ArrayList<Zeitraum>();
+        this.leistungen = new ArrayList<Leistung>();
     }
     
+    /**
+     * Serial-ID
+     */
     private static final long serialVersionUID = 1L;
     
     /**
@@ -82,11 +91,17 @@ public class Behandlungsfall implements Serializable {
     /**
      * Behandlungszeitraeume oder Pflegeunterbrueche
      */
-    @OneToMany(mappedBy = "behandlungsfall", cascade = CascadeType.ALL )
-    private Set<Zeitraum> zeitraeume;
+    @OneToMany(mappedBy = "behandlungsfall", fetch=FetchType.LAZY, cascade = CascadeType.ALL )
+    private List<Zeitraum> zeitraeume;
     
     /**
-     * Gibt die technische ID zurück.
+     * Erbrachte Leistungen
+     */
+    @OneToMany(mappedBy = "behandlungsfall", fetch=FetchType.LAZY, cascade = CascadeType.ALL )
+    private List<Leistung> leistungen;
+    
+    /**
+     * Gibt die technische ID zurueck.
      * @return id
      */
     public Long getId() {
@@ -103,7 +118,7 @@ public class Behandlungsfall implements Serializable {
     }
 
     /**
-     * Gibt die fachliche ID zurück.
+     * Gibt die fachliche ID zurueck.
      * @return id
      */
     public Long getFallId() {
@@ -121,7 +136,7 @@ public class Behandlungsfall implements Serializable {
     }
 
     /**
-     * Gibt den Zeitpunkt des Eintritts zurück.
+     * Gibt den Zeitpunkt des Eintritts zurueck.
      * @return beginn
      */
     public Date getBeginn() {
@@ -137,7 +152,7 @@ public class Behandlungsfall implements Serializable {
     }
 
     /**
-     * Gibt den Austrittszeitpunkt zurück.
+     * Gibt den Austrittszeitpunkt zurueck.
      * @return ende
      */
     public Date getEnde() {
@@ -152,7 +167,7 @@ public class Behandlungsfall implements Serializable {
     }
 
     /**
-     * Gibt den Patienten der behandelt wurde zurück.
+     * Gibt den Patienten der behandelt wurde zurueck.
      * @return patient
      */
     public Patient getPatient() {
@@ -171,16 +186,16 @@ public class Behandlungsfall implements Serializable {
      * Gibt die Zeitraeume des Behandlungsfalls zurueck.
      * @return 
      */
-    public Set<Zeitraum> getZeitraeume() {
+    public List<Zeitraum> getZeitraeume() {
         return zeitraeume;
     }
 
     /**
      * Setzt die Zeitraeume des Behandlungsfalls.
-     * Direktes Setzen ist von aussen nicht möglich. Zeitraeume werden mit addzeitraum() hinzugefügt.
+     * Direktes Setzen ist von aussen nicht möglich. Zeitraeume werden mit addzeitraum() hinzugefuegt.
      * @param zeitraeume 
      */
-    private void setZeitraeume(Set<Zeitraum> zeitraeume) {
+    private void setZeitraeume(List<Zeitraum> zeitraeume) {
         this.zeitraeume = zeitraeume;
     }
     
@@ -190,6 +205,73 @@ public class Behandlungsfall implements Serializable {
      */
     public void addZeitraum(Zeitraum zeitraum){
         this.zeitraeume.add(zeitraum);
+    }
+
+    /**
+     * Gibt die Leistungen zum Behandlungsfall zurueck;
+     * @return leistungen
+     */
+    public List<Leistung> getLeistungen() {
+        return leistungen;
+    }
+
+    /**
+     * Setzt die Leistungen <br />
+     * Diese Methode kann von aussen nicht direkt aufgerufen werden.
+     * @param leistungen 
+     */
+    public void setLeistungen(List<Leistung> leistungen) {
+        this.leistungen = leistungen;
+    }
+
+    
+    /**
+     * Fuegt eine Leistung zum Behandlungsfall hinzu.
+     * @param leistung 
+     */
+    public void addLeistung(Leistung leistung){
+        this.leistungen.add(leistung);
+    }
+    
+    /**
+     * Ueberschreibt die Standard hashCode Methode.
+     * @return hash
+     */
+   @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 29 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+ 
+    /**
+     * Vergleicht zwei Behandlungsfaelle, ob sie gleich sind. <br />
+     * Fuer den Vergleich wird die technische Datenbank-ID und die fachliche ID verwendet.
+     * @param object
+     * @return boolean
+     */
+    @Override
+    public boolean equals(Object object) {
+        if (object == null) {
+            return false;
+        }
+        if (object == this) {
+            return true;
+        }
+        if (!(object instanceof Behandlungsfall)) {
+            return false;
+        }
+        Behandlungsfall other = (Behandlungsfall) object;
+        return this.id == other.id && this.fallId == other.fallId;
+    }
+
+    /**
+     * Gibt eine String-Raepresentation des Behandlungsfalles zurueck.
+     * @return string
+     */
+    @Override
+    public String toString() {
+        return "Behandlungsfall{" + "Fall-ID=" + fallId + '}';
     }
     
 }

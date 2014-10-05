@@ -5,6 +5,12 @@
     <class>ch.bfh.mle.backend.modellayer.Patient</class>
     <class>ch.bfh.mle.backend.modellayer.Behandlungsfall</class>
     <class>ch.bfh.mle.backend.modellayer.Zeitraum</class>
+    <class>ch.bfh.mle.backend.modellayer.Leistung</class>
+    <class>ch.bfh.mle.backend.modellayer.Leistungserbringer</class>
+    <class>ch.bfh.mle.backend.modellayer.Rolle</class>
+    <class>ch.bfh.mle.backend.modellayer.Tarmedleistung</class>
+    <class>ch.bfh.mle.backend.modellayer.Standardleistung</class>
+    <class>ch.bfh.mle.backend.modellayer.Favorit</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/mle?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

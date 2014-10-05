@@ -12,6 +12,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,6 +26,9 @@ import javax.persistence.OneToMany;
 @Access(AccessType.FIELD)
 public class Patient implements Serializable {
     
+    /**
+     * Serial-ID
+     */
     private static final long serialVersionUID = 1L;
     
     /**
@@ -33,6 +37,11 @@ public class Patient implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    /**
+     * Fachliche Patienten-ID
+     */
+    private Long patientID;
     
     /**
      * Nachname
@@ -47,11 +56,27 @@ public class Patient implements Serializable {
     /**
      * Behandlungsfaelle des Patienten
      */
-    @OneToMany(mappedBy = "patient", cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "patient", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     private List<Behandlungsfall> behandlungsfaelle;
 
     /**
-     * Gibt die technische Datenbank-ID zurück.
+     * Gibt die fachliche PatientenID zurueck.
+     * @return Long
+     */
+    public Long getPatientID() {
+        return patientID;
+    }
+
+    /**
+     * Setzt die fachliche PatientanID.
+     * @param patientID 
+     */
+    public void setPatientID(Long patientID) {
+        this.patientID = patientID;
+    }
+
+    /**
+     * Gibt die technische Datenbank-ID zurueck.
      * @return id
      */
     public Long getId() {
@@ -68,7 +93,7 @@ public class Patient implements Serializable {
     }
     
     /**
-     * gibt den Vornamen zurück.
+     * gibt den Vornamen zurueck.
      * @return firstName
      */
     public String getFirstName() {
@@ -84,7 +109,7 @@ public class Patient implements Serializable {
     }
 
     /**
-     * Gibt den Nachnamen zurück.
+     * Gibt den Nachnamen zurueck.
      * @return lastName
      */
     public String getLastName() {
@@ -117,7 +142,7 @@ public class Patient implements Serializable {
     }
     
     /**
-     * Fügt einen Behandlungsfall zum Patienten hinzu.
+     * Fuegt einen Behandlungsfall zum Patienten hinzu.
      * @param behandlungsfall 
      */
     public void addBehandlungsfall(Behandlungsfall behandlungsfall){
@@ -125,8 +150,8 @@ public class Patient implements Serializable {
     }
 
     /**
-     * Überschreibt die Standard hashCode Methode.
-     * @return 
+     * Ueberschreibt die Standard hashCode Methode.
+     * @return hash
      */
     @Override
     public int hashCode() {
@@ -137,30 +162,32 @@ public class Patient implements Serializable {
 
     /**
      * Vergleicht zwei Patienten, ob sie gleich sind. <br />
-     * Für den Vergleich wird die technische Datenbank-ID verwendet.
+     * Fuer den Vergleich wird die technische Datenbank-ID und die fachliche ID verwendet.
      * @param object
      * @return boolean
      */
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (object == null) {
+            return false;
+        }
+        if (object == this) {
+            return true;
+        }
         if (!(object instanceof Patient)) {
             return false;
         }
         Patient other = (Patient) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return this.id == other.id && this.patientID == other.patientID ;
     }
 
     /**
-     * Gibt eine String-Repraesentation des Patienten zurück
+     * Gibt eine String-Repraesentation des Patienten zurueck
      * @return 
      */
     @Override
     public String toString() {
-        return "ch.bfh.mle.backend.modellayer.Patient[ id= " + id + " name= "+ lastName + " " + firstName +" ]";
+        return "Patient{ Patient-ID= " + patientID + " name= "+ lastName + " " + firstName +" }]";
     }
     
 }

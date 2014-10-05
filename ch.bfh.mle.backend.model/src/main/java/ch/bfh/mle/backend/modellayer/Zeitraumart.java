@@ -6,8 +6,8 @@
 package ch.bfh.mle.backend.modellayer;
 
 /**
- * Repraesentiert die Zeitraumarten, die automatisch gemessen werden.<br />
- * BEHANDLUNG - Zeitrüume in denen eine arztliche Behandlung stattgefunden hat. <br />
+ * Repraesentiert die Zeitraumarten, die gemessen werden koennen.<br />
+ * BEHANDLUNG - Zeitraeum in dem eine aerztliche Behandlung stattgefunden hat. <br />
  * PFLEGEUNTERBRUCH - Zeitraum, in dem der Patient nicht gepflegt wurde.
  * @author Stefan Walle
  */
