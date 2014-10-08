@@ -34,6 +34,12 @@ public class CreateTest {
         Patient patient = new Patient();
         patient.setFirstName("Gandalf");
         patient.setLastName("Der Graue");
+        ArrayList<Behandlungsfall> behandlungsfaelle = new ArrayList<Behandlungsfall>();
+        Behandlungsfall fall1 = new Behandlungsfall(patient);
+        fall1.setBeginn(new Date());
+        fall1.setEnde(new Date());
+        fall1.setFallId(1234L);
+        patient.addBehandlungsfall(fall1);
 
 //	Author author2 = new Author();
 //      author2.setForename("Zweiter");
