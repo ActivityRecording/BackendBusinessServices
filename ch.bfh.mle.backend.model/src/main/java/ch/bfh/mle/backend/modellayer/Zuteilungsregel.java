@@ -16,7 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 /**
- * Repraesentiert eine Regel fur die Aufteilung der Leistungen auf die gemessene Zeit <br />
+ * Repraesentiert eine Regel fur die Aufteilung der Leistungen auf die gemessene Zeit <br>
  * Je Tarmedleistung kann eine Regel zugeordnet werden, die bei der Auswahl und Verrechnung
  * der Leistungen beruecksichtigt werden muss.
  * @author Stefan Walle
@@ -44,7 +44,7 @@ public class Zuteilungsregel implements Serializable{
     private Tarmedleistung tarmedLeistung;
     
     /**
-     * ID mit der Tarmedleistungen gruppiert werden koennen. <br />
+     * ID mit der Tarmedleistungen gruppiert werden koennen. <br>
      * Aus einer Gruppe kann nur eine Leistung ausgewaehlt werden.
      */
     private Integer gruppierungsID;
@@ -60,7 +60,7 @@ public class Zuteilungsregel implements Serializable{
     private Boolean erfordertZeitangabe;
     
     /**
-     * Waehlbarkeit der Leistung. Wenn ja, kann die Leistung nicht manuell ausgewaehlt werden. <br />
+     * Waehlbarkeit der Leistung. Wenn ja, kann die Leistung nicht manuell ausgewaehlt werden. <br>
      * Die Leistung wird automatisch hinzugefuegt.
      */
     private Boolean nichtauswaehlbar;
@@ -186,7 +186,7 @@ public class Zuteilungsregel implements Serializable{
     }
 
     /**
-     * Vergleicht zwei Zuteilungsregeln, ob sie gleich sind. <br />
+     * Vergleicht zwei Zuteilungsregeln, ob sie gleich sind. <br>
      * Fuer den Vergleich wird die technische Datenbank-ID verwendet.
      * @param object
      * @return boolean

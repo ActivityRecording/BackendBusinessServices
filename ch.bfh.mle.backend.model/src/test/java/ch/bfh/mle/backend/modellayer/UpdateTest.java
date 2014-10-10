@@ -1,5 +1,6 @@
 package ch.bfh.mle.backend.modellayer;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -15,10 +16,23 @@ public class UpdateTest {
 
     @Test
     public void test() {
-        (new CreateTest()).test();
 
 	EntityManager em = Persistence.createEntityManagerFactory(
-				"ch.bfh.mle.backend_Model_PU").createEntityManager();
+            "ch.bfh.mle.backend_Model_PU").createEntityManager();
+
+        Patient patient = new Patient();
+        patient.setFirstName("Gandalf");
+        patient.setLastName("Der Graue");
+        Behandlungsfall fall1 = new Behandlungsfall(patient);
+        fall1.setBeginn(new Date());
+        fall1.setEnde(new Date());
+        fall1.setFallId(1003L);
+        patient.addBehandlungsfall(fall1);
+ 
+        em.getTransaction().begin();
+        em.persist(patient);
+        em.getTransaction().commit();
+        
         Query q = em.createQuery("select a from Patient a");
         @SuppressWarnings("unchecked")
         List<Patient> foundPatients = q.getResultList();

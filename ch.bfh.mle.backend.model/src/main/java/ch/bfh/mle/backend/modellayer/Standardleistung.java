@@ -120,7 +120,7 @@ public class Standardleistung implements Serializable{
     }
 
     /**
-     * Vergleicht zwei Standardleistungen, ob sie gleich sind. <br />
+     * Vergleicht zwei Standardleistungen, ob sie gleich sind. <br>
      * Fuer den Vergleich wird die technische Datenbank-ID erwendet.
      * @param object
      * @return boolean

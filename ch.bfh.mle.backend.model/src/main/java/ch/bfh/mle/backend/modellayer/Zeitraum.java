@@ -22,8 +22,8 @@ import javax.persistence.TemporalType;
 
 /**
  * Die Klasse repraesentiert eine gemessene Zeit in der eine Behandlung erfolgt ist
- * oder in der ein Patient nicht gepflegt wurde. <br />
- * Die Art des Zeitraumes wird durch das Merkmal art bestimmt. <br />
+ * oder in der ein Patient nicht gepflegt wurde. <br>
+ * Die Art des Zeitraumes wird durch das Merkmal art bestimmt. <br>
  * Das Ende des Zeitraumes kann null sein, solange ein Pflegeunterbruch nicht abgeschlossen ist.
  * @author Stefan Walle
  */
@@ -129,7 +129,7 @@ public class Zeitraum implements Serializable {
     }
 
     /**
-     * Gibt das Ende des Zeitraumes zurueck. <br />
+     * Gibt das Ende des Zeitraumes zurueck. <br>
      * Das Ende kann fuer Pflegeunterbrueche null sein, solange der Patient nicht zurueck in der Pflege ist.
      * @return ende oder null
      */
@@ -157,7 +157,7 @@ public class Zeitraum implements Serializable {
     }
 
     /**
-     * Vergleicht zwei Zeitraeme, ob sie gleich sind. <br />
+     * Vergleicht zwei Zeitraeme, ob sie gleich sind. <br>
      * Fuer den Vergleich wird die technische Datenbank-ID verwendet.
      * @param object
      * @return boolean

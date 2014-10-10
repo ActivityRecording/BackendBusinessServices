@@ -22,7 +22,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 /**
- * Repraesentiert eine Mitarbeiterrolle <br />
+ * Repraesentiert eine Mitarbeiterrolle <br>
  * Die Rolle kann ein Arzt oder Pflegeperson sein.
  * @author Stefan Walle
  */
@@ -61,7 +61,7 @@ public class Rolle implements Serializable{
     private Rollenart art;
     
     /**
-     * Standardkatalog der Rolle. <br />
+     * Standardkatalog der Rolle. <br>
      * Jeder Rolle ist ein Katalog mit Standardleistungen zugeteilt.
      */
     @OneToMany(mappedBy = "rolle", fetch=FetchType.LAZY, cascade = CascadeType.ALL )
@@ -135,7 +135,7 @@ public class Rolle implements Serializable{
     }
 
     /**
-     * Vergleicht zwei Rollen, ob sie gleich sind. <br />
+     * Vergleicht zwei Rollen, ob sie gleich sind. <br>
      * Fuer den Vergleich wird die technische Datenbank-ID verwendet.
      * @param object
      * @return boolean

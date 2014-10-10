@@ -32,7 +32,7 @@ public class Leistung implements Serializable{
     }
     
     /**
-     * Konstruktor zum Erstellen einer neuen Leistung <br />
+     * Konstruktor zum Erstellen einer neuen Leistung <br>
      * Es wird die Leistung aus dem Tarmedkatalog und der Leistungserbringer uebergeben.
      * @param tarmedleistung
      * @param leistungserbringer 
@@ -143,7 +143,7 @@ public class Leistung implements Serializable{
     }
 
     /**
-     * Vergleicht zwei Leistungen, ob sie gleich sind. <br />
+     * Vergleicht zwei Leistungen, ob sie gleich sind. <br>
      * Fuer den Vergleich wird die technische Datenbank-ID verwendet.
      * @param object
      * @return boolean

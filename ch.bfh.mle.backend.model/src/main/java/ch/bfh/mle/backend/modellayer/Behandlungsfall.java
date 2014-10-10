@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ch.bfh.mle.backend.modellayer;
 
 import java.io.Serializable;
@@ -13,6 +8,7 @@ import java.util.Objects;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -24,7 +20,10 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * Repraesentiert einen Zeitraum, waehrend dem ein Patient im Spital in Behandlung ist.
+ * Repraesentiert einen Behandlungsfall eines Patienten. Mit jedem Neueintritt eines Patienten
+ * wird ein neuer Fall eroeffnet, auf den erbrachte Leistungen verbucht werden. <br>
+ * Die Behandlungsfaelle werden im Rahmen der Bachelorthesis redundant zum KIS der SoH gefuehrt. 
+ * Fuer einen produktiven Betrieb der Anwendung muessen die Behandlungsfaelle aus dem KIS bezogen werden.
  *  
  * @author Stefan Walle
  */
@@ -62,20 +61,21 @@ public class Behandlungsfall implements Serializable {
     private Long id;
     
     /**
-     * Fachliche Identifikation des Behandlungsfalles. <br />
+     * Fachliche Identifikation des Behandlungsfalles. <br>
      * Die Fall-ID wird von der Patientenadministration vergeben.
      */
+   @Column(unique=true)
     private Long fallId;
     
     /**
-     * Datum und Zeit des Eintritts des Patienten. <br />
+     * Datum und Zeit des Eintritts des Patienten. <br>
      * Sollte nich null sein.
      */
     @Temporal(TemporalType.TIMESTAMP)
     private Date beginn;
     
     /**
-     * Datum und Zeit des Austritts des Patienten. <br />
+     * Datum und Zeit des Austritts des Patienten. <br>
      * Das Datum kann null sein.
      */
     @Temporal(TemporalType.TIMESTAMP)
@@ -119,7 +119,7 @@ public class Behandlungsfall implements Serializable {
      * Setzt die Fachliche ID.
      * Die Fall-ID wird von der Patientenadministration vergeben und 
      * kann nicht direkt gesetzt werden.
-     * @param fallId
+     * @param fallId Behandlungsfall-ID aus KIS
      */
     protected void setFallId(Long fallId) {
         this.fallId = fallId;
@@ -135,7 +135,7 @@ public class Behandlungsfall implements Serializable {
 
     /**
      * Setzt den Eintrittszeitpunkt.
-     * @param beginn 
+     * @param beginn Zeitpunkt des Eintritts eines Patienten 
      */
     public void setBeginn(Date beginn) {
         this.beginn = beginn;
@@ -208,7 +208,7 @@ public class Behandlungsfall implements Serializable {
     }
  
     /**
-     * Vergleicht zwei Behandlungsfaelle, ob sie gleich sind. <br />
+     * Vergleicht zwei Behandlungsfaelle, ob sie gleich sind. <br>
      * Fuer den Vergleich wird die technische Datenbank-ID verwendet.
      * @param object
      * @return boolean

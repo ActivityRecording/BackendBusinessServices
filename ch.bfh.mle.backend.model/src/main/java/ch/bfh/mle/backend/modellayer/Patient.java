@@ -7,19 +7,26 @@ package ch.bfh.mle.backend.modellayer;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
- * Repraesentiert einen Patienten.
+ * Repraesentiert einen Patienten. <br>
+ * Die Patienteninformationen werden im Rahmen der Bachelorthesis redundant gefuehrt.
+ * Die Daten sollten in einem spaeteren Version aus dem KIS (Krankenhausinformationssystem)
+ * bezogen werden.
  * @author Boris Haueter, Stefan Walle
  */
 @Entity
@@ -48,6 +55,7 @@ public class Patient implements Serializable {
     /**
      * Fachliche Patienten-ID
      */
+    @Column(unique=true)
     private Long patientID;
     
     /**
@@ -59,6 +67,37 @@ public class Patient implements Serializable {
      * Vorname
      */
     private String firstName;
+    
+    /**
+     * Geburtsdatum
+     */
+    @Temporal(TemporalType.DATE)
+    private Date geburtsdatum;
+    
+    /**
+     * Strasse
+     */
+    private String strasse;
+    
+    /**
+     * Hausnummer
+     */
+    private int hausnummer;
+    
+    /**
+     * ISO-Laendercode
+     */
+    private String isoLaendercode;
+    
+    /**
+     * Postleitzahl
+     */
+    private int postleitzahl;
+    
+    /**
+     * Ort
+     */
+    private String ort;
     
     /**
      * Behandlungsfaelle des Patienten
@@ -123,6 +162,102 @@ public class Patient implements Serializable {
     }
 
     /**
+     * Gibt das Geburtsdatum des Patienten zurueck
+     * @return geburtsdatum
+     */
+    public Date getGeburtsdatum() {
+        return geburtsdatum;
+    }
+
+    /**
+     * Setzt das Geburtsdatum des Patienten.
+     * @param geburtsdatum 
+     */
+    public void setGeburtsdatum(Date geburtsdatum) {
+        this.geburtsdatum = geburtsdatum;
+    }
+
+    /**
+     * Gibt die Strasse zurueck.
+     * @return strasse
+     */
+    public String getStrasse() {
+        return strasse;
+    }
+
+    /**
+     * Setzt die Strasse. 
+     * @param strasse 
+     */
+    public void setStrasse(String strasse) {
+        this.strasse = strasse;
+    }
+
+    /**
+     * Gibt die Hausnummer zurueck.
+     * @return hausnummer
+     */
+    public int getHausnummer() {
+        return hausnummer;
+    }
+
+    /**
+     * Setzt die Hausnummer.
+     * @param hausnummer 
+     */
+    public void setHausnummer(int hausnummer) {
+        this.hausnummer = hausnummer;
+    }
+
+    /**
+     * Gibt den ISO-Laendercode zurueck.
+     * @return isoLaendercode
+     */
+    public String getIsoLaendercode() {
+        return isoLaendercode;
+    }
+
+    /**
+     * Setzt den ISO-Laendercoce.
+     * @param isoLaendercode 
+     */
+    public void setIsoLaendercode(String isoLaendercode) {
+        this.isoLaendercode = isoLaendercode;
+    }
+
+    /**
+     * Gibt die Postleitzahl zurueck.
+     * @return postleitzahl
+     */
+    public int getPostleitzahl() {
+        return postleitzahl;
+    }
+
+    /**
+     * Setzt die Postleitzahl.
+     * @param postleitzahl 
+     */
+    public void setPostleitzahl(int postleitzahl) {
+        this.postleitzahl = postleitzahl;
+    }
+
+    /**
+     * Gibt den Ort zurueck.
+     * @return ort
+     */
+    public String getOrt() {
+        return ort;
+    }
+
+    /**
+     * Setzt den Ort.
+     * @param ort 
+     */
+    public void setOrt(String ort) {
+        this.ort = ort;
+    }
+    
+    /**
      * Gibt die Behandlungsfaelle des Patienten zurueck
      * @return behandlungsfaelle
      */
@@ -159,7 +294,7 @@ public class Patient implements Serializable {
     }
 
     /**
-     * Vergleicht zwei Patienten, ob sie gleich sind. <br />
+     * Vergleicht zwei Patienten, ob sie gleich sind. <br>
      * Fuer den Vergleich wird die technische Datenbank-ID erwendet.
      * @param object
      * @return boolean

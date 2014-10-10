@@ -7,6 +7,11 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Generische Implementation des DAO-Interfaces {@link IDao}fuer Modell-Klassen
+ * @author Boris Haueter
+ * @param <E> 
+ */
 public abstract class GenericJpaDao<E> implements IDao<E> {
 	
 	@PersistenceContext

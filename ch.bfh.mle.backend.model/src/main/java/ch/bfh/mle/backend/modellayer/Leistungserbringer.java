@@ -12,6 +12,7 @@ import java.util.Objects;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -50,6 +51,7 @@ public class Leistungserbringer implements Serializable{
     /**
      * Mitarbeiter Identifikation
      */
+   @Column(unique=true)
     private Long mitarbeiterID;
     
     /**
@@ -182,7 +184,7 @@ public class Leistungserbringer implements Serializable{
     }
 
      /**
-     * Vergleicht zwei Leistungserbringer, ob sie gleich sind. <br />
+     * Vergleicht zwei Leistungserbringer, ob sie gleich sind. <br>
      * Fuer den Vergleich wird die technische Datenbank-ID verwendet.
      * @param object
      * @return boolean
