@@ -7,12 +7,14 @@ package ch.bfh.mle.backend.servicelayer;
 
 import javax.inject.Named;
 import ch.bfh.mle.backend.modellayer.Patient;
+import org.springframework.stereotype.Service;
 /**
  *
  * @author Boris Haueter
  * Generic PatienDao implmentation
  */
 @Named
+@Service
 public class PatientDao extends GenericJpaDao<Patient> implements IPatientDao {
    
     public PatientDao() {

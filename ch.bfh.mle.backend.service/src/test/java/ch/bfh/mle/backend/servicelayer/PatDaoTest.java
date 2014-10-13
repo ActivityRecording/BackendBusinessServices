@@ -33,11 +33,12 @@ public class PatDaoTest {
 	public void test() {
 
 		Patient patient = patientDao.create();
-		patient.setFirstName("Donald");
-		patient.setLastName("Duck");
-		
+		patient.setFirstName("Donald2");
+		patient.setLastName("Duck");      
+                
 		Patient managedPatient = patientDao.update(patient);
 		Patient foundPatient = patientDao.read(managedPatient.getId());
+                
 		
 		Assert.assertTrue(patient.getLastName().equals(foundPatient.getLastName()));
 		Assert.assertTrue(patient.getFirstName().equals(foundPatient.getFirstName()));

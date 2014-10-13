@@ -11,6 +11,7 @@ public abstract class GenericJpaDao<E> implements IDao<E> {
 	
 	@PersistenceContext
 	protected EntityManager entityManager;
+        
 	private Class<E> entityClass;
 	
 	public GenericJpaDao(Class<E> entityClass) {
