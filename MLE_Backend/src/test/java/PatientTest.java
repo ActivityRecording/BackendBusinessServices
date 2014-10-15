@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import ch.bfh.mle.backend.model.Behandlungsfall;
+import ch.bfh.mle.backend.model.TreatmentCase;
 import ch.bfh.mle.backend.model.Patient;
 import java.util.ArrayList;
 import java.util.Date;
@@ -66,12 +66,11 @@ public class PatientTest {
         Patient patient = new Patient();
         patient.setFirstName("Gandalf");
         patient.setLastName("Der Graue");
-        ArrayList<Behandlungsfall> behandlungsfaelle = new ArrayList<>();
-        Behandlungsfall fall1 = new Behandlungsfall(patient);
-        fall1.setBeginn(new Date());
-        fall1.setEnde(new Date());
-        fall1.setFallId(1234L);
-        patient.addBehandlungsfall(fall1);
+        TreatmentCase fall1 = new TreatmentCase(patient);
+        fall1.setStartTime(new Date());
+        fall1.setEndTime(new Date());
+        fall1.setTreatmentId(1234L);
+        patient.addTreatmentCase(fall1);
         em.persist(patient);
         em.clear();
 

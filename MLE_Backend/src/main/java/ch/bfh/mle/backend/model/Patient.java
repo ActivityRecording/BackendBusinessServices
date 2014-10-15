@@ -7,6 +7,7 @@ package ch.bfh.mle.backend.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -17,6 +18,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * Repraesentiert einen Patienten.
@@ -30,7 +33,7 @@ public class Patient implements Serializable {
      * Default Konstruktor fuer JPA
      */
     public Patient() {
-        this.behandlungsfaelle = new ArrayList<>();
+        this.treatmentCases = new ArrayList<>();
     }
     
     /**
@@ -61,10 +64,16 @@ public class Patient implements Serializable {
     private String firstName;
     
     /**
+     * Geburtsdatum
+     */
+    @Temporal(TemporalType.DATE)
+    private Date dateOfBirth;
+    
+    /**
      * Behandlungsfaelle des Patienten
      */
     @OneToMany(mappedBy = "patient", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-    private List<Behandlungsfall> behandlungsfaelle;
+    private List<TreatmentCase> treatmentCases;
 
     /**
      * Gibt die fachliche PatientenID zurueck.
@@ -123,28 +132,45 @@ public class Patient implements Serializable {
     }
 
     /**
-     * Gibt die Behandlungsfaelle des Patienten zurueck
-     * @return behandlungsfaelle
+     * Gibt das Geburtsdatum zurueck
+     * @return dateOfBirth
      */
-    public List<Behandlungsfall> getBehandlungsfaelle() {
-        return behandlungsfaelle;
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    /**
+     * Setzt das Geburtsdatum
+     * @param dateOfBirth 
+     */
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    
+    /**
+     * Gibt die Behandlungsfaelle des Patienten zurueck
+     * @return treatmentCases
+     */
+    public List<TreatmentCase> getTreatmentCases() {
+        return treatmentCases;
     }
 
     /**
      * Setzt die Hehandlungsfaelle eines Patienten.
      * Darf von aussen nicht gesetzt werden.
-     * @param behandlungsfaelle 
+     * @param treatmentCases 
      */
-    private void setBehandlungsfaelle(List<Behandlungsfall> behandlungsfaelle) {
-        this.behandlungsfaelle = behandlungsfaelle;
+    private void setTreatmentCases(List<TreatmentCase> treatmentCases) {
+        this.treatmentCases = treatmentCases;
     }
     
     /**
      * Fuegt einen Behandlungsfall zum Patienten hinzu.
-     * @param behandlungsfall 
+     * @param treatmentCase 
      */
-    public void addBehandlungsfall(Behandlungsfall behandlungsfall){
-        this.behandlungsfaelle.add(behandlungsfall);
+    public void addTreatmentCase(TreatmentCase treatmentCase){
+        this.treatmentCases.add(treatmentCase);
     }
 
     /**

@@ -29,8 +29,8 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(ch.bfh.mle.backend.rest.CaseRessource.class);
         resources.add(ch.bfh.mle.backend.rest.PatientResource.class);
+        resources.add(ch.bfh.mle.backend.rest.TreatmentCaseRessource.class);
     }
     
 }

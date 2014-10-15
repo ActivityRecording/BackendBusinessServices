@@ -1,6 +1,5 @@
 package ch.bfh.mle.backend.service;
 
-import ch.bfh.mle.backup.files.IDao;
 import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
