@@ -10,6 +10,7 @@ import ch.bfh.mle.backend.service.PatientService;
 import java.util.Collection;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.PathParam;
@@ -42,12 +43,13 @@ public class PatientResource {
     public PatientResource() {}
 
     @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    public Patient create(Patient entity) {
-        return srv.create();
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void create(Patient entity) {
+        srv.create(entity);
     }
 
     @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Patient update(Patient entity) {
         return srv.update(entity);
@@ -67,8 +69,8 @@ public class PatientResource {
     }
 
     @DELETE
-    @Produces(MediaType.APPLICATION_JSON)
-    public void delete(Patient entity) {
-        srv.delete(entity);
+    @Path("/{id}")
+    public void delete(@PathParam("id") Long id) {
+        srv.delete(id);
     }
 }

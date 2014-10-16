@@ -16,7 +16,7 @@ import javax.inject.Named;
 
 @Stateless
 @Named
-public class TreatmentCaseService extends GenericDaoService<TreatmentCase>{
+public class TreatmentCaseService extends GenericService<TreatmentCase>{
     
     public TreatmentCaseService(){
         super(TreatmentCase.class);

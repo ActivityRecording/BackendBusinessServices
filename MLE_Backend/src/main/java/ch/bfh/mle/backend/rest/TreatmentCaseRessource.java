@@ -10,6 +10,7 @@ import ch.bfh.mle.backend.service.TreatmentCaseService;
 import java.util.Collection;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -41,12 +42,13 @@ public class TreatmentCaseRessource {
     public TreatmentCaseRessource() {}
 
     @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    public TreatmentCase create(TreatmentCase entity) {
-        return srv.create();
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void create(TreatmentCase entity) {
+        srv.create(entity);
     }
 
     @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public TreatmentCase update(TreatmentCase entity) {
         return srv.update(entity);
@@ -66,8 +68,8 @@ public class TreatmentCaseRessource {
     }
 
     @DELETE
-    @Produces(MediaType.APPLICATION_JSON)
-    public void delete(TreatmentCase entity) {
-        srv.delete(entity);
+    @Path("{id}")
+    public void delete(@PathParam("id") Long id) {
+        srv.delete(id);
     }
 }
