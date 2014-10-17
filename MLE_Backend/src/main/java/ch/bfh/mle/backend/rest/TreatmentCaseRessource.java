@@ -56,8 +56,8 @@ public class TreatmentCaseRessource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/{id}")
-    public TreatmentCase get(@PathParam("id") long id) {
+    @Path("{id}")
+    public TreatmentCase get(@PathParam("id") Long id) {
         return srv.read(id);
     }
 

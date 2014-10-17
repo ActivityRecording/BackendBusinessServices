@@ -13,6 +13,7 @@ import java.util.Objects;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -20,8 +21,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Repraesentiert einen Zeitraum, waehrend dem ein Patient im Spital in Behandlung ist.
@@ -30,6 +34,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Access(AccessType.FIELD)
+@Table(uniqueConstraints={@UniqueConstraint(columnNames={"treatmentNumber"})})
 public class TreatmentCase implements Serializable {
 
    /**
@@ -65,7 +70,9 @@ public class TreatmentCase implements Serializable {
      * Fachliche Identifikation des Behandlungsfalles. <br />
      * Die Fall-ID wird von der Patientenadministration vergeben.
      */
-    private Long treatmentId;
+    @NotNull
+    @Column(nullable = false)
+    private Long treatmentNumber;
     
     /**
      * Datum und Zeit des Eintritts des Patienten. <br />
@@ -100,6 +107,11 @@ public class TreatmentCase implements Serializable {
     private List<Activity> activities;
     
     /**
+     * Status Freigegeben
+     */
+    private Boolean released;
+    
+    /**
      * Gibt die technische ID zurueck.
      * @return id
      */
@@ -108,21 +120,21 @@ public class TreatmentCase implements Serializable {
     }
 
     /**
-     * Gibt die fachliche ID zurueck.
-     * @return id
+     * Gibt die fachliche Behandlungsnummer zurueck.
+     * @return treatmentNumber
      */
-    public Long getTreatmentId() {
-        return treatmentId;
+    public Long getTreatmentNumber() {
+        return treatmentNumber;
     }
 
     /**
      * Setzt die Fachliche ID.
      * Die Fall-ID wird von der Patientenadministration vergeben und 
      * kann nicht direkt gesetzt werden.
-     * @param treatmentId
+     * @param treatmentNumber
      */
-    public void setTreatmentId(Long treatmentId) {
-        this.treatmentId = treatmentId;
+    public void setTreatmentNumber(Long treatmentNumber) {
+        this.treatmentNumber = treatmentNumber;
     }
 
     /**
@@ -195,6 +207,23 @@ public class TreatmentCase implements Serializable {
     public void addLeistung(Activity leistung){
         this.activities.add(leistung);
     }
+
+    /**
+     * Gibt den Freigabestatus des Behandlungsfalls zurueck
+     * @return released
+     */
+    public Boolean isReleased() {
+        return released;
+    }
+
+    /**
+     * Setzt den Freigabestatus des Behandlungsfalls
+     * @param released 
+     */
+    public void setReleased(Boolean released) {
+        this.released = released;
+    }
+    
     
     /**
      * Ueberschreibt die Standard hashCode Methode.
@@ -237,7 +266,7 @@ public class TreatmentCase implements Serializable {
      */
     @Override
     public String toString() {
-        return "Treatment{" + "treatmentId=" + treatmentId + '}';
+        return "Treatment{" + "treatmentId=" + treatmentNumber + '}';
     }
     
 }

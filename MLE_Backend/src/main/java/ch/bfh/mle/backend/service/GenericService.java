@@ -28,7 +28,6 @@ public abstract class GenericService<E> implements IService<E> {
 				.getResultList();
 	}
 
-
 	public E update(E entity) {
 		return entityManager.merge(entity);
 	}

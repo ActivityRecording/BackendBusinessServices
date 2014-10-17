@@ -12,14 +12,24 @@ import java.util.List;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Repraesentiert einen Patienten.
@@ -27,6 +37,19 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Access(AccessType.FIELD)
+@Table(uniqueConstraints={@UniqueConstraint(columnNames={"patientNumber"})})
+@NamedQueries({
+    @NamedQuery(name="Patient.FindByTreatmentNumber", query="SELECT p FROM Patient AS p JOIN p.treatmentCases AS t WHERE t.treatmentNumber = :treatmentNumber"),
+    @NamedQuery(name="Patient.FindByPatientNumber", query="SELECT p FROM Patient AS p WHERE p.patientNumber = :patientNumber"),
+    @NamedQuery(name="Patient.FindAllWithOpenTreatment", query="SELECT p FROM Patient AS p JOIN p.treatmentCases AS t WHERE t.released = FALSE"),
+    @NamedQuery(name="Patient.FindAllWithOpenTreatmentWithoutActivities", query="SELECT p FROM Patient AS p JOIN p.treatmentCases AS t WHERE t.released = FALSE AND t.activities IS EMPTY"),
+    @NamedQuery(name="Patient.FindAllWithOpenTreatmentAndActivities", query="SELECT p FROM Patient AS p JOIN p.treatmentCases AS t WHERE t.released = FALSE AND t.activities IS NOT EMPTY"),
+    @NamedQuery(name="Patient.FindByEmployeeWithOpenTreatment", query="SELECT p FROM Patient AS p JOIN p.treatmentCases AS t WHERE t.released = FALSE AND EXISTS (SELECT z.id FROM TimePeriod AS z WHERE z.treatmentCase.id = t.id and z.supplier.employeeID = :employeeId)"),
+    @NamedQuery(name="Patient.FindByEmployeeWithOpenTreatmentWithoutActivities", query="SELECT p FROM Patient AS p JOIN p.treatmentCases AS t WHERE t.released = FALSE AND t.activities IS EMPTY AND EXISTS (SELECT z.id FROM TimePeriod AS z WHERE z.treatmentCase.id = t.id and z.supplier.employeeID = :employeeId)"),
+    @NamedQuery(name="Patient.FindByEmployeeWithOpenTreatmentAndActivities", query="SELECT p FROM Patient AS p JOIN p.treatmentCases AS t WHERE t.released = FALSE AND t.activities IS NOT EMPTY AND EXISTS (SELECT z.id FROM TimePeriod AS z WHERE z.treatmentCase.id = t.id and z.supplier.employeeID = :employeeId)")
+})       
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Patient implements Serializable {
 
     /**
@@ -51,7 +74,9 @@ public class Patient implements Serializable {
     /**
      * Fachliche Patienten-ID
      */
-    private Long patientID;
+    @NotNull
+    @Column(nullable = false)
+    private Long patientNumber;
     
     /**
      * Nachname
@@ -72,23 +97,24 @@ public class Patient implements Serializable {
     /**
      * Behandlungsfaelle des Patienten
      */
+    @XmlTransient
     @OneToMany(mappedBy = "patient", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     private List<TreatmentCase> treatmentCases;
 
     /**
-     * Gibt die fachliche PatientenID zurueck.
-     * @return Long
+     * Gibt die fachliche Patientennummer zurueck.
+     * @return patientNumber
      */
-    public Long getPatientID() {
-        return patientID;
+    public Long getPatientNumber() {
+        return patientNumber;
     }
 
     /**
      * Setzt die fachliche PatientanID.
-     * @param patientID 
+     * @param patientNumber 
      */
-    public void setPatientID(Long patientID) {
-        this.patientID = patientID;
+    public void setPatientNumber(Long patientNumber) {
+        this.patientNumber = patientNumber;
     }
 
     /**
@@ -218,7 +244,7 @@ public class Patient implements Serializable {
      */
     @Override
     public String toString() {
-        return "Patient{ Patient-ID= " + patientID + " name= "+ lastName + " " + firstName +" }]";
+        return "Patient{ id=" + id + " patientNumber=" + patientNumber + " name= "+ lastName + " " + firstName + " dateOfBirth=" + dateOfBirth + " }]";
     }
     
 }

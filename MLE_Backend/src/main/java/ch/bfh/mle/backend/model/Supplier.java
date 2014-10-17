@@ -12,6 +12,7 @@ import java.util.Objects;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,6 +20,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Repraesentiert einen Erbringer einer Leistung. Dies kann ein Arzt oder eine Plegeperson sein.
@@ -26,6 +30,7 @@ import javax.persistence.OneToMany;
  */
 @Entity
 @Access(AccessType.FIELD)
+@Table(uniqueConstraints={@UniqueConstraint(columnNames={"employeeID"})})
 public class Supplier implements Serializable{
 
     /**
@@ -50,6 +55,8 @@ public class Supplier implements Serializable{
     /**
      * Mitarbeiter Identifikation
      */
+    @NotNull
+    @Column(nullable = false)
     private Long employeeID;
     
     /**

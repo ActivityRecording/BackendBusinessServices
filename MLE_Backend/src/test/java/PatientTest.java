@@ -69,7 +69,7 @@ public class PatientTest {
         TreatmentCase fall1 = new TreatmentCase(patient);
         fall1.setStartTime(new Date());
         fall1.setEndTime(new Date());
-        fall1.setTreatmentId(1234L);
+        fall1.setTreatmentNumber(1234L);
         patient.addTreatmentCase(fall1);
         em.persist(patient);
         em.clear();

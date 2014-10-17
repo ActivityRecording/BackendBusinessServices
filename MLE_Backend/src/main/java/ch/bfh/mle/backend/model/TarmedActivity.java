@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * Repraesentiert eine Leistung aus dem Tarmedkatalog
@@ -20,6 +22,7 @@ import javax.persistence.Id;
  */
 @Entity
 @Access(AccessType.FIELD)
+@Table(uniqueConstraints={@UniqueConstraint(columnNames={"tarmedId"})})
 public class TarmedActivity implements Serializable{
 
     /**

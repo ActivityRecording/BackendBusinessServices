@@ -2,7 +2,6 @@ ch\bfh\mle\backend\model\Role_.class
 ch\bfh\mle\backend\model\AllocationRule.class
 ch\bfh\mle\backend\model\TimePeriodType.class
 ch\bfh\mle\backend\model\AllocationRule_.class
-ch\bfh\mle\backend\rest\ApplicationConfig.class
 ch\bfh\mle\backend\rest\TreatmentCaseRessource.class
 ch\bfh\mle\backend\model\RoleType.class
 ch\bfh\mle\backend\service\IService.class
