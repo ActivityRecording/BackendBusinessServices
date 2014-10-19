@@ -7,11 +7,11 @@ package ch.bfh.mle.backend.rest;
 
 import ch.bfh.mle.backend.model.Patient;
 import ch.bfh.mle.backend.service.PatientService;
+import ch.bfh.mle.backend.service.dto.PatientListItemDto;
 import java.util.Collection;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -25,7 +25,9 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  * REST Web Service
@@ -71,9 +73,11 @@ public class PatientResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Collection<Patient> getAll(
+    public Response getAll(
         @DefaultValue("0") @QueryParam("state") Integer state) {
-        return srv.readAll(state);
+        List<PatientListItemDto> dtos = srv.readAll(state);
+        GenericEntity entity = new GenericEntity<List<PatientListItemDto>>(dtos) {};
+        return Response.ok(entity).build();
     }
 
     @GET
@@ -99,10 +103,12 @@ public class PatientResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/supplier/{id}")
-    public Collection<Patient> getBySupplier(
+    public Response getBySupplier(
         @PathParam("id") Long employeeId,
         @DefaultValue("0") @QueryParam("state") Integer state) {
-        return srv.readByEmployeeId(employeeId, state);
+        List<PatientListItemDto> dtos = srv.readByEmployeeId(employeeId, state);
+        GenericEntity entity = new GenericEntity<List<PatientListItemDto>>(dtos) {};
+        return Response.ok(entity).build();
     }
     
     @DELETE

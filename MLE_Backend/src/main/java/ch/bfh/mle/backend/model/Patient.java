@@ -39,14 +39,30 @@ import javax.xml.bind.annotation.XmlTransient;
 @Access(AccessType.FIELD)
 @Table(uniqueConstraints={@UniqueConstraint(columnNames={"patientNumber"})})
 @NamedQueries({
-    @NamedQuery(name="Patient.FindByTreatmentNumber", query="SELECT p FROM Patient AS p JOIN p.treatmentCases AS t WHERE t.treatmentNumber = :treatmentNumber"),
-    @NamedQuery(name="Patient.FindByPatientNumber", query="SELECT p FROM Patient AS p WHERE p.patientNumber = :patientNumber"),
-    @NamedQuery(name="Patient.FindAllWithOpenTreatment", query="SELECT p FROM Patient AS p JOIN p.treatmentCases AS t WHERE t.released = FALSE"),
-    @NamedQuery(name="Patient.FindAllWithOpenTreatmentWithoutActivities", query="SELECT p FROM Patient AS p JOIN p.treatmentCases AS t WHERE t.released = FALSE AND t.activities IS EMPTY"),
-    @NamedQuery(name="Patient.FindAllWithOpenTreatmentAndActivities", query="SELECT p FROM Patient AS p JOIN p.treatmentCases AS t WHERE t.released = FALSE AND t.activities IS NOT EMPTY"),
-    @NamedQuery(name="Patient.FindByEmployeeWithOpenTreatment", query="SELECT p FROM Patient AS p JOIN p.treatmentCases AS t WHERE t.released = FALSE AND EXISTS (SELECT z.id FROM TimePeriod AS z WHERE z.treatmentCase.id = t.id and z.supplier.employeeID = :employeeId)"),
-    @NamedQuery(name="Patient.FindByEmployeeWithOpenTreatmentWithoutActivities", query="SELECT p FROM Patient AS p JOIN p.treatmentCases AS t WHERE t.released = FALSE AND t.activities IS EMPTY AND EXISTS (SELECT z.id FROM TimePeriod AS z WHERE z.treatmentCase.id = t.id and z.supplier.employeeID = :employeeId)"),
-    @NamedQuery(name="Patient.FindByEmployeeWithOpenTreatmentAndActivities", query="SELECT p FROM Patient AS p JOIN p.treatmentCases AS t WHERE t.released = FALSE AND t.activities IS NOT EMPTY AND EXISTS (SELECT z.id FROM TimePeriod AS z WHERE z.treatmentCase.id = t.id and z.supplier.employeeID = :employeeId)")
+    @NamedQuery(
+            name="Patient.FindByTreatmentNumber", 
+            query="SELECT p FROM Patient AS p JOIN p.treatmentCases AS t WHERE t.treatmentNumber = :treatmentNumber"),
+    @NamedQuery(
+            name="Patient.FindByPatientNumber", 
+            query="SELECT p FROM Patient AS p WHERE p.patientNumber = :patientNumber"),
+    @NamedQuery(
+            name="Patient.FindAllWithOpenTreatment", 
+            query="SELECT NEW ch.bfh.mle.backend.service.dto.PatientListItemDto(p.id, p.patientNumber, p.lastName, p.firstName, p.dateOfBirth, t.id, t.treatmentNumber, 0) FROM Patient AS p JOIN p.treatmentCases AS t WHERE t.released = FALSE"),
+    @NamedQuery(
+            name="Patient.FindAllWithOpenTreatmentWithoutActivities", 
+            query="SELECT NEW ch.bfh.mle.backend.service.dto.PatientListItemDto(p.id, p.patientNumber, p.lastName, p.firstName, p.dateOfBirth, t.id, t.treatmentNumber, 1) FROM Patient AS p JOIN p.treatmentCases AS t WHERE t.released = FALSE AND t.activities IS EMPTY"),
+    @NamedQuery(
+            name="Patient.FindAllWithOpenTreatmentAndActivities", 
+            query="SELECT NEW ch.bfh.mle.backend.service.dto.PatientListItemDto(p.id, p.patientNumber, p.lastName, p.firstName, p.dateOfBirth, t.id, t.treatmentNumber, 2) FROM Patient AS p JOIN p.treatmentCases AS t WHERE t.released = FALSE AND t.activities IS NOT EMPTY"),
+    @NamedQuery(
+            name="Patient.FindByEmployeeWithOpenTreatment", 
+            query="SELECT NEW ch.bfh.mle.backend.service.dto.PatientListItemDto(p.id, p.patientNumber, p.lastName, p.firstName, p.dateOfBirth, t.id, t.treatmentNumber, 0) FROM Patient AS p JOIN p.treatmentCases AS t WHERE t.released = FALSE AND EXISTS (SELECT z.id FROM TimePeriod AS z WHERE z.treatmentCase.id = t.id and z.supplier.employeeID = :employeeId)"),
+    @NamedQuery(
+            name="Patient.FindByEmployeeWithOpenTreatmentWithoutActivities", 
+            query="SELECT NEW ch.bfh.mle.backend.service.dto.PatientListItemDto(p.id, p.patientNumber, p.lastName, p.firstName, p.dateOfBirth, t.id, t.treatmentNumber, 1) FROM Patient AS p JOIN p.treatmentCases AS t WHERE t.released = FALSE AND t.activities IS EMPTY AND EXISTS (SELECT z.id FROM TimePeriod AS z WHERE z.treatmentCase.id = t.id and z.supplier.employeeID = :employeeId)"),
+    @NamedQuery(
+            name="Patient.FindByEmployeeWithOpenTreatmentAndActivities", 
+            query="SELECT NEW ch.bfh.mle.backend.service.dto.PatientListItemDto(p.id, p.patientNumber, p.lastName, p.firstName, p.dateOfBirth, t.id, t.treatmentNumber, 2) FROM Patient AS p JOIN p.treatmentCases AS t WHERE t.released = FALSE AND t.activities IS NOT EMPTY AND EXISTS (SELECT z.id FROM TimePeriod AS z WHERE z.treatmentCase.id = t.id and z.supplier.employeeID = :employeeId)")
 })       
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -125,7 +141,7 @@ public class Patient implements Serializable {
         return id;
     }
     
-    private void setId(Long id){
+    protected void setId(Long id){
         this.id = id;
     }
 

@@ -6,6 +6,7 @@
 package ch.bfh.mle.backend.service;
 
 import ch.bfh.mle.backend.model.Patient;
+import ch.bfh.mle.backend.service.dto.PatientListItemDto;
 import java.util.Collection;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -29,29 +30,50 @@ public class PatientService extends GenericService<Patient>{
      * @param state Status 0 = Alle, 1 = Patienten ohne Leistungen, 2 = Patienten mit Leistungen
      * @return List von Patienten
      */ 
-    public Collection<Patient> readAll(Integer state) {
-        TypedQuery<Patient> query;
+    public List<PatientListItemDto> readAll(Integer state) {
+        TypedQuery<PatientListItemDto> query;
+        List<PatientListItemDto> result;
         if (state.equals(0)) {
-            query = entityManager.createNamedQuery("Patient.FindAllWithOpenTreatment", Patient.class);
+//            query = entityManager.createNamedQuery("Patient.FindAllWithOpenTreatment", PatientListItemDto.class);
+            query = entityManager.createNamedQuery("Patient.FindAllWithOpenTreatmentWithoutActivities", PatientListItemDto.class);
+            result = query.getResultList();
+            List<PatientListItemDto> result2;
+            query = entityManager.createNamedQuery("Patient.FindAllWithOpenTreatmentAndActivities", PatientListItemDto.class);
+            result2 = query.getResultList();
+            result.addAll(result2);
         } else if (state.equals(1)) {
-            query = entityManager.createNamedQuery("Patient.FindAllWithOpenTreatmentWithoutActivities", Patient.class);
+            query = entityManager.createNamedQuery("Patient.FindAllWithOpenTreatmentWithoutActivities", PatientListItemDto.class);
+            result = query.getResultList();
         } else {
-            query = entityManager.createNamedQuery("Patient.FindAllWithOpenTreatmentAndActivities", Patient.class);
+            query = entityManager.createNamedQuery("Patient.FindAllWithOpenTreatmentAndActivities", PatientListItemDto.class);
+            result = query.getResultList();
         }
-        return query.getResultList();
+        return result;
    }
     
-    public List<Patient> readByEmployeeId(Long employeeId, Integer state){
-        TypedQuery<Patient> query;
+    public List<PatientListItemDto> readByEmployeeId(Long employeeId, Integer state){
+        TypedQuery<PatientListItemDto> query;
+        List<PatientListItemDto> result;
         if (state.equals(0)){
-            query = entityManager.createNamedQuery("Patient.FindByEmployeeWithOpenTreatment", Patient.class);
-        } else if (state.equals(0)){
-            query = entityManager.createNamedQuery("Patient.FindByEmployeeWithOpenTreatmentWithoutActivities", Patient.class);
+//            query = entityManager.createNamedQuery("Patient.FindByEmployeeWithOpenTreatment", PatientListItemDto.class);
+            query = entityManager.createNamedQuery("Patient.FindByEmployeeWithOpenTreatmentWithoutActivities", PatientListItemDto.class);
+            query.setParameter("employeeId", employeeId);
+            result = query.getResultList();
+            List<PatientListItemDto> result2;
+            query = entityManager.createNamedQuery("Patient.FindByEmployeeWithOpenTreatmentAndActivities", PatientListItemDto.class);
+            query.setParameter("employeeId", employeeId);
+            result2 = query.getResultList();
+            result.addAll(result2);
+        } else if (state.equals(1)){
+            query = entityManager.createNamedQuery("Patient.FindByEmployeeWithOpenTreatmentWithoutActivities", PatientListItemDto.class);
+            query.setParameter("employeeId", employeeId);
+            result = query.getResultList();
         } else {
-            query = entityManager.createNamedQuery("Patient.FindByEmployeeWithOpenTreatmentAndActivities", Patient.class);
+            query = entityManager.createNamedQuery("Patient.FindByEmployeeWithOpenTreatmentAndActivities", PatientListItemDto.class);
+            query.setParameter("employeeId", employeeId);
+            result = query.getResultList();
         }
-        query.setParameter("employeeId", employeeId);
-	return query.getResultList();
+	return result;
     }
 
     public List<Patient> readByTreatmentNumber(Long treatmentNumber) {
