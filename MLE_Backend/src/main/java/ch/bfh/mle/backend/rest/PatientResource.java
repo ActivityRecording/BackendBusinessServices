@@ -75,6 +75,10 @@ public class PatientResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll(
         @DefaultValue("0") @QueryParam("state") Integer state) {
+        if(state < 0 || state > 2) {
+            //Status ungueltig -> return HTTP Status 400
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
         List<PatientListItemDto> dtos = srv.readAll(state);
         GenericEntity entity = new GenericEntity<List<PatientListItemDto>>(dtos) {};
         return Response.ok(entity).build();
@@ -85,9 +89,12 @@ public class PatientResource {
     @Path("/patient/{nr}")
     public Patient getByPatientNumber(@PathParam("nr") Long nr ){
         List<Patient> patients = srv.readByPatientNumber(nr);
-        if (patients.isEmpty()) throw new NotFoundException();
-//        if (patients.size() > 0) throw new NotFoundException();
-        return patients.get(0);
+        // Patient nicht gefunden
+        // if (patients.isEmpty()) return Response.status(Response.Status.NOT_FOUND).build();
+        // Mehr als einen Patienten gefunden
+        // if (patients.size() > 0) return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        Patient patient = patients.get(0);
+        return patient;
     }
 
     @GET

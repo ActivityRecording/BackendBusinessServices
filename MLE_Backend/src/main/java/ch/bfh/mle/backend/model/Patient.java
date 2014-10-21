@@ -47,7 +47,8 @@ import javax.xml.bind.annotation.XmlTransient;
             query="SELECT p FROM Patient AS p WHERE p.patientNumber = :patientNumber"),
     @NamedQuery(
             name="Patient.FindAllWithOpenTreatment", 
-            query="SELECT NEW ch.bfh.mle.backend.service.dto.PatientListItemDto(p.id, p.patientNumber, p.lastName, p.firstName, p.dateOfBirth, t.id, t.treatmentNumber, 0) FROM Patient AS p JOIN p.treatmentCases AS t WHERE t.released = FALSE"),
+            query="SELECT NEW ch.bfh.mle.backend.service.dto.PatientListItemDto(p.id, p.patientNumber, p.lastName, p.firstName, p.dateOfBirth, t.id, t.treatmentNumber, 1) FROM Patient AS p JOIN p.treatmentCases AS t WHERE t.released = FALSE AND t.activities IS EMPTY "
+                    + "UNION SELECT p.id, p.patientNumber, p.lastName, p.firstName, p.dateOfBirth, t.id, t.treatmentNumber, 2 FROM Patient AS p JOIN p.treatmentCases AS t WHERE t.released = FALSE AND t.activities IS NOT EMPTY"),
     @NamedQuery(
             name="Patient.FindAllWithOpenTreatmentWithoutActivities", 
             query="SELECT NEW ch.bfh.mle.backend.service.dto.PatientListItemDto(p.id, p.patientNumber, p.lastName, p.firstName, p.dateOfBirth, t.id, t.treatmentNumber, 1) FROM Patient AS p JOIN p.treatmentCases AS t WHERE t.released = FALSE AND t.activities IS EMPTY"),
