@@ -1,4 +1,5 @@
 C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\mle\backend\model\Favorite.java
+C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\mle\backend\rest\TimePeriodRessource.java
 C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\mle\backend\service\TreatmentCaseService.java
 C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\mle\backend\model\TreatmentCase.java
 C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\mle\backend\rest\ApplicationConfig.java
@@ -13,8 +14,11 @@ C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\m
 C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\mle\backend\model\AllocationRule.java
 C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\mle\backend\model\Role.java
 C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\mle\backend\service\PatientService.java
+C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\mle\backend\service\TimePeriodService.java
 C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\mle\backend\rest\PatientResource.java
+C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\mle\backend\rest\StandardActivityRessource.java
 C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\mle\backend\model\Activity.java
 C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\mle\backend\model\TimePeriodType.java
+C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\mle\backend\service\StandardActivityService.java
 C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\mle\backend\model\StandardActivity.java
 C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\mle\backend\service\IService.java

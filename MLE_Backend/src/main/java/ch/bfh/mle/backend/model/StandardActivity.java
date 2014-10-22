@@ -14,6 +14,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Repraesentiert einen Katalog von Standardleistungen, die einem Leistungserbringer zur Auswahl stehen.
@@ -21,6 +24,7 @@ import javax.persistence.ManyToOne;
  */
 @Entity
 @Access(AccessType.FIELD)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class StandardActivity implements Serializable{
 
     /**
@@ -43,6 +47,7 @@ public class StandardActivity implements Serializable{
     /**
      * Rolle zu der die Standardleistung gehoert.
      */
+    @XmlTransient
     @ManyToOne
     private Role role;
     

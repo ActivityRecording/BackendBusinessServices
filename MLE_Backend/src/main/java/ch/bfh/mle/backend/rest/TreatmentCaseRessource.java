@@ -8,6 +8,7 @@ package ch.bfh.mle.backend.rest;
 import ch.bfh.mle.backend.model.TreatmentCase;
 import ch.bfh.mle.backend.service.TreatmentCaseService;
 import java.util.Collection;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -27,7 +28,7 @@ import javax.ws.rs.core.UriInfo;
  * @author haueb1@students.bfh.ch
  */
 @Stateless
-@Path("cases")
+@Path("treatmentCases")
 public class TreatmentCaseRessource {
     
     @Context
@@ -63,7 +64,7 @@ public class TreatmentCaseRessource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Collection<TreatmentCase> getAll() {
+    public List<TreatmentCase> getAll() {
         return srv.read();
     }
 

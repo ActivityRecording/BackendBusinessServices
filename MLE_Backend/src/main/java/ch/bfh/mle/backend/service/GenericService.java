@@ -1,6 +1,7 @@
 package ch.bfh.mle.backend.service;
 
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -23,8 +24,8 @@ public abstract class GenericService<E> implements IService<E> {
 		return entityManager.find(entityClass, id);
 	}
 	
-	public Collection<E> read() {
-		return (Collection<E>) entityManager.createQuery("SELECT x FROM " + entityClass.getSimpleName() + " x", entityClass)
+	public List<E> read() {
+		return (List<E>) entityManager.createQuery("SELECT x FROM " + entityClass.getSimpleName() + " x", entityClass)
 				.getResultList();
 	}
 

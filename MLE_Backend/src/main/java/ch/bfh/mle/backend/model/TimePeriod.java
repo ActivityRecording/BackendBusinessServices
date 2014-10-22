@@ -19,6 +19,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 
 /**
  * Die Klasse repraesentiert eine gemessene Zeit in der eine Behandlung erfolgt ist
@@ -29,6 +31,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Access(AccessType.FIELD)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class TimePeriod implements Serializable {
     
     /**

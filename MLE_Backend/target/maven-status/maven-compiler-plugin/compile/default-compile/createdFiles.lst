@@ -1,6 +1,7 @@
 ch\bfh\mle\backend\model\Role_.class
 ch\bfh\mle\backend\model\AllocationRule.class
 ch\bfh\mle\backend\model\TimePeriodType.class
+ch\bfh\mle\backend\service\StandardActivityService.class
 ch\bfh\mle\backend\model\AllocationRule_.class
 ch\bfh\mle\backend\rest\PatientResource$2.class
 ch\bfh\mle\backend\rest\ApplicationConfig.class
@@ -18,6 +19,7 @@ ch\bfh\mle\backend\rest\PatientResource$1.class
 ch\bfh\mle\backend\model\TreatmentCase.class
 ch\bfh\mle\backend\model\Role.class
 ch\bfh\mle\backend\model\TimePeriod_.class
+ch\bfh\mle\backend\rest\StandardActivityRessource.class
 ch\bfh\mle\backend\model\TarmedActivity.class
 ch\bfh\mle\backend\service\TreatmentCaseService.class
 ch\bfh\mle\backend\model\Patient.class

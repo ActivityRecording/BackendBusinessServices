@@ -15,6 +15,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 
 /**
  * Repraesentiert eine Leistung aus dem Tarmedkatalog
@@ -23,6 +25,7 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @Access(AccessType.FIELD)
 @Table(uniqueConstraints={@UniqueConstraint(columnNames={"tarmedId"})})
+@XmlAccessorType(XmlAccessType.FIELD)
 public class TarmedActivity implements Serializable{
 
     /**
