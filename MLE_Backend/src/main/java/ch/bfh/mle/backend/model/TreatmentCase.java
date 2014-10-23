@@ -15,6 +15,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -30,10 +32,15 @@ import javax.xml.bind.annotation.XmlTransient;
  *  
  * @author Stefan Walle
  */
-@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Access(AccessType.FIELD)
 @Table(uniqueConstraints={@UniqueConstraint(columnNames={"treatmentNumber"})})
+@NamedQueries({
+    @NamedQuery(
+            name="TreatmentCase.FindByTreatmentNumber", 
+            query="SELECT t FROM TreatmentCase AS t WHERE t.treatmentNumber = :treatmentNumber"),
+})
+@XmlAccessorType(XmlAccessType.FIELD)
 public class TreatmentCase implements Serializable {
 
    /**

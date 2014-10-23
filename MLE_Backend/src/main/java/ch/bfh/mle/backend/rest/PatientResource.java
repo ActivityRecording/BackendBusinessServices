@@ -106,9 +106,9 @@ public class PatientResource {
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/supplier/{id}")
+    @Path("/supplier/{employeeId}")
     public Response getBySupplier(
-        @PathParam("id") Long employeeId,
+        @PathParam("employeeId") Long employeeId,
         @DefaultValue("0") @QueryParam("state") Integer state) {
         List<PatientListItemDto> dtos = srv.readByEmployeeId(employeeId, state);
         GenericEntity entity = new GenericEntity<List<PatientListItemDto>>(dtos) {};

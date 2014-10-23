@@ -19,6 +19,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -34,6 +36,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Access(AccessType.FIELD)
 @Table(uniqueConstraints={@UniqueConstraint(columnNames={"employeeID"})})
+@NamedQueries({
+    @NamedQuery(
+            name="Supplier.FindByEmployeeId", 
+            query="SELECT s FROM Supplier AS s WHERE s.employeeID = :employeeId"),
+})
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Supplier implements Serializable{
 

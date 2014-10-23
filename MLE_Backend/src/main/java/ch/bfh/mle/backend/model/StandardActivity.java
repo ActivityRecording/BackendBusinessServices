@@ -14,6 +14,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlTransient;
@@ -24,6 +26,11 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Access(AccessType.FIELD)
+@NamedQueries({
+    @NamedQuery(
+            name="StandardActivity.FindByEmployeeId", 
+            query="SELECT a FROM Supplier AS s JOIN s.role AS r JOIN r.standardActivities a WHERE s.employeeID = :employeeId"),
+})
 @XmlAccessorType(XmlAccessType.FIELD)
 public class StandardActivity implements Serializable{
 

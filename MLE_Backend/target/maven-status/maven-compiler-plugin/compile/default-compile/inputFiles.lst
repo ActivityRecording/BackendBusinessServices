@@ -3,6 +3,7 @@ C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\m
 C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\mle\backend\model\TreatmentCase.java
 C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\mle\backend\rest\ApplicationConfig.java
 C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\mle\backend\service\GenericService.java
+C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\mle\backend\service\SupplierService.java
 C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\mle\backend\model\RoleType.java
 C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\mle\backend\model\TimePeriod.java
 C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\mle\backend\service\dto\PatientListItemDto.java
@@ -16,6 +17,7 @@ C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\m
 C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\mle\backend\rest\TreatmentCaseRessource.java
 C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\mle\backend\model\Patient.java
 C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\mle\backend\model\AllocationRule.java
+C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\mle\backend\service\dto\TimePeriodDto.java
 C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\mle\backend\model\Role.java
 C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\mle\backend\rest\PatientResource.java
 C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\mle\backend\model\Activity.java

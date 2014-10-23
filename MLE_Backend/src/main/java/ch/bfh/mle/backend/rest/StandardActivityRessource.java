@@ -47,5 +47,14 @@ public class StandardActivityRessource {
         StandardActivity activity = srv.read(id);
         return activity;
     }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/employees/{employeeId}")
+    public List<StandardActivity> getByEmployeeId(@PathParam("employeeId") Long employeeId) {
+        List<StandardActivity> activities;
+        activities = srv.readByEmployeeId(employeeId);
+        return activities;
+    }
     
 }
