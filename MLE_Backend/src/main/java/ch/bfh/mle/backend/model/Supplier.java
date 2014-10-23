@@ -23,6 +23,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Repraesentiert einen Erbringer einer Leistung. Dies kann ein Arzt oder eine Plegeperson sein.
@@ -31,6 +34,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Access(AccessType.FIELD)
 @Table(uniqueConstraints={@UniqueConstraint(columnNames={"employeeID"})})
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Supplier implements Serializable{
 
     /**
@@ -78,6 +82,7 @@ public class Supplier implements Serializable{
     /**
      * Liste der persoenlichen Favoriten von Leistungen
      */
+    @XmlTransient
     @OneToMany(mappedBy = "supplier", fetch=FetchType.LAZY, cascade = CascadeType.ALL )
     private List<Favorite> favorites;
     

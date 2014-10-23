@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ch.bfh.mle.backend.rest;
 
+import ch.bfh.mle.backend.model.Patient;
 import ch.bfh.mle.backend.model.StandardActivity;
 import ch.bfh.mle.backend.service.StandardActivityService;
 import java.util.List;
@@ -12,6 +8,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -42,5 +39,13 @@ public class StandardActivityRessource {
         List<StandardActivity> activities = srv.read();
         return activities;
     }
-     
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/{id}")
+    public StandardActivity get(@PathParam("id") long id) {
+        StandardActivity activity = srv.read(id);
+        return activity;
+    }
+    
 }

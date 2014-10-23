@@ -15,11 +15,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Die Klasse repraesentiert eine erbrachte Leistung gemaess Tarmed-Katalog
  * @author Stefan Walle
  */
+@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Access(AccessType.FIELD)
 public class Activity implements Serializable{
@@ -72,6 +76,7 @@ public class Activity implements Serializable{
     /**
      * Behandlungsfall zu dem diese Leistung gehoert.
      */
+    @XmlTransient
     @ManyToOne
     private TreatmentCase treatmentCase;
     

@@ -9,21 +9,23 @@ import javax.xml.bind.annotation.XmlAccessorType;
  * @author Stefan Walle
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class PatientListItemDto {
+public class PatientWithTreatementCaseDto {
 
-    public PatientListItemDto(){
+    public PatientWithTreatementCaseDto(){
         //required for JAXB
     }
     
-    public PatientListItemDto(
-        Long patientId, 
+    public PatientWithTreatementCaseDto(
+        Long patientId ,
         Long patientNumber,
         String lastName, 
         String firstName, 
         Date dateOfBirth, 
         Long treatmentId, 
-        Long treatmentNumber, 
-        Integer status
+        Long treatmentNumber,
+        Date startTime,
+        Date endTime,
+        Boolean released
     ) {
         
             this.patientId = patientId;
@@ -33,9 +35,11 @@ public class PatientListItemDto {
             this.dateOfBirth = dateOfBirth;
             this.treatmentId = treatmentId;
             this.treatmentNumber = treatmentNumber;
-            this.status = status;
+            this.startTime = startTime;
+            this.endTime = endTime;
+            this.released = released;
     }
-
+    
     /**
      * Technische Datenbenk-ID
      */
@@ -70,43 +74,20 @@ public class PatientListItemDto {
      * Behandlungsfallnummer
      */
     private Long treatmentNumber;
+    
     /**
-     * Status des Patienten
-     * 1 = Hat noch keine erfassten Leistungen
-     * 2 = Hat erfasste Leistungen
+     * Datum und Zeit des Eintritts des Patienten.
      */
-    private Integer status;
-
-    public Long getPatientId() {
-        return patientId;
-    }
-
-    public Long getPatientNumber() {
-        return patientNumber;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public Date getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public Long getTreatmentNumber() {
-        return treatmentNumber;
-    }
-
-    public Long getTreatmentId() {
-        return treatmentId;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
- }
+    private Date startTime;
+    
+    /**
+     * Datum und Zeit des Austritts des Patienten.
+     */
+    private Date endTime;
+    
+    /**
+     * Status Freigegeben
+     */
+    private Boolean released;
+    
+}

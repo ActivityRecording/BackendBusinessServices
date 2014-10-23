@@ -20,6 +20,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Repraesentiert eine Mitarbeiterrolle <br />
@@ -28,6 +31,7 @@ import javax.persistence.OneToMany;
  */
 @Entity
 @Access(AccessType.FIELD)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Role implements Serializable{
 
     /**
@@ -64,6 +68,7 @@ public class Role implements Serializable{
      * Standardkatalog der Rolle. <br />
      * Jeder Rolle ist ein Katalog mit Standardleistungen zugeteilt.
      */
+    @XmlTransient
     @OneToMany(mappedBy = "role", fetch=FetchType.LAZY, cascade = CascadeType.ALL )
     private List<StandardActivity> standardActivities;
     

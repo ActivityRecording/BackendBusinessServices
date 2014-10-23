@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ch.bfh.mle.backend.model;
 
 import java.io.Serializable;
@@ -26,12 +21,16 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Repraesentiert einen Zeitraum, waehrend dem ein Patient im Spital in Behandlung ist.
  *  
  * @author Stefan Walle
  */
+@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Access(AccessType.FIELD)
 @Table(uniqueConstraints={@UniqueConstraint(columnNames={"treatmentNumber"})})
@@ -97,12 +96,14 @@ public class TreatmentCase implements Serializable {
     /**
      * Behandlungszeitraeume oder Pflegeunterbrueche
      */
+    @XmlTransient
     @OneToMany(mappedBy = "treatmentCase", fetch=FetchType.LAZY, cascade = CascadeType.ALL )
     private List<TimePeriod> timePeriods;
     
     /**
      * Erbrachte Leistungen
      */
+    @XmlTransient
     @OneToMany(mappedBy = "treatmentCase", fetch=FetchType.LAZY, cascade = CascadeType.ALL )
     private List<Activity> activities;
     

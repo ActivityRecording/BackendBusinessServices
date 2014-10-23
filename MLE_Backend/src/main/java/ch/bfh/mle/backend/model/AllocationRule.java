@@ -14,6 +14,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 
 /**
  * Repraesentiert eine Regel fur die Aufteilung der Leistungen auf die gemessene Zeit <br />
@@ -23,6 +25,7 @@ import javax.persistence.ManyToOne;
  */
 @Entity
 @Access(AccessType.FIELD)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class AllocationRule implements Serializable{
 
     /**

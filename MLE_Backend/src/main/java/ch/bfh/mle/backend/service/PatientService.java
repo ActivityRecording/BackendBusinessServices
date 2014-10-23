@@ -7,11 +7,10 @@ package ch.bfh.mle.backend.service;
 
 import ch.bfh.mle.backend.model.Patient;
 import ch.bfh.mle.backend.service.dto.PatientListItemDto;
-import java.util.Collection;
+import ch.bfh.mle.backend.service.dto.PatientWithTreatementCaseDto;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Named;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -76,8 +75,8 @@ public class PatientService extends GenericService<Patient>{
 	return result;
     }
 
-    public List<Patient> readByTreatmentNumber(Long treatmentNumber) {
-        TypedQuery<Patient> query = entityManager.createNamedQuery("Patient.FindByTreatmentNumber", Patient.class);
+    public List<PatientWithTreatementCaseDto> readByTreatmentNumber(Long treatmentNumber) {
+        TypedQuery<PatientWithTreatementCaseDto> query = entityManager.createNamedQuery("Patient.FindByTreatmentNumber", PatientWithTreatementCaseDto.class);
         query.setParameter("treatmentNumber", treatmentNumber);
 	return query.getResultList();
     }

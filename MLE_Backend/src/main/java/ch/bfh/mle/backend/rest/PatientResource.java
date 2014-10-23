@@ -1,14 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ch.bfh.mle.backend.rest;
 
 import ch.bfh.mle.backend.model.Patient;
 import ch.bfh.mle.backend.service.PatientService;
 import ch.bfh.mle.backend.service.dto.PatientListItemDto;
-import java.util.Collection;
+import ch.bfh.mle.backend.service.dto.PatientWithTreatementCaseDto;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -20,7 +15,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
-import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
@@ -79,16 +73,18 @@ public class PatientResource {
             //Status ungueltig -> return HTTP Status 400
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
-        List<PatientListItemDto> dtos = srv.readAll(state);
+        List<PatientListItemDto> dtos;
+        dtos = srv.readAll(state);
         GenericEntity entity = new GenericEntity<List<PatientListItemDto>>(dtos) {};
         return Response.ok(entity).build();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/patient/{nr}")
-    public Patient getByPatientNumber(@PathParam("nr") Long nr ){
-        List<Patient> patients = srv.readByPatientNumber(nr);
+    @Path("/patient/{patientNr}")
+    public Patient getByPatientNumber(@PathParam("patientNr") Long patientNr ){
+        List<Patient> patients;
+        patients = srv.readByPatientNumber(patientNr);
         // Patient nicht gefunden
         // if (patients.isEmpty()) return Response.status(Response.Status.NOT_FOUND).build();
         // Mehr als einen Patienten gefunden
@@ -99,12 +95,13 @@ public class PatientResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/treatment/{nr}")
-    public Patient getByTreatment(@PathParam("nr") Long nr ) {
-        List<Patient> patients = srv.readByTreatmentNumber(nr);
-//        if (patients.isEmpty()) throw new NotFoundException();
-//        if (patients.size() > 0) throw new BadRequestException();
-        return patients.get(0);
+    @Path("/treatment/{treatmentNr}")
+    public PatientWithTreatementCaseDto getByTreatment(@PathParam("treatmentNr") Long treatementNr ) {
+        List<PatientWithTreatementCaseDto> result;
+        result = srv.readByTreatmentNumber(treatementNr);
+//        if (result.isEmpty()) throw new NotFoundException();
+//        if (result.size() > 0) throw new BadRequestException();
+        return result.get(0);
     }
     
     @GET
