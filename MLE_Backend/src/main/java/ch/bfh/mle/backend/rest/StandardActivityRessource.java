@@ -50,7 +50,7 @@ public class StandardActivityRessource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/employees/{employeeId}")
+    @Path("/supplier/{employeeId}")
     public List<StandardActivity> getByEmployeeId(@PathParam("employeeId") Long employeeId) {
         List<StandardActivity> activities;
         activities = srv.readByEmployeeId(employeeId);
