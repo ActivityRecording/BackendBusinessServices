@@ -62,7 +62,7 @@ public class ActivityDto {
         return tarmedActivityId;
     }
 
-    public long getTreatmentNumber() {
+    public Long getTreatmentNumber() {
         return treatmentNumber;
     }
     

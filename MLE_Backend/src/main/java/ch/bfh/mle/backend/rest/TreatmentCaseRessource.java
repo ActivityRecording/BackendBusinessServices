@@ -2,7 +2,6 @@ package ch.bfh.mle.backend.rest;
 
 import ch.bfh.mle.backend.model.TreatmentCase;
 import ch.bfh.mle.backend.service.TreatmentCaseService;
-import java.util.Collection;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;

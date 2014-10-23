@@ -1,6 +1,5 @@
 package ch.bfh.mle.backend.rest;
 
-import ch.bfh.mle.backend.model.Patient;
 import ch.bfh.mle.backend.model.StandardActivity;
 import ch.bfh.mle.backend.service.StandardActivityService;
 import java.util.List;
@@ -43,7 +42,7 @@ public class StandardActivityRessource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
-    public StandardActivity get(@PathParam("id") long id) {
+    public StandardActivity get(@PathParam("id") Long id) {
         StandardActivity activity = srv.read(id);
         return activity;
     }

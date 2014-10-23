@@ -28,6 +28,7 @@ public class PatientService extends GenericService<Patient>{
         TypedQuery<PatientListItemDto> query;
         List<PatientListItemDto> result;
         if (state.equals(0)) {
+              // Union does not work
 //            query = entityManager.createNamedQuery("Patient.FindAllWithOpenTreatment", PatientListItemDto.class);
             query = entityManager.createNamedQuery("Patient.FindAllWithOpenTreatmentWithoutActivities", PatientListItemDto.class);
             result = query.getResultList();
@@ -49,6 +50,7 @@ public class PatientService extends GenericService<Patient>{
         TypedQuery<PatientListItemDto> query;
         List<PatientListItemDto> result;
         if (state.equals(0)){
+              // Union does not work
 //            query = entityManager.createNamedQuery("Patient.FindByEmployeeWithOpenTreatment", PatientListItemDto.class);
             query = entityManager.createNamedQuery("Patient.FindByEmployeeWithOpenTreatmentWithoutActivities", PatientListItemDto.class);
             query.setParameter("employeeId", employeeId);

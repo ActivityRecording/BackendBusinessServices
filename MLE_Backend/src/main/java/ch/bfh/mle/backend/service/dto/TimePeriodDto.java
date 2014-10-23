@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 
 /**
  *
- * @author Stefan
+ * @author Stefan Walle
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TimePeriodDto {

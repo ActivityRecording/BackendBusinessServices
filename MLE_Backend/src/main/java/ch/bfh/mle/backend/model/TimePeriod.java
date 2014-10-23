@@ -36,8 +36,10 @@ public class TimePeriod implements Serializable {
     }
     
     /**
-     * Konstruktor zum Erstellen einer Leistung mit einem Leistungserbringer.
+     * Konstruktor zum Erstellen einer Leistung mit einem Leistungserbringer 
+     * und einem Behandlungsfall.
      * @param supplier 
+     * @param treatmentCase 
      */
     public TimePeriod(Supplier supplier, TreatmentCase treatmentCase){
         this.supplier = supplier;

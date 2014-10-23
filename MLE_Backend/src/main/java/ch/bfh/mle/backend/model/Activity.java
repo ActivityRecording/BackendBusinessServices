@@ -17,9 +17,9 @@ import javax.xml.bind.annotation.XmlTransient;
  * Die Klasse repraesentiert eine erbrachte Leistung gemaess Tarmed-Katalog
  * @author Stefan Walle
  */
-@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Access(AccessType.FIELD)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Activity implements Serializable{
     
     /**

@@ -52,7 +52,7 @@ public class TimePeriodRessource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
-    public TimePeriod get(@PathParam("id") long id) {
+    public TimePeriod get(@PathParam("id") Long id) {
         TimePeriod timePeriod = srv.read(id);
         return timePeriod;
     }    

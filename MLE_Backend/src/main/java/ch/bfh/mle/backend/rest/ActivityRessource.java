@@ -3,7 +3,6 @@ package ch.bfh.mle.backend.rest;
 import ch.bfh.mle.backend.model.Activity;
 import ch.bfh.mle.backend.service.ActivityService;
 import ch.bfh.mle.backend.service.dto.ActivityDto;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;

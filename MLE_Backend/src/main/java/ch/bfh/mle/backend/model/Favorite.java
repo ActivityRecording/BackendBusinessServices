@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 
 /**
  * Repraesentiert eine Liste von Tarmedleistungen, die dem Anwender in der Liste seiner Favoriten angezeigt werden.
@@ -16,6 +18,7 @@ import javax.persistence.ManyToOne;
  */
 @Entity
 @Access(AccessType.FIELD)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Favorite implements Serializable {
 
     /**
