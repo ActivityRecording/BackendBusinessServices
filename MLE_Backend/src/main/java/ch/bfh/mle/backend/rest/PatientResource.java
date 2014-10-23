@@ -59,7 +59,7 @@ public class PatientResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
-    public Patient get(@PathParam("id") long id) {
+    public Patient get(@PathParam("id") Long id) {
         Patient patient = srv.read(id);
 //        if (patient == null) throw new NotFoundException();
         return patient;

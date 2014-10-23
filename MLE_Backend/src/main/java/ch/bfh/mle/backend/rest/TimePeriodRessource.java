@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ch.bfh.mle.backend.rest;
 
 import ch.bfh.mle.backend.model.TimePeriod;
@@ -50,8 +45,8 @@ public class TimePeriodRessource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<TimePeriod> getAll() {
-        List<TimePeriod> activities = srv.read();
-        return activities;
+        List<TimePeriod> timePeriods = srv.read();
+        return timePeriods;
     }
     
     @GET

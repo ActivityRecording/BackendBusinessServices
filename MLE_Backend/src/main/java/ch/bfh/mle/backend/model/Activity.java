@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ch.bfh.mle.backend.model;
 
 import java.io.Serializable;
@@ -10,7 +5,6 @@ import java.util.Objects;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,18 +26,19 @@ public class Activity implements Serializable{
      * Default-Konstruktor fuer JPA
      */
     protected Activity(){
-        
     }
     
     /**
      * Konstruktor zum Erstellen einer neuen Leistung <br />
-     * Es wird die Leistung aus dem Tarmedkatalog und der Leistungserbringer uebergeben.
+     * Für die Erstellung wird die Tarmedleistung, der Behandlungsfall und der Leistungserbringer benötigt.
      * @param tarmedActivity
      * @param supplier 
+     * @param treatmentCase 
      */
-    public Activity(TarmedActivity tarmedActivity, Supplier supplier){
+    public Activity(TarmedActivity tarmedActivity, Supplier supplier, TreatmentCase treatmentCase){
         this.tarmedActivity = tarmedActivity;
         this.supplier = supplier;
+        this.treatmentCase = treatmentCase;
     }
 
     /**
@@ -128,14 +123,6 @@ public class Activity implements Serializable{
         return treatmentCase;
     }
 
-    /**
-     * Setzt den Behandlungsfall zur Leistung.
-     * @param treatmentCase 
-     */
-    public void setTreatmentCase(TreatmentCase treatmentCase) {
-        this.treatmentCase = treatmentCase;
-    }
-    
     /**
      * Ueberschreibt die Standard hashCode Methode.
      * @return hash
