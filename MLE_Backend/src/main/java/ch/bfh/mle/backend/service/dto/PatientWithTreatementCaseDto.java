@@ -5,7 +5,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
 /**
- *
+ * Das PatientWithTreatmentCaseDto dient der Uebergabe von Patientendaten und dem
+ * zugehoerigen Behandlungsfall ueber eine REST-Schnitstelle.
  * @author Stefan Walle
  */
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -41,7 +42,7 @@ public class PatientWithTreatementCaseDto {
     }
     
     /**
-     * Technische Datenbenk-ID
+     * Technische Datenbenk-ID des Patienten
      */
     private Long patientId;
     
@@ -51,17 +52,17 @@ public class PatientWithTreatementCaseDto {
     private Long patientNumber;
     
     /**
-     * Nachname
+     * Nachname des Patienten
      */
     private String lastName;
  
     /**
-     * Vorname
+     * Vorname des Patienten
      */
     private String firstName;
     
     /**
-     * Geburtsdatum
+     * Geburtsdatum des Patienten
      */
     private Date dateOfBirth;
     
@@ -71,7 +72,7 @@ public class PatientWithTreatementCaseDto {
     private Long treatmentId;
             
     /**
-     * Behandlungsfallnummer
+     * Fachliche Behandlungsfallnummer
      */
     private Long treatmentNumber;
     

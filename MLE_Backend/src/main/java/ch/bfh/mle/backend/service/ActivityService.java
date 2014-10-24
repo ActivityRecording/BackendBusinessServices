@@ -11,7 +11,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
- * Der Service stellt Applikationsfunktionen für Leistungen zur Verfuegung.
+ * Der Service stellt Applikationsfunktionen fuer Leistungen zur Verfuegung.
  * Es werden folgende weitere Services verwendet: <br>
  * - SupplierService (Leistungserbringer)<br>
  * - TarmedActivityService (Tarmedleistung)<br>

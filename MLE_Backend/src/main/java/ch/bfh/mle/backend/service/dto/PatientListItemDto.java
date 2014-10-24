@@ -5,27 +5,34 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
 /**
- *
+ * Das PatientListItemDto dient der Uebergabe von Paientendaten mit der zugehoerigen 
+ * Behandlungsfallnummer ueber eine REST-Schnittstelle. Die Items werden verwendet fuer
+ * die Anzeige der Patientenliste (resp. Behandlungsfallliste mit Patientenangaben).
+ * Der Status gibt an, ob es fuer den Behandlungsfall bereits erfasste Leistungen gibt oder nicht.
  * @author Stefan Walle
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 public class PatientListItemDto {
 
+    /**
+     * Konstruktor fuer JAXB
+     */
     public PatientListItemDto(){
-        //required for JAXB
     }
     
-    public PatientListItemDto(
-        Long patientId, 
-        Long patientNumber,
-        String lastName, 
-        String firstName, 
-        Date dateOfBirth, 
-        Long treatmentId, 
-        Long treatmentNumber, 
-        Integer status
-    ) {
-        
+    /**
+     * Konstruktor fuer die Uebergabe aller Merkmale des DTO.
+     * Er kann direkt in JPQL-Queries zum Erstellen des DTO mit NEW(...) verwendet werden.
+     * @param patientId
+     * @param patientNumber
+     * @param lastName
+     * @param firstName
+     * @param dateOfBirth
+     * @param treatmentId
+     * @param treatmentNumber
+     * @param status 
+     */
+    public PatientListItemDto(Long patientId, Long patientNumber, String lastName, String firstName, Date dateOfBirth, Long treatmentId, Long treatmentNumber, Integer status) {
             this.patientId = patientId;
             this.patientNumber = patientNumber;
             this.lastName = lastName;
@@ -37,7 +44,7 @@ public class PatientListItemDto {
     }
 
     /**
-     * Technische Datenbenk-ID
+     * Technische Datenbenk-ID des Patienten
      */
     private Long patientId;
     
@@ -47,17 +54,17 @@ public class PatientListItemDto {
     private Long patientNumber;
     
     /**
-     * Nachname
+     * Nachname des Patienten
      */
     private String lastName;
  
     /**
-     * Vorname
+     * Vorname des Patienten
      */
     private String firstName;
     
     /**
-     * Geburtsdatum
+     * Geburtsdatum des Patienten
      */
     private Date dateOfBirth;
     
@@ -67,7 +74,7 @@ public class PatientListItemDto {
     private Long treatmentId;
             
     /**
-     * Behandlungsfallnummer
+     * Fachliche Behandlungsfallnummer
      */
     private Long treatmentNumber;
     /**

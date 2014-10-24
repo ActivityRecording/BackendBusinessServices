@@ -4,7 +4,10 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
 /**
- *
+ * Das ActivityDTO dient fuer die Uebergabe einer Leistung ueber eine REST-Schnittstelle.
+ * Sie enthaelt im Unterschied zur Entity-Klasse Activity die fachlichen Fremdschluessel des
+ * Leistungserbringers (employeeId) und des Behandlungsfalls (treatmentNumber).
+ * Die erbrachte Tarmed-Leistung wird ueber die Datenbank-ID referenziert.
  * @author Stefan Walle
  */
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -22,27 +25,28 @@ public class ActivityDto {
     }
     
     /**
-     * Technische Datenbank-ID.
+     * Technische Datenbank-ID der Leistung.
+     * Diese muss fuer einen POST-Request (neue Leistung) null sein.
      */
     private Long activityId;
 
     /**
-     * Anzahl erbrachte Leistungen.
-     */
+     * Anzahl erbrachte Leistungen
+    */
     private Integer number;
     
     /**
-     * Erbringer der Leistung.
+     * Fachliche Mitarbeiternummer des Leistungserbrigers
      */
     private Long employeeId;
     
     /**
-     * Referenzierte Leistung aus dem Tarmedkatalog.
+     * Technische ID der erbrachten Tarmedleistung
      */
     private Long tarmedActivityId;
 
     /**
-     * Behandlungsfall zu dem diese Leistung gehoert.
+     * Fachliche Behandlungsfallnummer zu dem die Leistung erbracht wurde
      */
     private Long treatmentNumber;
 

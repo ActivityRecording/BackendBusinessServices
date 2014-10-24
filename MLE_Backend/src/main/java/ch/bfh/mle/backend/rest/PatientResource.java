@@ -7,6 +7,7 @@ import ch.bfh.mle.backend.service.dto.PatientWithTreatementCaseDto;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -24,7 +25,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
- * REST Web Service
+ * REST Web Service fuer Ressource Patient
  *
  * @author Stefan & Boris
  */
@@ -59,16 +60,14 @@ public class PatientResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
-    public Patient get(@PathParam("id") Long id) {
-        Patient patient = srv.read(id);
-//        if (patient == null) throw new NotFoundException();
-        return patient;
+    public Patient get(@PathParam("id") @NotNull Long id) {
+        return srv.read(id);
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll(
-        @DefaultValue("0") @QueryParam("state") Integer state) {
+        @DefaultValue("0") @QueryParam("state") @NotNull Integer state) {
         if(state < 0 || state > 2) {
             //Status ungueltig -> return HTTP Status 400
             return Response.status(Response.Status.BAD_REQUEST).build();
@@ -82,34 +81,27 @@ public class PatientResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/patient/{patientNr}")
-    public Patient getByPatientNumber(@PathParam("patientNr") Long patientNr ){
-        List<Patient> patients;
-        patients = srv.readByPatientNumber(patientNr);
-        // Patient nicht gefunden
-        // if (patients.isEmpty()) return Response.status(Response.Status.NOT_FOUND).build();
-        // Mehr als einen Patienten gefunden
-        // if (patients.size() > 0) return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-        Patient patient = patients.get(0);
-        return patient;
+    public Patient getByPatientNumber(@PathParam("patientNr") @NotNull Long patientNr ){
+        return srv.readByPatientNumber(patientNr);
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/treatment/{treatmentNr}")
-    public PatientWithTreatementCaseDto getByTreatment(@PathParam("treatmentNr") Long treatementNr ) {
-        List<PatientWithTreatementCaseDto> result;
-        result = srv.readByTreatmentNumber(treatementNr);
-//        if (result.isEmpty()) throw new NotFoundException();
-//        if (result.size() > 0) throw new BadRequestException();
-        return result.get(0);
+    public PatientWithTreatementCaseDto getByTreatment(@PathParam("treatmentNr") @NotNull Long treatementNr ) {
+        return srv.readByTreatmentNumber(treatementNr);
     }
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/supplier/{employeeId}")
     public Response getBySupplier(
-        @PathParam("employeeId") Long employeeId,
-        @DefaultValue("0") @QueryParam("state") Integer state) {
+        @PathParam("employeeId") @NotNull Long employeeId,
+        @DefaultValue("0") @QueryParam("state") @NotNull Integer state) {
+        if(state < 0 || state > 2) {
+            //Status ungueltig -> return HTTP Status 400
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
         List<PatientListItemDto> dtos = srv.readByEmployeeId(employeeId, state);
         GenericEntity entity = new GenericEntity<List<PatientListItemDto>>(dtos) {};
         return Response.ok(entity).build();
@@ -117,7 +109,7 @@ public class PatientResource {
     
     @DELETE
     @Path("/{id}")
-    public void delete(@PathParam("id") Long id) {
+    public void delete(@PathParam("id") @NotNull Long id) {
         srv.delete(id);
     }
 }

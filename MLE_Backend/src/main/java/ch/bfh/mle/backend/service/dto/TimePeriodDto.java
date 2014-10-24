@@ -6,7 +6,10 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
 /**
- *
+ * Das TimePeriodDto dient der Uebergabe von Zeitraeumen ueber eine REST-Schnittstelle.
+ * Als Fremdschluessel auf den Behandlungsfall und den Leistungserbringer werden die fachliche
+ * Behandlungsfallnummer (treatmentNumber) und die Mitarbeiternummer (employeeId) verwendet.
+ * Beim POST-Request muss die technische ID (timePeriodId) null sein.
  * @author Stefan Walle
  */
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -34,6 +37,7 @@ public class TimePeriodDto {
     
     /**
      * Technische Datenbank-ID
+     * Muss im Fall eines POST-Requests null sein.
      */
     private Long timePeriodId;
     

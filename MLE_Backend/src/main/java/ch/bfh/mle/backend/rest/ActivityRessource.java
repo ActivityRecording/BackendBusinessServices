@@ -46,16 +46,14 @@ public class ActivityRessource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Activity> getAll() {
-        List<Activity> activities = srv.read();
-        return activities;
+        return srv.read();
     }
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
     public Activity get(@PathParam("id") Long id) {
-        Activity activity = (Activity) srv.read(id);
-        return activity;
+        return (Activity) srv.read(id);
     }    
    
 }
