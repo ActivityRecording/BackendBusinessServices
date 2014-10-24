@@ -5,6 +5,7 @@ import ch.bfh.mle.backend.service.TreatmentCaseService;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -18,12 +19,18 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 
 /**
- *
- * @author haueb1@students.bfh.ch
+ * REST Web Service fuer die Ressource Behandlungsfall
+ * 
+ * @author Stefan Walle
  */
 @Stateless
 @Path("treatmentCases")
 public class TreatmentCaseRessource {
+
+    /**
+     * Konstruktor zum Erzeugen einer TreatmentCaseRessource
+     */
+    public TreatmentCaseRessource() {}
     
     @Context
     private UriInfo context;
@@ -32,39 +39,56 @@ public class TreatmentCaseRessource {
     private TreatmentCaseService srv;
 
     /**
-     * Creates a new instance of PatientResource
+     * Speichert einen Behandlungsfall in der Datenbank.
+     * @param TreatmentCase 
      */
-    public TreatmentCaseRessource() {}
-
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public void create(TreatmentCase entity) {
+    public void create(@NotNull TreatmentCase entity) {
         srv.create(entity);
     }
 
+    /**
+     * Mutiert einen Behandlungsfall auf der Datenbank.
+     * @param TreatmentCase
+     * @return TreatmentCase - Mutierter Behandlungsfall
+     */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public TreatmentCase update(TreatmentCase entity) {
+    public TreatmentCase update(@NotNull TreatmentCase entity) {
         return srv.update(entity);
     }
 
+    /**
+     * Gibt einen Behandlungsfall mit id zurueck.
+     * @param id
+     * @return TreatmentCase
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
-    public TreatmentCase get(@PathParam("id") Long id) {
+    public TreatmentCase get(@PathParam("id") @NotNull Long id) {
         return srv.read(id);
     }
 
+    /**
+     * Gibt alle Behandlungsfaelle zurueck.
+     * @return List<TreatmentCase>
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<TreatmentCase> getAll() {
         return srv.read();
     }
 
+    /**
+     * Loescht den Behandlungsfall mit id von der Datenbank.
+     * @param id 
+     */
     @DELETE
     @Path("{id}")
-    public void delete(@PathParam("id") Long id) {
+    public void delete(@PathParam("id") @NotNull Long id) {
         srv.delete(id);
     }
 }

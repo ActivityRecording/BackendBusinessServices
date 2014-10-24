@@ -10,53 +10,62 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
- *
+ * Die Klasse TimePeriodService stellt Applikationsfunktionalitaeten 
+ * fuer die Zeitraeme zur Verfuegung,
  * @author Stefan Walle
  */
 @Stateless
 @Named
 public class TimePeriodService extends GenericService<TimePeriod>{
 
+    /**
+     * Kontruktor zum Erstellen eines TimePeriodService
+     */
+    public TimePeriodService(){
+        super(TimePeriod.class);
+    }
+
     @Inject
     private SupplierService supplierService;
 
     @Inject
     private TreatmentCaseService treatmentService;
-
-    public TimePeriodService(){
-        super(TimePeriod.class);
-    }
     
+    /**
+     * Speichert einen Zeitraum auf der Datenbank.
+     * Folgende Voraussetzungen muessen gegeben sein:<br>
+     * - Der Leistungserbringer mit der Mitarbeiternummer employeeId muss auf der
+     *   Datenbank vorhanden sein. <br>
+     * - Der Behandlungsfall mit der Behandlungsfallnummer treatmentNumber muss auf
+     *   der Datenbank vorhanden sein.
+     *
+     * @param TimePeriodDto 
+     */
     public void create(TimePeriodDto dto){
         
-        // Finde den Leistungserbringer und den Behandlungsfall zum übergebenen Zeitraum
+        // Ueberpruefen des Inputs
         Long employeeId = dto.getEmployeeId();
         Long treatmentNumber = dto.getTreatmentNumber();
         if (employeeId == null || treatmentNumber == null){
             // Schlüssel für den Leistungserbringer oder Behandlungsfall ist nicht vorhanden
             throw new IllegalArgumentException("EmployeeId and TreatmentNumber must not be null");
         }
+        if (dto.getType() == null){
+            throw new IllegalArgumentException("Timeperiod type must be set");
+        }
         // Finde den Listungserbringer
-        List<Supplier> suppliers;
-        suppliers = supplierService.readByEmployeeId(employeeId);
-        if (suppliers.isEmpty()){
-            throw new IllegalArgumentException("No supplier found with employeeId " + employeeId);
+        Supplier supplier;
+        supplier = supplierService.readByEmployeeId(employeeId);
+        if (supplier == null){
+            throw new IllegalArgumentException("No Supplier found with employeeId " + employeeId);
         }
-        if (suppliers.size() > 1){
-            throw new IllegalArgumentException("More than one Supplier found for employeeId " + employeeId);
-        }
-        Supplier supplier = suppliers.get(0);
         
         // Finde den Behandlungsfall 
-        List<TreatmentCase> treatments;
-        treatments = treatmentService.readByTreatmentNumber(treatmentNumber);
-         if (treatments.isEmpty()){
-            throw new IllegalArgumentException("No treatmentcase found with treatmentnumber " + treatmentNumber);
+        TreatmentCase treatment;
+        treatment = treatmentService.readByTreatmentNumber(treatmentNumber);
+        if (treatment == null){
+            throw new IllegalArgumentException("No Treatmentcase found with treatmentNumber " + treatmentNumber);
         }
-        if (treatments.size() > 1){
-            throw new IllegalArgumentException("More than one treatmentcase found for treatmentnumber " + treatmentNumber);
-        }
-        TreatmentCase treatment = treatments.get(0);
        
         //Erstelle und speichere den Zeitraum
         TimePeriod timePeriod = new TimePeriod(supplier, treatment);

@@ -10,8 +10,8 @@ import javax.persistence.TypedQuery;
 import javax.validation.constraints.NotNull;
 
 /**
- * Die Klasse PatientService stellt Applikationsfunktionalitaeten, welche auf der Entitaet
- * Patient basieren, zur Verfuegung.
+ * Die Klasse PatientService stellt Applikationsfunktionalitaeten zur Verfuegung,
+ * welche auf der Entitaet Patient basieren.
  * @author Stefan Walle
  */
 @Stateless
@@ -89,7 +89,7 @@ public class PatientService extends GenericService<Patient>{
             query.setParameter("employeeId", employeeId);
             result = query.getResultList();
         } else {
-            // Untgueltiger Status
+            // Ungueltiger Status
             throw new IllegalArgumentException("Unknown state " + state);
         }
 	return result;
@@ -105,8 +105,10 @@ public class PatientService extends GenericService<Patient>{
     public PatientWithTreatementCaseDto readByTreatmentNumber(@NotNull Long treatmentNumber) {
         TypedQuery<PatientWithTreatementCaseDto> query = entityManager.createNamedQuery("Patient.FindByTreatmentNumber", PatientWithTreatementCaseDto.class);
         query.setParameter("treatmentNumber", treatmentNumber);
-        List<PatientWithTreatementCaseDto> result = query.getResultList();
+        List<PatientWithTreatementCaseDto> result;
+        result = query.getResultList();
         if (result.size() > 1){
+            // Die Behandlungsfallnummer ist unique. Es darf nur ein Patient zurueckgegeben werden.
             throw new IllegalStateException("More than one Patient found ");
         }
         if (result.isEmpty()){
@@ -116,7 +118,6 @@ public class PatientService extends GenericService<Patient>{
         }
     }
 	
-
     /**
      * Gibt einen Patienten mit der fachlichen Patientennummer patientNumber zurueck.
      * Wir kein Patient gefunden wird eine leere Liste zurueckgegeben..
@@ -126,8 +127,10 @@ public class PatientService extends GenericService<Patient>{
     public Patient readByPatientNumber(@NotNull Long patientNumber) {
         TypedQuery<Patient> query = entityManager.createNamedQuery("Patient.FindByPatientNumber", Patient.class);
         query.setParameter("patientNumber", patientNumber);
-	List<Patient> result = query.getResultList();
+	List<Patient> result;
+        result = query.getResultList();
         if (result.size() > 1){
+            // Die Patientenummer ist unique. Es darf nur ein Patient zurueckgegeben werden.
             throw new IllegalStateException("More than one Patient found ");
         }
         if (result.isEmpty()){

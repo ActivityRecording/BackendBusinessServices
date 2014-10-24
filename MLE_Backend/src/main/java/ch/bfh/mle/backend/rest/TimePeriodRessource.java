@@ -6,6 +6,7 @@ import ch.bfh.mle.backend.service.dto.TimePeriodDto;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -17,6 +18,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 
 /**
+ * REST Web Service fuer die Ressource Zeitraum
  *
  * @author Stefan Walle
  */
@@ -24,24 +26,31 @@ import javax.ws.rs.core.UriInfo;
 @Path("timePeriods")
 public class TimePeriodRessource {
 
+    /**
+     * Konstruktor fuer die Erzeugung einer TimePeriodRessource
+     */
+    public TimePeriodRessource() {}
+
     @Context
     private UriInfo context;
 
     @Inject
     private TimePeriodService srv;
-
-    /**
-     * Creates a new instance of TimePeriod
-     */
-    public TimePeriodRessource() {}
     
+    /**
+     * Speichert einen Zeitraum in der Datenbank.
+     * @param TimePeriodDto - darf nicht null sein
+     */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public void create(TimePeriodDto dto) {
+    public void create(@NotNull TimePeriodDto dto) {
         srv.create(dto);
     }
 
-
+    /**
+     * Gibt alle Zeitraeume zurueck.
+     * @return List<TimePeriod>
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<TimePeriod> getAll() {
@@ -49,10 +58,15 @@ public class TimePeriodRessource {
         return timePeriods;
     }
     
+    /**
+     * Gibt den Zeitraum mit id zurueck.
+     * @param id
+     * @return TimePeriod
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
-    public TimePeriod get(@PathParam("id") Long id) {
+    public TimePeriod get(@PathParam("id") @NotNull Long id) {
         TimePeriod timePeriod = srv.read(id);
         return timePeriod;
     }    

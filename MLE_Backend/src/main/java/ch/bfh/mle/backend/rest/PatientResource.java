@@ -25,13 +25,18 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
- * REST Web Service fuer Ressource Patient
+ * REST Web Service fuer die Ressource Patient
  *
  * @author Stefan & Boris
  */
 @Stateless
 @Path("patients")
 public class PatientResource {
+
+    /**
+     * Erstellt eine neue Instanz von PatientResource
+     */
+    public PatientResource() {}
 
     @Context
     private UriInfo context;
@@ -40,16 +45,22 @@ public class PatientResource {
     private PatientService srv;
 
     /**
-     * Creates a new instance of PatientResource
+     * Speichert einen neuen Patienten in die Datenbank.
+     * Die id des Patienten wird automatisch vergeben und muss null sein.
+     * Die Patientennummer ist unique und darf nicht auf der DB vorhanden sein.
+     * @param entity 
      */
-    public PatientResource() {}
-
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public void create(Patient entity) {
         srv.create(entity);
     }
 
+    /**
+     * Mutiert einen Patienten. Der Patient muss auf der DB vorhanden sein.
+     * @param entity
+     * @return Patient mit den gemachten Aenderungen
+     */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -57,6 +68,11 @@ public class PatientResource {
         return srv.update(entity);
     }
 
+    /**
+     * Gibt einen Patienten aufgrund der Datenbank-ID zurueck.
+     * @param id
+     * @return 
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
@@ -64,6 +80,16 @@ public class PatientResource {
         return srv.read(id);
     }
 
+    /**
+     * Gibt Patient- und Behandlungsfallinformationen zurueck zu allen nicht 
+     * freigegebenen Behandlungsfaellen. Mit Hilfe des Status koennen die 
+     * Behandlungsfaelle eingeschraenkt werden.
+     * Status 0 = Alle
+     * Status 1 = Behandlungsfaelle ohne erfasste Leistungen
+     * Status 2 = Behandlungsfaelle mit erfassten Leistungen
+     * @param state Status zur Einschraenkung der Behandlungsfaelle
+     * @return List<PatientListItemDto> Liste von Patienten- und Behandlungsfallinformationen
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll(
@@ -78,6 +104,11 @@ public class PatientResource {
         return Response.ok(entity).build();
     }
 
+    /**
+     * Gibt einen Patienten aufgrund der Behandlungsfallnummer zurueck.
+     * @param patientNr Fachliche Patientennummer
+     * @return Patient
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/patient/{patientNr}")
@@ -85,6 +116,12 @@ public class PatientResource {
         return srv.readByPatientNumber(patientNr);
     }
 
+    /**
+     * Gibt Informationen zu einem Patienten und Behandlungsfall mit
+     * Behandlungsfallnummer treatmentNr zurueck.
+     * @param treatementNr
+     * @return PatientWithTreatementCaseDto
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/treatment/{treatmentNr}")
@@ -92,6 +129,18 @@ public class PatientResource {
         return srv.readByTreatmentNumber(treatementNr);
     }
     
+    /**
+     * Gibt Patient- und Behandlungsfallinformationen zurueck zu allen nicht 
+     * freigegebenen Behandlungsfaellen, zu denen ein Leistungserbringer mit der 
+     * Mitarbeiternummer employeeId Zeitraeume gemessen hat. Mit Hilfe des  
+     * Status koennen die Behandlungsfaelle eingeschraenkt werden.
+     * Status 0 = Alle
+     * Status 1 = Behandlungsfaelle ohne erfasste Leistungen
+     * Status 2 = Behandlungsfaelle mit erfassten Leistungen
+     * @param employeeId Mitarbeiternummer des Leistungserbringers
+     * @param state Status zur Einschraenkung der Behandlungsfaelle
+     * @return List<PatientListItemDto> Liste von Patienten- und Behandlungsfallinformationen
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/supplier/{employeeId}")
@@ -107,6 +156,11 @@ public class PatientResource {
         return Response.ok(entity).build();
     }
     
+    /**
+     * Loescht einen Patienten aus der Datenbank.
+     * Der Patient muss auf der Datenbank vorhanden sein.
+     * @param id 
+     */
     @DELETE
     @Path("/{id}")
     public void delete(@PathParam("id") @NotNull Long id) {

@@ -6,6 +6,7 @@ import ch.bfh.mle.backend.service.dto.ActivityDto;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -17,42 +18,56 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 
 /**
+ * REST Web Service fuer die Ressource Leistung
  *
  * @author Stefan Walle
  */
 @Stateless
 @Path("activities")
 public class ActivityRessource {
+ 
+    /**
+     * Konstruktor zum Erzeugen einer ActivityRessource
+     */
+    public ActivityRessource() {}
 
     @Context
     private UriInfo context;
 
     @Inject
     private ActivityService srv;
- 
-    /**
-     * Creates a new instance of ActivityRessource
-     */
-    public ActivityRessource() {}
     
+    /**
+     * Speichert eine Liste von Leistungen in der Datenbank.
+     * @param List<ActivityDto> - darf nicht null sein
+     */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public void create(List<ActivityDto> dtos) {
+    public void create(@NotNull List<ActivityDto> dtos) {
         for (ActivityDto dto : dtos){
             srv.create(dto);
         }
     }
 
+    /**
+     * Gibt alle Leistungen zurueck.
+     * @return List<Activity>
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Activity> getAll() {
         return srv.read();
     }
     
+    /**
+     * Gibt die Leistung mit der entsprechden id zurueck.
+     * @param id - darf nicht null sein
+     * @return Activity
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
-    public Activity get(@PathParam("id") Long id) {
+    public Activity get(@PathParam("id") @NotNull Long id) {
         return (Activity) srv.read(id);
     }    
    

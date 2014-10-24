@@ -9,9 +9,10 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.constraints.NotNull;
 
 /**
- * Der Service stellt Applikationsfunktionen fuer Leistungen zur Verfuegung.
+ * Der Service stellt Applikationsfunktionen fuer Leistungen zur Verfuegung.<br>
  * Es werden folgende weitere Services verwendet: <br>
  * - SupplierService (Leistungserbringer)<br>
  * - TarmedActivityService (Tarmedleistung)<br>
@@ -22,6 +23,13 @@ import javax.inject.Named;
 @Stateless
 @Named
 public class ActivityService extends GenericService{
+
+    /**
+     * Kontruktor zum Erstellen eines Ativityservice
+     */
+    public ActivityService() {
+        super(Activity.class);
+    }
     
     @Inject
     private SupplierService supplierService;
@@ -32,41 +40,50 @@ public class ActivityService extends GenericService{
     @Inject
     private TreatmentCaseService treatmentService;
 
-    public ActivityService() {
-        super(Activity.class);
-    }
-    
-    public void create(ActivityDto dto){
-        
-        // Finde den Leistungserbringer und den Behandlungsfall zur übergebenen Leistung
+    /**
+     * Speichert eine neue Leistung auf der Datenbank. Es muessen folgende 
+     * Voraussetzungen gegeben sein:<br>
+     * - Der Leistungserbringer mit der Mitarbeiternummer employeeId muss auf
+     *   der Datenbank vorhanden sein. <br>
+     * - Der Behandlungsfall mit der Behandlungsfallnummer treatmentNumber muss
+     *   auf der Datenbank vorhanden sein <br>
+     * - Die Tarmedleistung mit der ID tarmedId muss auf der Datenbank
+     *   vorhanden sein. <br>
+     * - Der Behandlungsfall darf nicht freigegeben sein <br>
+     * - Die Anzahl der Leistungen darf nicht kleiner als 1 sein.
+     * 
+     * @param ActivityDto 
+     */
+    public void create(@NotNull ActivityDto dto){
+        // Prüfe die Input-Daten
         Long employeeId = dto.getEmployeeId();
         Long tarmedId = dto.getTarmedActivityId();
         Long treatmentNumber = dto.getTreatmentNumber();
         if (employeeId == null || tarmedId == null || treatmentNumber == null){
-            // Schlüssel für den Leistungserbringer oder die Tarmedleistung ist nicht vorhanden
+            // Schlüssel für den Leistungserbringer, die Tarmedleistung oder den Behandlungsfall ist null
             throw new IllegalArgumentException("EmployeeId, Treatmentnumber and TarmedActivityId must not be null");
         }
+        if (dto.getNumber() == null || dto.getNumber() < 1){
+            // Die Anzahl Leistungen muss > 0 sein.
+            throw new IllegalArgumentException("Number of activities must be greater than 0");
+        }
         // Finde den Listungserbringer
-        List<Supplier> suppliers;
-        suppliers = supplierService.readByEmployeeId(employeeId);
-        if (suppliers.isEmpty()){
-            throw new IllegalArgumentException("No supplier found with employeeId " + employeeId);
+        Supplier supplier;
+        supplier = supplierService.readByEmployeeId(employeeId);
+        if (supplier == null){
+            throw new IllegalArgumentException("No Supplier found with employeeId " + employeeId);
         }
-        if (suppliers.size() > 1){
-            throw new IllegalArgumentException("More than one Supplier found for employeeId " + employeeId);
-        }
-        Supplier supplier = suppliers.get(0);
         
         // Finde den Behandlungsfall 
-        List<TreatmentCase> treatments;
-        treatments = treatmentService.readByTreatmentNumber(treatmentNumber);
-         if (treatments.isEmpty()){
-            throw new IllegalArgumentException("No treatmentcase found with treatmentnumber " + treatmentNumber);
+        TreatmentCase treatment;
+        treatment = treatmentService.readByTreatmentNumber(treatmentNumber);
+        if (treatment == null){
+            throw new IllegalArgumentException("No Treatmentcase found with treatmentNumber " + treatmentNumber);
         }
-        if (treatments.size() > 1){
-            throw new IllegalArgumentException("More than one treatmentcase found for treatmentnumber " + treatmentNumber);
+        if (treatment.isReleased()){
+            // Der Behandlungsfall darf nicht freigegeben sein.
+            throw new IllegalArgumentException("Treatmentcase must not be released");
         }
-        TreatmentCase treatment = treatments.get(0);
         
         // Finde die Tarmedleistung
         TarmedActivity tarmedActivity;
