@@ -57,7 +57,7 @@ public class ActivityService extends GenericService{
     public void create(@NotNull ActivityDto dto){
         // Prüfe die Input-Daten
         Long employeeId = dto.getEmployeeId();
-        Long tarmedId = dto.getTarmedActivityId();
+        String tarmedId = dto.getTarmedActivityId();
         Long treatmentNumber = dto.getTreatmentNumber();
         if (employeeId == null || tarmedId == null || treatmentNumber == null){
             // Schlüssel für den Leistungserbringer, die Tarmedleistung oder den Behandlungsfall ist null
@@ -87,7 +87,7 @@ public class ActivityService extends GenericService{
         
         // Finde die Tarmedleistung
         TarmedActivity tarmedActivity;
-        tarmedActivity = (TarmedActivity) tarmedService.read(tarmedId);
+        tarmedActivity = entityManager.find(TarmedActivity.class, tarmedId);
         if (tarmedActivity == null){
             throw new IllegalArgumentException("No Tarmedactivity found with id " + tarmedId);
         }

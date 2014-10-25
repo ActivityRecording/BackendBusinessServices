@@ -16,7 +16,7 @@ public class ActivityDto {
     public ActivityDto() {
     }
 
-    public ActivityDto(Long activityId, Integer number, Long employeeId, Long tarmedActivityId, Long treatmentNumber) {
+    public ActivityDto(Long activityId, Integer number, Long employeeId, String tarmedActivityId, Long treatmentNumber) {
         this.activityId = activityId;
         this.number = number;
         this.employeeId = employeeId;
@@ -41,9 +41,9 @@ public class ActivityDto {
     private Long employeeId;
     
     /**
-     * Technische ID der erbrachten Tarmedleistung
+     * ID der erbrachten Tarmedleistung
      */
-    private Long tarmedActivityId;
+    private String tarmedActivityId;
 
     /**
      * Fachliche Behandlungsfallnummer zu dem die Leistung erbracht wurde
@@ -62,7 +62,7 @@ public class ActivityDto {
         return employeeId;
     }
 
-    public Long getTarmedActivityId() {
+    public String getTarmedActivityId() {
         return tarmedActivityId;
     }
 
