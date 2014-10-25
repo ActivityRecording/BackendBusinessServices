@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(
             name="StandardActivity.FindByEmployeeId", 
-            query="SELECT a FROM Supplier AS s JOIN s.role AS r JOIN r.standardActivities a WHERE s.employeeID = :employeeId"),
+            query="SELECT NEW ch.bfh.mle.backend.service.dto.StandardActivitiyListItemDto(a.id, a.description, a.category, a.sortKey, t.id, t.tarmedId, t.duration, o.groupId, o.cardinality, o.requiresTime, o.notSelectable, o.noPeriodAllocation) FROM Supplier AS s JOIN s.role AS r JOIN r.standardActivities AS a JOIN a.tarmedActivity AS t LEFT JOIN AllocationRule as o WHERE s.employeeID = :employeeId AND o.tarmedActivity.id = t.id ORDER BY a.sortKey")
 })
 @XmlAccessorType(XmlAccessType.FIELD)
 public class StandardActivity implements Serializable{
@@ -52,6 +52,19 @@ public class StandardActivity implements Serializable{
     @XmlTransient
     @ManyToOne
     private Role role;
+    
+    /**
+     * Kategorie der Leistung.
+     * 1 = Grundleistung
+     * 2 = Speizelle Leistungen
+     * 3 = Andere Leistungen
+     */
+    private Integer category;
+    
+    /**
+     * Sortierungsschluessel der Leistungen innerhaln einer Rolle
+     */
+    private Integer sortKey;
     
     /**
      * Zugehoerige Tarmedleistung.
@@ -100,6 +113,22 @@ public class StandardActivity implements Serializable{
     }
 
     /**
+     * Gibt die Kategorie zurueck
+     * @return category
+     */
+    public Integer getCategory() {
+        return category;
+    }
+
+    /**
+     * Setzt die Kategorie der Leistung
+     * @param category 
+     */
+    public void setCategory(Integer category) {
+        this.category = category;
+    }
+
+    /**
      * Gibt die zugehoerige Tarmedleistung zurueck.
      * @return tarmedActivity
      */
@@ -113,6 +142,22 @@ public class StandardActivity implements Serializable{
      */
     public void setTarmedActivity(TarmedActivity tarmedActivity) {
         this.tarmedActivity = tarmedActivity;
+    }
+
+    /**
+     * Gibt den Sortierungsschluessel der Leistung zurueck
+     * @return sortKey
+     */
+    public Integer getSortKey() {
+        return sortKey;
+    }
+
+    /**
+     * Setzt den Sortierungsschluessel der Leistung
+     * @param sortKey 
+     */
+    public void setSortKey(Integer sortKey) {
+        this.sortKey = sortKey;
     }
 
     /**

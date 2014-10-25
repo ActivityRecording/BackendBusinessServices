@@ -38,7 +38,7 @@ public class TarmedActivity implements Serializable{
     /**
      * Fachliche Tarmed-ID.
      */
-    private Long tarmedId;
+    private String tarmedId;
     
     /**
      * Bezeichung der Tarmedleistung.
@@ -62,7 +62,7 @@ public class TarmedActivity implements Serializable{
      * Gibt die fachliche Tarmed-ID zurueck.
      * @return tarmedId
      */
-    public Long getTarmedId() {
+    public String getTarmedId() {
         return tarmedId;
     }
 
@@ -70,7 +70,7 @@ public class TarmedActivity implements Serializable{
      * Setzt die fachliche Tarmed-ID.
      * @param tarmedId 
      */
-    public void setTarmedId(Long tarmedId) {
+    public void setTarmedId(String tarmedId) {
         this.tarmedId = tarmedId;
     }
 

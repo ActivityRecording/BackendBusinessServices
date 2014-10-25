@@ -2,6 +2,7 @@ package ch.bfh.mle.backend.rest;
 
 import ch.bfh.mle.backend.model.StandardActivity;
 import ch.bfh.mle.backend.service.StandardActivityService;
+import ch.bfh.mle.backend.service.dto.StandardActivitiyListItemDto;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -11,7 +12,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 /**
@@ -67,10 +70,11 @@ public class StandardActivityRessource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/supplier/{employeeId}")
-    public List<StandardActivity> getByEmployeeId(@PathParam("employeeId") @NotNull Long employeeId) {
-        List<StandardActivity> activities;
-        activities = srv.readByEmployeeId(employeeId);
-        return activities;
+    public Response getByEmployeeId(@PathParam("employeeId") @NotNull Long employeeId) {
+        List<StandardActivitiyListItemDto> dtos;
+        dtos = srv.readByEmployeeId(employeeId);
+        GenericEntity entity = new GenericEntity<List<StandardActivitiyListItemDto>>(dtos) {};
+        return Response.ok(entity).build();
     }
     
 }

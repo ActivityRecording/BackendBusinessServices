@@ -7,6 +7,7 @@ ch\bfh\mle\backend\rest\PatientResource$2.class
 ch\bfh\mle\backend\service\dto\TimePeriodDto.class
 ch\bfh\mle\backend\rest\ApplicationConfig.class
 ch\bfh\mle\backend\service\dto\ActivityDto.class
+ch\bfh\mle\backend\service\dto\StandardActivitiyListItemDto.class
 ch\bfh\mle\backend\rest\TreatmentCaseRessource.class
 ch\bfh\mle\backend\model\RoleType.class
 ch\bfh\mle\backend\rest\TimePeriodRessource.class
@@ -20,6 +21,7 @@ ch\bfh\mle\backend\service\GenericService.class
 ch\bfh\mle\backend\model\Patient_.class
 ch\bfh\mle\backend\model\Favorite.class
 ch\bfh\mle\backend\rest\ActivityRessource.class
+ch\bfh\mle\backend\rest\StandardActivityRessource$1.class
 ch\bfh\mle\backend\rest\PatientResource$1.class
 ch\bfh\mle\backend\model\TreatmentCase.class
 ch\bfh\mle\backend\model\Role.class
