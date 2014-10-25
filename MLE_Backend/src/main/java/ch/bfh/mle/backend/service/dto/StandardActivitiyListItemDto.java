@@ -24,7 +24,6 @@ public class StandardActivitiyListItemDto {
      * @param category
      * @param sortKey
      * @param tarmedId
-     * @param tarmedNumber
      * @param duration
      * @param groupId
      * @param cardinality
@@ -32,13 +31,12 @@ public class StandardActivitiyListItemDto {
      * @param notSelectable
      * @param noPeriodAllocation 
      */
-    public StandardActivitiyListItemDto(Long standardActivityId, String description, Integer category, Integer sortKey, Long tarmedId, String tarmedNumber, Integer duration, Integer groupId, Integer cardinality, Boolean requiresTime, Boolean notSelectable, Boolean noPeriodAllocation) {
+    public StandardActivitiyListItemDto(Long standardActivityId, String description, Integer category, Integer sortKey, String tarmedId, Integer duration, Integer groupId, Integer cardinality, Boolean requiresTime, Boolean notSelectable, Boolean noPeriodAllocation) {
         this.standardActivityId = standardActivityId;
         this.description = description;
         this.category = category;
         this.sortKey = sortKey;
         this.tarmedId = tarmedId;
-        this.tarmedNumber = tarmedNumber;
         this.duration = duration;
         this.groupId = groupId;
         this.cardinality = cardinality;
@@ -70,12 +68,7 @@ public class StandardActivitiyListItemDto {
     /**
      * Fachliche Tarmed-ID.
      */
-    private Long tarmedId;
-    
-    /**
-     * Tarmednummer
-     */
-    private String tarmedNumber;
+    private String tarmedId;
     
     /**
      * Vorgegebene Dauer der Leistung in Minuten.
@@ -125,12 +118,8 @@ public class StandardActivitiyListItemDto {
         return sortKey;
     }
 
-    public Long getTarmedId() {
+    public String getTarmedId() {
         return tarmedId;
-    }
-
-    public String getTarmedNumber() {
-        return tarmedNumber;
     }
 
     public Integer getDuration() {

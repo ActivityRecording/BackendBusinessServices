@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(
             name="StandardActivity.FindByEmployeeId", 
-            query="SELECT NEW ch.bfh.mle.backend.service.dto.StandardActivitiyListItemDto(a.id, a.description, a.category, a.sortKey, t.id, t.tarmedId, t.duration, o.groupId, o.cardinality, o.requiresTime, o.notSelectable, o.noPeriodAllocation) FROM Supplier AS s JOIN s.role AS r JOIN r.standardActivities AS a JOIN a.tarmedActivity AS t LEFT JOIN AllocationRule as o WHERE s.employeeID = :employeeId AND o.tarmedActivity.id = t.id ORDER BY a.sortKey")
+            query="SELECT NEW ch.bfh.mle.backend.service.dto.StandardActivitiyListItemDto(a.id, a.description, a.category, a.sortKey, t.id, t.duration, o.groupId, o.cardinality, o.requiresTime, o.notSelectable, o.noPeriodAllocation) FROM Supplier AS s JOIN s.role AS r JOIN r.standardActivities AS a JOIN a.tarmedActivity AS t LEFT JOIN AllocationRule as o WHERE s.employeeID = :employeeId AND o.tarmedActivity.id = t.id ORDER BY a.sortKey")
 })
 @XmlAccessorType(XmlAccessType.FIELD)
 public class StandardActivity implements Serializable{

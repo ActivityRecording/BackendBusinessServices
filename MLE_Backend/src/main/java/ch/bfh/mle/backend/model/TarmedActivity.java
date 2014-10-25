@@ -5,8 +5,6 @@ import java.util.Objects;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -29,16 +27,10 @@ public class TarmedActivity implements Serializable{
     private static final long serialVersionUID = 1L;
     
     /**
-     * Technische Datenbank-ID.
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    /**
      * Fachliche Tarmed-ID.
      */
-    private String tarmedId;
+    @Id
+    private String id;
     
     /**
      * Bezeichung der Tarmedleistung.
@@ -51,27 +43,19 @@ public class TarmedActivity implements Serializable{
     private Integer duration;
 
     /**
-     * Gibt die technische Datenbank-ID zurueck.
-     * @return id 
+     * Gibt die Tarmed-ID zurueck.
+     * @return id
      */
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
     /**
-     * Gibt die fachliche Tarmed-ID zurueck.
-     * @return tarmedId
+     * Setzt die Tarmed-ID.
+     * @param id 
      */
-    public String getTarmedId() {
-        return tarmedId;
-    }
-
-    /**
-     * Setzt die fachliche Tarmed-ID.
-     * @param tarmedId 
-     */
-    public void setTarmedId(String tarmedId) {
-        this.tarmedId = tarmedId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     /**
@@ -146,7 +130,7 @@ public class TarmedActivity implements Serializable{
      */
     @Override
     public String toString() {
-        return "TarmedActivity{" + "tarmedId=" + tarmedId + ", description=" + description + ", duration=" + duration + '}';
+        return "TarmedActivity{" + "Id=" + id + ", description=" + description + ", duration=" + duration + '}';
     }
 
     
