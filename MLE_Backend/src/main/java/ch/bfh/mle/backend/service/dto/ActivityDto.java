@@ -32,7 +32,7 @@ public class ActivityDto {
 
     /**
      * Anzahl erbrachte Leistungen
-    */
+     */
     private Integer number;
     
     /**

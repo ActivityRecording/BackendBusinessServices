@@ -4,7 +4,9 @@ import ch.bfh.mle.backend.model.Activity;
 import ch.bfh.mle.backend.model.Supplier;
 import ch.bfh.mle.backend.model.TarmedActivity;
 import ch.bfh.mle.backend.model.TreatmentCase;
+import ch.bfh.mle.backend.service.dto.ActivityContainerDto;
 import ch.bfh.mle.backend.service.dto.ActivityDto;
+import ch.bfh.mle.backend.service.dto.SimpleActivityDto;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -98,4 +100,55 @@ public class ActivityService extends GenericService{
         this.create(activity);
     }
     
+    public void create(@NotNull ActivityContainerDto dto){
+        // Prüfe die Input-Daten
+        Long employeeId = dto.getEmployeeId();
+        Long treatmentNumber = dto.getTreatmentNumber();
+        if (employeeId == null || treatmentNumber == null){
+            // Schlüssel für den Leistungserbringer oder den Behandlungsfall ist null
+            throw new IllegalArgumentException("EmployeeId and Treatmentnumber must not be null");
+        }
+        // Finde den Listungserbringer
+        Supplier supplier;
+        supplier = supplierService.readByEmployeeId(employeeId);
+        if (supplier == null){
+            throw new IllegalArgumentException("No Supplier found with employeeId " + employeeId);
+        }
+        
+        // Finde den Behandlungsfall 
+        TreatmentCase treatment;
+        treatment = treatmentService.readByTreatmentNumber(treatmentNumber);
+        if (treatment == null){
+            throw new IllegalArgumentException("No Treatmentcase found with treatmentNumber " + treatmentNumber);
+        }
+        if (treatment.isReleased()){
+            // Der Behandlungsfall darf nicht freigegeben sein.
+            throw new IllegalArgumentException("Treatmentcase must not be released");
+        }
+        
+        for ( SimpleActivityDto activityDto : dto.getActivities()){
+            
+            // Finde die Tarmedleistung
+            String tarmedId = activityDto.getTarmedActivityId();
+            if (tarmedId == null){
+            // Schlüssel die Tarmedleistung ist null
+                throw new IllegalArgumentException("Tarmedid must not be null");
+            }
+            if (activityDto.getNumber() == null || activityDto.getNumber() < 1){
+                // Die Anzahl Leistungen muss > 0 sein.
+                throw new IllegalArgumentException("Number of activities must be greater than 0");
+            }
+            TarmedActivity tarmedActivity;
+            tarmedActivity = entityManager.find(TarmedActivity.class, tarmedId);
+            if (tarmedActivity == null){
+                throw new IllegalArgumentException("No Tarmedactivity found with id " + tarmedId);
+            }
+
+            // Erstelle und speichere die Leistung
+            Activity activity = new Activity(tarmedActivity, supplier, treatment);
+            activity.setNumber(activityDto.getNumber());
+            this.create(activity);
+
+        }
+    }
 }

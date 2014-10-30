@@ -1,13 +1,18 @@
 package ch.bfh.mle.backend.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
@@ -17,7 +22,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
  */
 @Entity
 @Access(AccessType.FIELD)
-@Table(uniqueConstraints={@UniqueConstraint(columnNames={"tarmedId"})})
+@Table(name="TARMEDACTIVITY")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TarmedActivity implements Serializable{
 
@@ -41,6 +46,25 @@ public class TarmedActivity implements Serializable{
      * Vorgegebene Dauer der Leistung in Minuten.
      */
     private Integer duration;
+    
+    /**
+     * Medizinische Information
+     */
+    @Lob
+    @Size(max = 16777215)
+    private String medicalInformation;
+    
+    /**
+     * Gueltig ab
+     */
+    @Temporal(TemporalType.DATE)
+    private Date validFrom;
+    
+    /**
+     * Gueltig bis
+     */
+    @Temporal(TemporalType.DATE)
+    private Date validTo;
 
     /**
      * Gibt die Tarmed-ID zurueck.
@@ -88,6 +112,54 @@ public class TarmedActivity implements Serializable{
      */
     public void setDuration(Integer duration) {
         this.duration = duration;
+    }
+
+    /**
+     * Gibt die Medizinischen Informationen zurueck
+     * @return medicalInformation
+     */
+    public String getMedicalInformatinon() {
+        return medicalInformation;
+    }
+
+    /**
+     * Setzt die die Medizinischen Informationen
+     * @param medicalInformatinon 
+     */
+    public void setMedicalInformatinon(String medicalInformatinon) {
+        this.medicalInformation = medicalInformatinon;
+    }
+
+    /**
+     * Gibt das Gueltig-ab-Datum zurueck
+     * @return validFrom
+     */
+    public Date getValidFrom() {
+        return validFrom;
+    }
+
+    /**
+     * Setzt das Gueltig-ab-Datum
+     * @param validFrom 
+     */
+    public void setValidFrom(Date validFrom) {
+        this.validFrom = validFrom;
+    }
+
+    /**
+     * Gibt das Gueltig-bis-Datum zurueck
+     * @return validTo
+     */
+    public Date getValidTo() {
+        return validTo;
+    }
+
+    /**
+     * Setzt das Gueltig-bis-Datum
+     * @param validTo 
+     */
+    public void setValidTo(Date validTo) {
+        this.validTo = validTo;
     }
 
     /**
