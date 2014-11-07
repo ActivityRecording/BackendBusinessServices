@@ -34,7 +34,6 @@ public class ApplicationConfig extends Application {
         resources.add(ch.bfh.mle.backend.rest.StandardActivityRessource.class);
         resources.add(ch.bfh.mle.backend.rest.TimePeriodRessource.class);
         resources.add(ch.bfh.mle.backend.rest.TreatmentCaseRessource.class);
-        resources.add(ch.bfh.mle.backend.rest.filter.RestResponseFilter.class);
     }
     
 }
