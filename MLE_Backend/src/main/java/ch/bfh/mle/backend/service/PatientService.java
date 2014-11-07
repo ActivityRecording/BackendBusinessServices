@@ -3,6 +3,7 @@ package ch.bfh.mle.backend.service;
 import ch.bfh.mle.backend.model.Patient;
 import ch.bfh.mle.backend.service.dto.PatientListItemDto;
 import ch.bfh.mle.backend.service.dto.PatientWithTreatementCaseDto;
+import java.util.Collections;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Named;
@@ -16,7 +17,7 @@ import javax.validation.constraints.NotNull;
  */
 @Stateless
 @Named
-public class PatientService extends GenericService<Patient>{
+public class PatientService extends GenericService<Patient> {
    
     /**
      * Kontruktor zum Erstellen eines Patientenservice
@@ -53,6 +54,7 @@ public class PatientService extends GenericService<Patient>{
             // Untgueltiger Status
             throw new IllegalArgumentException("Unknown state " + state);
         }
+        Collections.sort(result);
         return result;
    }
     
@@ -92,6 +94,7 @@ public class PatientService extends GenericService<Patient>{
             // Ungueltiger Status
             throw new IllegalArgumentException("Unknown state " + state);
         }
+        Collections.sort(result);
 	return result;
     }
 

@@ -1,5 +1,6 @@
 package ch.bfh.mle.backend.service.dto;
 
+import ch.bfh.mle.backend.model.Patient;
 import java.util.Date;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -12,7 +13,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
  * @author Stefan Walle
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class PatientListItemDto {
+public class PatientListItemDto implements Comparable<PatientListItemDto>{
 
     /**
      * Konstruktor fuer JAXB
@@ -116,4 +117,12 @@ public class PatientListItemDto {
         return status;
     }
 
+    @Override
+    public int compareTo(PatientListItemDto p) {
+        int result;
+        result = lastName.toUpperCase().compareTo(p.lastName.toUpperCase());
+        result = (result != 0 ? result : firstName.toUpperCase().compareTo(p.firstName.toUpperCase()));
+        return (result != 0 ? result : status.compareTo(p.status));
+    }
+    
  }
