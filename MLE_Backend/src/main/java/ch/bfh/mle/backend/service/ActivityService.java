@@ -5,10 +5,13 @@ import ch.bfh.mle.backend.model.Supplier;
 import ch.bfh.mle.backend.model.TarmedActivity;
 import ch.bfh.mle.backend.model.TreatmentCase;
 import ch.bfh.mle.backend.service.dto.ActivityContainerDto;
+import ch.bfh.mle.backend.service.dto.ActivityDto;
 import ch.bfh.mle.backend.service.dto.SimpleActivityDto;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.TypedQuery;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -18,7 +21,7 @@ import javax.validation.constraints.NotNull;
  * - TarmedActivityService (Tarmedleistung)<br>
  * - TreatmentCaseService (Behandlungsfall)<br>
  * 
- * @author Stefan Walle
+ * @author Stefan Walle, Boris Haueter
  */
 @Stateless
 @Named
@@ -105,4 +108,29 @@ public class ActivityService extends GenericService{
 
         }
     }
+    
+    /**
+    * Liefert eine Liste von ActivityDto's zurück, welche
+    * via Named Query und den Parameter FID ermittelt werden
+    */
+    public List<ActivityDto> readAllByTreatmentNumber(@NotNull Long treatmentNumber) {
+        TypedQuery<ActivityDto> query = entityManager.createNamedQuery("Activity.FindAllActivitiesByTreatmentNumber", ActivityDto.class);
+        query.setParameter("treatmentNumber", treatmentNumber);
+        List<ActivityDto> result;
+        result = query.getResultList();
+        return result;
+    }
+    
+   /**
+    * Findet eine Activity Entity anhand der ID und löscht diese anschliessend
+    */
+     public void deleteActivityById(@NotNull Long id){
+         TypedQuery<Activity> query = entityManager.createNamedQuery("Activity.FindActivitiyById", Activity.class);
+         query.setParameter("id", id);
+         Activity result;
+         result = query.getSingleResult();
+         if(result != null){
+             entityManager.remove(result);
+         }
+     }
 }

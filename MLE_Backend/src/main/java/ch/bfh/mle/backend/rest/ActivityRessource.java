@@ -3,18 +3,22 @@ package ch.bfh.mle.backend.rest;
 import ch.bfh.mle.backend.model.Activity;
 import ch.bfh.mle.backend.service.ActivityService;
 import ch.bfh.mle.backend.service.dto.ActivityContainerDto;
+import ch.bfh.mle.backend.service.dto.ActivityDto;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 /**
@@ -57,16 +61,28 @@ public class ActivityRessource {
         return srv.read();
     }
     
+    
     /**
-     * Gibt die Leistung mit der entsprechden id zurueck.
-     * @param id - darf nicht null sein
-     * @return Activity
+     * Gibt alle Leistungen per Behandlungsfall zurueck.
+     * @param fid
+     * @return List<Activity>
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/{id}")
-    public Activity get(@PathParam("id") @NotNull Long id) {
-        return (Activity) srv.read(id);
-    }    
-   
+    @Path("/{fid}")
+    public Response get(@PathParam("fid") @NotNull Long fid) {
+        List<ActivityDto> dtos = srv.readAllByTreatmentNumber(fid);
+        GenericEntity entity = new GenericEntity<List<ActivityDto>>(dtos) {};
+        return Response.ok(entity).build();
+    }
+
+   /*
+    * Löscht einen Activity-Eintrag in der Datenbank anhand technischen ID
+    */
+    @DELETE
+    @Path("/{aid}")
+    public void deleteActivity(@PathParam("aid") @NotNull Long aid){
+        srv.deleteActivityById(aid);
+    }
+    
 }

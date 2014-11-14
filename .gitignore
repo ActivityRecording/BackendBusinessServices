@@ -4,3 +4,7 @@
 /ch.bfh.swos.camerareview.model/target/
 /ch.bfh.swos.camerareview.rest/target/
 /ch.bfh.swos.camerareview.service/target/
+MLE_Backend/target/test-classes/.netbeans_automatic_build
+*.netbeans_automatic_build
+MLE_Backend/nb-configuration.xml
+MLE_Backend/nb-configuration.xml

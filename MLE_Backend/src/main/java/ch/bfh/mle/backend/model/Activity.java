@@ -24,7 +24,13 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(
             name="Activity.ActivitiesWithCountForTratmendCaseAndEmployee", 
-            query="SELECT NEW ch.bfh.mle.backend.service.dto.ActivityCountDto(m.id, SUM(a.number)) FROM TreatmentCase as t JOIN t.activities AS a JOIN a.tarmedActivity as m JOIN a.supplier as s WHERE t.treatmentNumber = :treatmentNumber AND s.employeeID = :employeeId GROUP BY m.id")
+            query="SELECT NEW ch.bfh.mle.backend.service.dto.ActivityCountDto(m.id, SUM(a.number)) FROM TreatmentCase as t JOIN t.activities AS a JOIN a.tarmedActivity as m JOIN a.supplier as s WHERE t.treatmentNumber = :treatmentNumber AND s.employeeID = :employeeId GROUP BY m.id"),
+    @NamedQuery(
+            name="Activity.FindAllActivitiesByTreatmentNumber", 
+            query="SELECT NEW ch.bfh.mle.backend.service.dto.ActivityDto(a.id, a.number, s.employeeID, a.tarmedActivity.id, t.treatmentNumber) FROM TreatmentCase AS t JOIN t.activities AS a JOIN a.supplier AS s WHERE t.treatmentNumber = :treatmentNumber" ),
+    @NamedQuery(
+            name="Activity.FindActivitiyById", 
+            query="SELECT a FROM Activity AS a WHERE a.id = :id" )
 })
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Activity implements Serializable{
