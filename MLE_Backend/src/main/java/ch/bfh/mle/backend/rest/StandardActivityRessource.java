@@ -76,5 +76,21 @@ public class StandardActivityRessource {
         GenericEntity entity = new GenericEntity<List<StandardActivitiyListItemDto>>(dtos) {};
         return Response.ok(entity).build();
     }
-    
+
+    /**
+     * Gibt den Standardkatalog fur den Leistungserbringer mit der 
+     * Mitarbeiternummer employeeId zurueck.
+     * @param employeeId Mitarbeiternummer - darf nicht null sein.
+     * @return List<StandardActivity>
+     */
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/supplier/{employeeId}/{treatmentNumber}")
+    public Response getByEmployeeAndTreatment(@PathParam("employeeId") @NotNull Long employeeId, @PathParam("treatmentNumber")@NotNull Long treatmentNumber) {
+        List<StandardActivitiyListItemDto> dtos;
+        dtos = srv.readByEmployeeAndTreatment(employeeId, treatmentNumber);
+        GenericEntity entity = new GenericEntity<List<StandardActivitiyListItemDto>>(dtos) {};
+        return Response.ok(entity).build();
+    }
+
 }

@@ -28,6 +28,7 @@ C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\m
 C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\mle\backend\model\Activity.java
 C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\mle\backend\service\StandardActivityService.java
 C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\mle\backend\model\StandardActivity.java
+C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\mle\backend\service\dto\ActivityCountDto.java
 C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\mle\backend\service\dto\PatientWithTreatementCaseDto.java
 C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\mle\backend\service\ActivityService.java
 C:\Development\Thesis\BackendBusinessServices\MLE_Backend\src\main\java\ch\bfh\mle\backend\service\IService.java

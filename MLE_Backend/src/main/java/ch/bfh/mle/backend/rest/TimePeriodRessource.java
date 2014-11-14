@@ -69,5 +69,19 @@ public class TimePeriodRessource {
     public TimePeriod get(@PathParam("id") @NotNull Long id) {
         TimePeriod timePeriod = srv.read(id);
         return timePeriod;
+    }  
+    
+    /**
+     * Gibt eine Liste erfasster Zeitraeume fuer einen Behandlungsfall zurueck.
+     * @param treatmentNumber - darf nicht null sein
+     * @return List<TimePeriodDto>
+     */
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/treatment/{treatmentNumber}")
+    public List<TimePeriodDto> getByTreatmentNumber(@PathParam("treatmentNumber") @NotNull Long treatmentNumber) {
+        List<TimePeriodDto> timePeriods = srv.readByTreatmentNumber(treatmentNumber);
+        return timePeriods;
     }    
+    
 }

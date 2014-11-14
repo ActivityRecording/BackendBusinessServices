@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlTransient;
@@ -19,6 +21,11 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Access(AccessType.FIELD)
+@NamedQueries({
+    @NamedQuery(
+            name="Activity.ActivitiesWithCountForTratmendCaseAndEmployee", 
+            query="SELECT NEW ch.bfh.mle.backend.service.dto.ActivityCountDto(m.id, SUM(a.number)) FROM TreatmentCase as t JOIN t.activities AS a JOIN a.tarmedActivity as m JOIN a.supplier as s WHERE t.treatmentNumber = :treatmentNumber AND s.employeeID = :employeeId GROUP BY m.id")
+})
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Activity implements Serializable{
     

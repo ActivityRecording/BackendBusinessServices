@@ -30,8 +30,9 @@ public class StandardActivitiyListItemDto {
      * @param requiresTime
      * @param notSelectable
      * @param noPeriodAllocation 
+     * @param capturedCount 
      */
-    public StandardActivitiyListItemDto(Long standardActivityId, String description, Integer category, Integer sortKey, String tarmedId, Integer duration, Integer groupId, Integer cardinality, Boolean requiresTime, Boolean notSelectable, Boolean noPeriodAllocation) {
+    public StandardActivitiyListItemDto(Long standardActivityId, String description, Integer category, Integer sortKey, String tarmedId, Integer duration, Integer groupId, Integer cardinality, Boolean requiresTime, Boolean notSelectable, Boolean noPeriodAllocation, Long capturedCount) {
         this.standardActivityId = standardActivityId;
         this.description = description;
         this.category = category;
@@ -43,6 +44,7 @@ public class StandardActivitiyListItemDto {
         this.requiresTime = requiresTime;
         this.notSelectable = notSelectable;
         this.noPeriodAllocation = noPeriodAllocation;
+        this.capturedCount = capturedCount;
     }
 
     /**
@@ -98,6 +100,11 @@ public class StandardActivitiyListItemDto {
     private Boolean notSelectable;
     
     /**
+     * Anzahl bereits erfasster Leistungen
+     */
+    private Long capturedCount;
+    
+    /**
      * Gibt an, ob die Leistung mit den Zeitperioden verrechnet wird.
      */
     private Boolean noPeriodAllocation;
@@ -145,6 +152,13 @@ public class StandardActivitiyListItemDto {
     public Boolean getNoPeriodAllocation() {
         return noPeriodAllocation;
     }
+
+    public Long getCapturedCount() {
+        return capturedCount;
+    }
     
+    public void setCapturedCount(Long capturedCount){
+        this.capturedCount = capturedCount;
+    }
     
 }

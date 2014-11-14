@@ -12,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -26,6 +28,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
  */
 @Entity
 @Access(AccessType.FIELD)
+@NamedQueries({
+    @NamedQuery(
+            name="TimePeriod.FindByTreatmentNumber", 
+            query="SELECT NEW ch.bfh.mle.backend.service.dto.TimePeriodDto(p.id, p.type, p.startTime, p.endTime, t.treatmentNumber, s.employeeID) FROM TreatmentCase as t JOIN t.timePeriods as p JOIN p.supplier as s WHERE t.treatmentNumber = :treatmentNumber ORDER BY p.startTime")
+})
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TimePeriod implements Serializable {
     

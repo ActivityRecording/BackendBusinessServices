@@ -5,8 +5,9 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
 /**
- *
- * @author Stefan
+ * Das ActivityContainerDto dient der Uebergabe von Erbrachten Leistungen
+ * fuer die Speicherung auf der Datenbank. 
+ * @author Stefan Walle
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ActivityContainerDto {
