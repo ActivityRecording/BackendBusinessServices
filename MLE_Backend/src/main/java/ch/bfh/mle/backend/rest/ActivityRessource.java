@@ -3,7 +3,6 @@ package ch.bfh.mle.backend.rest;
 import ch.bfh.mle.backend.model.Activity;
 import ch.bfh.mle.backend.service.ActivityService;
 import ch.bfh.mle.backend.service.dto.ActivityContainerDto;
-import ch.bfh.mle.backend.service.dto.ActivityDto;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -40,22 +39,9 @@ public class ActivityRessource {
     
     /**
      * Speichert eine Liste von Leistungen in der Datenbank.
-     * @param List<ActivityDto> - darf nicht null sein
-     */
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void create(@NotNull List<ActivityDto> dtos) {
-        for (ActivityDto dto : dtos){
-            srv.create(dto);
-        }
-    }
-
-    /**
-     * Speichert eine Liste von Leistungen in der Datenbank.
      * @param ActivityContainerDto - darf nicht null sein
      */
     @POST
-    @Path("/container")
     @Consumes(MediaType.APPLICATION_JSON)
     public void create(@NotNull ActivityContainerDto dto) {
             srv.create(dto);
