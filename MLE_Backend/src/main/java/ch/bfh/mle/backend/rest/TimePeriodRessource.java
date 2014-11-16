@@ -42,6 +42,7 @@ public class TimePeriodRessource {
      * @param TimePeriodDto - darf nicht null sein
      */
     @POST
+    @Path("/treatment/")
     @Consumes(MediaType.APPLICATION_JSON)
     public void create(@NotNull TimePeriodDto dto) {
         srv.create(dto);
