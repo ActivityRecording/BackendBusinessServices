@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -71,6 +72,16 @@ public class TimePeriodRessource {
         TimePeriod timePeriod = srv.read(id);
         return timePeriod;
     }  
+    /**
+     * Löscht einen TimeDuration-Eintrag in der Datenbank anhand technischen ID
+     */
+    @DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/treatment/{id}")
+    public void deleteTimeDurationByID(@PathParam("id") @NotNull Long id) {
+        srv.deleteTimeDurationByID(id);
+    }
+    
     
     /**
      * Gibt eine Liste erfasster Zeitraeume fuer einen Behandlungsfall zurueck.
@@ -83,6 +94,5 @@ public class TimePeriodRessource {
     public List<TimePeriodDto> getByTreatmentNumber(@PathParam("treatmentNumber") @NotNull Long treatmentNumber) {
         List<TimePeriodDto> timePeriods = srv.readByTreatmentNumber(treatmentNumber);
         return timePeriods;
-    }    
-    
+    }
 }
