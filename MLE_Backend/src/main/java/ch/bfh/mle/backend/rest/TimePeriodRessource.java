@@ -78,8 +78,8 @@ public class TimePeriodRessource {
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/treatment/{id}")
-    public void deleteTimeDurationByID(@PathParam("id") @NotNull Long id) {
-        srv.deleteTimeDurationByID(id);
+    public void deleteTimePeriodeByID(@PathParam("id") @NotNull Long id) {
+        srv.deleteTimePeriodeByID(id);
     }
     
     

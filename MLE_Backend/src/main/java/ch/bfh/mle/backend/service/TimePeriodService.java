@@ -88,4 +88,17 @@ public class TimePeriodService extends GenericService<TimePeriod>{
         query.setParameter("treatmentNumber", treatmentNumber);
 	return query.getResultList();
     }
+    
+       /**
+    * Findet eine TimePeriod Entity anhand der ID und löscht diese anschliessend
+    */
+     public void deleteTimePeriodeByID(@NotNull Long id){
+         TypedQuery<TimePeriod> query = entityManager.createNamedQuery("TimePeriod.FindTimePeriodById", TimePeriod.class);
+         query.setParameter("id", id);
+         TimePeriod result;
+         result = query.getSingleResult();
+         if(result != null){
+             entityManager.remove(result);
+         }
+     }
 }
