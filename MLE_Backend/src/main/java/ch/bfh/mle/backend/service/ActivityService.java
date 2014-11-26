@@ -53,8 +53,9 @@ public class ActivityService extends GenericService{
      * - Die Tarmedleistung mit der ID tarmedId muss auf der Datenbank
      *   vorhanden sein. <br>
      * - Der Behandlungsfall darf nicht freigegeben sein <br>
-     * - Die Anzahl der Leistungen darf nicht kleiner als 1 sein.
-     * 
+     * - Die Anzahl der Leistungen darf nicht 0 sein 
+     *   und die negativen Leistungen nicht grösser als die Summe der Leistung.
+     *   Dies wir aber bereits im UI abgefangen.   
      * @param ActivityContainerDto 
      */
     public void create(@NotNull ActivityContainerDto dto){
@@ -91,8 +92,8 @@ public class ActivityService extends GenericService{
             // Schlüssel die Tarmedleistung ist null
                 throw new IllegalArgumentException("Tarmedid must not be null");
             }
-            if (activityDto.getNumber() == null || activityDto.getNumber() < 1){
-                // Die Anzahl Leistungen muss > 0 sein.
+            if (activityDto.getNumber() == null || activityDto.getNumber() == 0){
+                // Die Anzahl Leistungen muss <> 0 sein.
                 throw new IllegalArgumentException("Number of activities must be greater than 0");
             }
             TarmedActivity tarmedActivity;
@@ -105,7 +106,6 @@ public class ActivityService extends GenericService{
             Activity activity = new Activity(tarmedActivity, supplier, treatment);
             activity.setNumber(activityDto.getNumber());
             this.create(activity);
-
         }
     }
     

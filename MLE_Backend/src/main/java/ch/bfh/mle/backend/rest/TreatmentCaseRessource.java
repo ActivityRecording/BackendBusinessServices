@@ -21,7 +21,7 @@ import javax.ws.rs.core.UriInfo;
 /**
  * REST Web Service fuer die Ressource Behandlungsfall
  * 
- * @author Stefan Walle
+ * @author Stefan Walle & Boris Haueter
  */
 @Stateless
 @Path("treatmentCases")
@@ -50,6 +50,7 @@ public class TreatmentCaseRessource {
 
     /**
      * Mutiert einen Behandlungsfall auf der Datenbank.
+     * Wird für die Freigabe der Leistungen verwendet
      * @param TreatmentCase
      * @return TreatmentCase - Mutierter Behandlungsfall
      */
@@ -91,4 +92,5 @@ public class TreatmentCaseRessource {
     public void delete(@PathParam("id") @NotNull Long id) {
         srv.delete(id);
     }
+   
 }
