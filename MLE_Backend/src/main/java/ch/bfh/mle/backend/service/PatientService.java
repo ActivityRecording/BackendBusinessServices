@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Named;
+import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 import javax.validation.constraints.NotNull;
 
@@ -88,24 +89,24 @@ public class PatientService extends GenericService<Patient> {
             // Es werden jeweil 2 einzelne Queries ausgefuhrt um die Erfassungsstatus "neu" und "mit Leistungen" zu ermitteln, da Union nicht funktioniert
             query = entityManager.createNamedQuery("Patient.FindByEmployeeWithOpenTreatmentWithoutActivitiesToday", PatientListItemDto.class);
             query.setParameter("employeeId", employeeId);
-            query.setParameter("today", getToday());
+            query.setParameter("today", getToday(), TemporalType.TIMESTAMP);
             result = query.getResultList();
             List<PatientListItemDto> result2;
             query = entityManager.createNamedQuery("Patient.FindByEmployeeWithOpenTreatmentAndActivitiesToday", PatientListItemDto.class);
             query.setParameter("employeeId", employeeId);
-            query.setParameter("today", getToday());
+            query.setParameter("today", getToday(),TemporalType.TIMESTAMP);
             result2 = query.getResultList();
             result.addAll(result2);
         } else if (state.equals(1)){
             // Status 1 Es werden nur Behandlungsfaelle beruecksichtigt, die seit Anfang der laufenden Woche gestartet wurden
             query = entityManager.createNamedQuery("Patient.FindByEmployeeWithOpenTreatmentWithoutActivitiesCurrentWeek", PatientListItemDto.class);
             query.setParameter("employeeId", employeeId);
-            query.setParameter("weekbeginning", getFirstDayOfCurrentWeek());
+            query.setParameter("weekbeginning", getFirstDayOfCurrentWeek(),TemporalType.TIMESTAMP);
             result = query.getResultList();
             List<PatientListItemDto> result2;
             query = entityManager.createNamedQuery("Patient.FindByEmployeeWithOpenTreatmentAndActivitiesCurrentWeek", PatientListItemDto.class);
             query.setParameter("employeeId", employeeId);
-            query.setParameter("weekbeginning", getFirstDayOfCurrentWeek());
+            query.setParameter("weekbeginning", getFirstDayOfCurrentWeek(), TemporalType.TIMESTAMP);
             result2 = query.getResultList();
             result.addAll(result2);
         } else if (state.equals(2)){
@@ -184,7 +185,7 @@ public class PatientService extends GenericService<Patient> {
     private static Date getFirstDayOfCurrentWeek(){
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
-        cal.set(Calendar.DAY_OF_WEEK, 1);
+        cal.set(Calendar.DAY_OF_WEEK,  Calendar.MONDAY);
         cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.MINUTE, 0);
         return cal.getTime();
