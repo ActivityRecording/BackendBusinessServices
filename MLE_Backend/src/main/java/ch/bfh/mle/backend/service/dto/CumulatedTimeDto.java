@@ -14,10 +14,10 @@ public class CumulatedTimeDto {
     public CumulatedTimeDto() {
     }
 
-    public CumulatedTimeDto(Long measuredHours, Long mesuredMinutes, Long mesuredSeconds, Long allocatedHours, Long allocatedMinutes, Long allocatedSeconds) {
+    public CumulatedTimeDto(Long measuredHours, Long measuredMinutes, Long measuredSeconds, Long allocatedHours, Long allocatedMinutes, Long allocatedSeconds) {
         this.measuredHours = measuredHours;
-        this.mesuredMinutes = mesuredMinutes;
-        this.mesuredSeconds = mesuredSeconds;
+        this.measuredMinutes = measuredMinutes;
+        this.measuredSeconds = measuredSeconds;
         this.allocatedHours = allocatedHours;
         this.allocatedMinutes = allocatedMinutes;
         this.allocatedSeconds = allocatedSeconds;
@@ -27,8 +27,8 @@ public class CumulatedTimeDto {
      * Total gemessene Zeit eines Leistungserbringers fuer einen Behandlungsfall
      */
     private Long measuredHours;
-    private Long mesuredMinutes;
-    private Long mesuredSeconds;
+    private Long measuredMinutes;
+    private Long measuredSeconds;
     /**
      * Total verbuchte Zeit (Tarmed-Leistungen) eines Leistungserbringers 
      * fuer einen Behandlungsfall
@@ -42,11 +42,11 @@ public class CumulatedTimeDto {
     }
 
     public Long getMesuredMinutes() {
-        return mesuredMinutes;
+        return measuredMinutes;
     }
 
     public Long getMesuredSeconds() {
-        return mesuredSeconds;
+        return measuredSeconds;
     }
 
     public Long getAllocatedHours() {

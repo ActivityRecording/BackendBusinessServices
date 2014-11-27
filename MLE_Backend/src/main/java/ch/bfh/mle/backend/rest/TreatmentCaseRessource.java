@@ -95,7 +95,7 @@ public class TreatmentCaseRessource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/times/{treatmentNr}/{employeeId}")
-    public CumulatedTimeDto getTimes(@PathParam("treatmentNr") @NotNull Long treatementNr, @PathParam("employeeId") @NotNull Long employeeId) {
+    public CumulatedTimeDto getTime(@PathParam("treatmentNr") @NotNull Long treatementNr, @PathParam("employeeId") @NotNull Long employeeId) {
         Long measuredTime;
         Long allocatedTime;
         measuredTime = timePeriodSrv.getCumulatedTime(treatementNr, employeeId);

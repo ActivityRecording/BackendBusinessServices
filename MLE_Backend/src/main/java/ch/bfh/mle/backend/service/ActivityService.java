@@ -7,7 +7,6 @@ import ch.bfh.mle.backend.model.TreatmentCase;
 import ch.bfh.mle.backend.service.dto.ActivityContainerDto;
 import ch.bfh.mle.backend.service.dto.ActivityDto;
 import ch.bfh.mle.backend.service.dto.SimpleActivityDto;
-import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;

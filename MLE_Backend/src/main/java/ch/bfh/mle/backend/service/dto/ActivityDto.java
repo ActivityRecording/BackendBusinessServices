@@ -57,7 +57,7 @@ public class ActivityDto {
     /**
      * Dauer der Tarmedleistungseinheit
      */
-    private int duration;
+    private Integer duration;
     
     /**
      * Fachliche Behandlungsfallnummer zu dem die Leistung erbracht wurde
@@ -88,7 +88,7 @@ public class ActivityDto {
         return description;
     }
     
-    public int getDuration(){
+    public Integer getDuration(){
         return duration;
     }
     
