@@ -12,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
@@ -35,6 +37,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
     @NamedQuery(
             name="TimePeriod.FindTimePeriodById", 
             query="SELECT t FROM TimePeriod as t  WHERE t.id = :id")
+})
+@NamedNativeQueries({
+    @NamedNativeQuery(
+            name="TimePeriod.CumulatedTimesByEmployeeAndTreatmentCase", 
+            query="SELECT SUM(TIMESTAMPDIFF(SECOND, tp.starttime, tp.endtime)) as time FROM treatmentcase as tc JOIN timeperiod as tp ON tp.TREATMENTCASE_ID = tc.ID JOIN supplier as s ON tp.SUPPLIER_ID = s.ID WHERE tc.treatmentNumber = ? and s.employeeID = ?")
 })
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TimePeriod implements Serializable {

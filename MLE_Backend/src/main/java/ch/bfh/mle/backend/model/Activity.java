@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -30,7 +32,10 @@ import javax.xml.bind.annotation.XmlTransient;
             query="SELECT NEW ch.bfh.mle.backend.service.dto.ActivityDto(a.id, a.number, s.employeeID, a.tarmedActivity.id, t.treatmentNumber, ta.description, ta.duration) FROM TreatmentCase AS t JOIN t.activities AS a JOIN a.tarmedActivity AS ta JOIN a.supplier AS s WHERE t.treatmentNumber = :treatmentNumber" ),
     @NamedQuery(
             name="Activity.FindActivitiyById", 
-            query="SELECT a FROM Activity AS a WHERE a.id = :id" )
+            query="SELECT a FROM Activity AS a WHERE a.id = :id" ),
+    @NamedQuery(
+            name="Activity.CumulatedTimesByEmployeeAndTreatmentCase", 
+            query="SELECT SUM(m.duration) FROM TreatmentCase as t JOIN t.activities AS a JOIN a.supplier AS s JOIN a.tarmedActivity AS m WHERE t.treatmentNumber = :treatmentNumber AND s.employeeID = :employeeId")
 })
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Activity implements Serializable{

@@ -3,8 +3,10 @@ package ch.bfh.mle.backend.service;
 import ch.bfh.mle.backend.model.Supplier;
 import ch.bfh.mle.backend.model.TimePeriod;
 import ch.bfh.mle.backend.model.TreatmentCase;
+import ch.bfh.mle.backend.service.dto.CumulatedTimeDto;
 import ch.bfh.mle.backend.service.dto.StandardActivitiyListItemDto;
 import ch.bfh.mle.backend.service.dto.TimePeriodDto;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -100,5 +102,19 @@ public class TimePeriodService extends GenericService<TimePeriod>{
          if(result != null){
              entityManager.remove(result);
          }
+     }
+     
+     public Long getCumulatedTime(@NotNull Long treatmentNumber, @NotNull Long employeeId){
+         TypedQuery<BigDecimal> query = entityManager.createNamedQuery("TimePeriod.CumulatedTimesByEmployeeAndTreatmentCase", BigDecimal.class);
+         query.setParameter(1, treatmentNumber);
+         query.setParameter(2, employeeId);
+         Long measuredTime;
+         BigDecimal result;
+         result = query.getSingleResult();
+         if (result == null){
+             result = BigDecimal.ZERO;
+         }
+         measuredTime = result.longValue();
+         return measuredTime;
      }
 }

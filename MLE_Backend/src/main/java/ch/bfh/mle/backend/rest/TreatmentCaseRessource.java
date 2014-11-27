@@ -1,7 +1,10 @@
 package ch.bfh.mle.backend.rest;
 
 import ch.bfh.mle.backend.model.TreatmentCase;
+import ch.bfh.mle.backend.service.ActivityService;
+import ch.bfh.mle.backend.service.TimePeriodService;
 import ch.bfh.mle.backend.service.TreatmentCaseService;
+import ch.bfh.mle.backend.service.dto.CumulatedTimeDto;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -36,7 +39,13 @@ public class TreatmentCaseRessource {
     private UriInfo context;
 
     @Inject
-    private TreatmentCaseService srv;
+    private TreatmentCaseService treatmentSrv;
+    
+    @Inject
+    private TimePeriodService timePeriodSrv;
+    
+    @Inject
+    private ActivityService activitySrv;
 
     /**
      * Speichert einen Behandlungsfall in der Datenbank.
@@ -45,7 +54,7 @@ public class TreatmentCaseRessource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public void create(@NotNull TreatmentCase entity) {
-        srv.create(entity);
+        treatmentSrv.create(entity);
     }
 
     /**
@@ -58,7 +67,7 @@ public class TreatmentCaseRessource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public TreatmentCase update(@NotNull TreatmentCase entity) {
-        return srv.update(entity);
+        return treatmentSrv.update(entity);
     }
 
     /**
@@ -70,7 +79,7 @@ public class TreatmentCaseRessource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
     public TreatmentCase get(@PathParam("id") @NotNull Long id) {
-        return srv.read(id);
+        return treatmentSrv.read(id);
     }
 
     /**
@@ -80,7 +89,36 @@ public class TreatmentCaseRessource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<TreatmentCase> getAll() {
-        return srv.read();
+        return treatmentSrv.read();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/times/{treatmentNr}/{employeeId}")
+    public CumulatedTimeDto getTimes(@PathParam("treatmentNr") @NotNull Long treatementNr, @PathParam("employeeId") @NotNull Long employeeId) {
+        Long measuredTime;
+        Long allocatedTime;
+        measuredTime = timePeriodSrv.getCumulatedTime(treatementNr, employeeId);
+        allocatedTime = activitySrv.getCumulatedTime(treatementNr, employeeId);
+        
+        Long measuredHours;
+        Long measuredMinutes;
+        Long measuredSeconds;
+        Long allocatedHours;
+        Long allocatedMinutes;
+        Long allocatedSeconds;
+        Long rest;
+        
+        measuredHours = measuredTime / 3600;
+        rest = measuredTime % 3600;
+        measuredMinutes = rest / 60;
+        measuredSeconds = rest % 60;
+        
+        allocatedHours = allocatedTime / 60;
+        allocatedMinutes = allocatedTime % 60;
+        allocatedSeconds = 0L;
+
+        return new CumulatedTimeDto(measuredHours, measuredMinutes, measuredSeconds, allocatedHours, allocatedMinutes, allocatedSeconds); 
     }
 
     /**
@@ -90,7 +128,7 @@ public class TreatmentCaseRessource {
     @DELETE
     @Path("{id}")
     public void delete(@PathParam("id") @NotNull Long id) {
-        srv.delete(id);
+        treatmentSrv.delete(id);
     }
    
 }

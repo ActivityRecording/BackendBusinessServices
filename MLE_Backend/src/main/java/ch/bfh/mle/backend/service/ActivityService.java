@@ -7,6 +7,7 @@ import ch.bfh.mle.backend.model.TreatmentCase;
 import ch.bfh.mle.backend.service.dto.ActivityContainerDto;
 import ch.bfh.mle.backend.service.dto.ActivityDto;
 import ch.bfh.mle.backend.service.dto.SimpleActivityDto;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -133,4 +134,17 @@ public class ActivityService extends GenericService{
              entityManager.remove(result);
          }
      }
+    
+     public Long getCumulatedTime(@NotNull Long treatmentNumber, @NotNull Long employeeId){
+         TypedQuery<Long> query = entityManager.createNamedQuery("Activity.CumulatedTimesByEmployeeAndTreatmentCase", Long.class);
+         query.setParameter("treatmentNumber", treatmentNumber);
+         query.setParameter("employeeId", employeeId);
+         Long measuredTime;
+         measuredTime = query.getSingleResult();
+         if (measuredTime == null){
+             measuredTime = 0L;
+         }
+         return measuredTime;
+     }
+     
 }
