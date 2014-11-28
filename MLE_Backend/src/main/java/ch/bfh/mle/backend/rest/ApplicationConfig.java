@@ -30,6 +30,7 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(ch.bfh.mle.backend.rest.ActivityRessource.class);
+        resources.add(ch.bfh.mle.backend.rest.ApprovalRessource.class);
         resources.add(ch.bfh.mle.backend.rest.PatientResource.class);
         resources.add(ch.bfh.mle.backend.rest.StandardActivityRessource.class);
         resources.add(ch.bfh.mle.backend.rest.TimePeriodRessource.class);

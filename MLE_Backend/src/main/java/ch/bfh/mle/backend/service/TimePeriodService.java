@@ -3,8 +3,6 @@ package ch.bfh.mle.backend.service;
 import ch.bfh.mle.backend.model.Supplier;
 import ch.bfh.mle.backend.model.TimePeriod;
 import ch.bfh.mle.backend.model.TreatmentCase;
-import ch.bfh.mle.backend.service.dto.CumulatedTimeDto;
-import ch.bfh.mle.backend.service.dto.StandardActivitiyListItemDto;
 import ch.bfh.mle.backend.service.dto.TimePeriodDto;
 import java.math.BigDecimal;
 import java.util.List;
@@ -44,7 +42,7 @@ public class TimePeriodService extends GenericService<TimePeriod>{
      * - Der Behandlungsfall mit der Behandlungsfallnummer treatmentNumber muss auf
      *   der Datenbank vorhanden sein.
      *
-     * @param TimePeriodDto 
+     * @param dto TimePeriodDto
      */
     public void create(TimePeriodDto dto){
         
@@ -91,9 +89,10 @@ public class TimePeriodService extends GenericService<TimePeriod>{
 	return query.getResultList();
     }
     
-       /**
-    * Findet eine TimePeriod Entity anhand der ID und löscht diese anschliessend
-    */
+    /**
+     * Findet eine TimePeriod Entity anhand der ID und löscht diese anschliessend
+     * @param id
+     */
      public void deleteTimePeriodeByID(@NotNull Long id){
          TypedQuery<TimePeriod> query = entityManager.createNamedQuery("TimePeriod.FindTimePeriodById", TimePeriod.class);
          query.setParameter("id", id);

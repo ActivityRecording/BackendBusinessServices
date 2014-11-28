@@ -24,10 +24,22 @@ import javax.xml.bind.annotation.XmlAccessorType;
 @Access(AccessType.FIELD)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Approval implements Serializable{
+    
     /**
      * Default-Konstruktor fuer JPA
      */
     protected Approval() {
+    }
+
+    /**
+     * Konstruktor fuer die Erstellung einer Freigabe durch den Leistungserbringer
+     * supplier zum Behandlungsfall treatmentCase.
+     * @param supplier
+     * @param treatmentCase 
+     */
+    public Approval(Supplier supplier, TreatmentCase treatmentCase) {
+        this.supplier = supplier;
+        this.treatmentCase = treatmentCase;
     }
     
     /**
