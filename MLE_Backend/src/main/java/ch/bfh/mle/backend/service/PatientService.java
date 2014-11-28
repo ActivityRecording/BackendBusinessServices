@@ -85,7 +85,7 @@ public class PatientService extends GenericService<Patient> {
         TypedQuery<PatientListItemDto> query;
         List<PatientListItemDto> result;
         if (state.equals(0)){
-            // Status 0 - Gib alle Behandlungsfaelle eines Leistungserbringers zurueck. 
+            // Status 0 - Gib alle Behandlungsfaelle eines Leistungserbringers der letzten 24 Stunden zurueck. 
             // Es werden jeweil 2 einzelne Queries ausgefuhrt um die Erfassungsstatus "neu" und "mit Leistungen" zu ermitteln, da Union nicht funktioniert
             query = entityManager.createNamedQuery("Patient.FindByEmployeeWithOpenTreatmentWithoutActivitiesToday", PatientListItemDto.class);
             query.setParameter("employeeId", employeeId);

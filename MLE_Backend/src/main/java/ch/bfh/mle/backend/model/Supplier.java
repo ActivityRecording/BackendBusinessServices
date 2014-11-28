@@ -44,6 +44,7 @@ public class Supplier implements Serializable{
      */
     public Supplier() {
         this.favorites = new ArrayList<>();
+        this.approvals = new ArrayList<>();
     }
 
     /**
@@ -87,6 +88,13 @@ public class Supplier implements Serializable{
     @XmlTransient
     @OneToMany(mappedBy = "supplier", fetch=FetchType.LAZY, cascade = CascadeType.ALL )
     private List<Favorite> favorites;
+    
+    /**
+     * Liste der Freigaben durch den Leistungserbringer
+     */
+    @XmlTransient
+    @OneToMany(mappedBy = "supplier", fetch=FetchType.LAZY, cascade = CascadeType.ALL )
+    private List<Approval> approvals;
     
     /**
      * Gibt die technische Datenbank-ID zurueck.
@@ -182,6 +190,22 @@ public class Supplier implements Serializable{
      */
     public void addFavorit(Favorite favorit) {
         this.favorites.add(favorit);
+    }
+
+    /**
+     * Gibt die Freigaben eines Leistungserbringers zurueck
+     * @return approvals
+     */
+    public List<Approval> getApprovals() {
+        return approvals;
+    }
+
+    /**
+     * Setzt die Freigaben eines Leistungserbringers.
+     * @param approvals 
+     */
+    public void setApprovals(List<Approval> approvals) {
+        this.approvals = approvals;
     }
     
     /**

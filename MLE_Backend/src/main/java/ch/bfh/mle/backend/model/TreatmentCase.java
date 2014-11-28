@@ -113,9 +113,16 @@ public class TreatmentCase implements Serializable {
     @XmlTransient
     @OneToMany(mappedBy = "treatmentCase", fetch=FetchType.LAZY, cascade = CascadeType.ALL )
     private List<Activity> activities;
-    
+
     /**
-     * Status Freigegeben
+     * Freigaben durch die Leistungserbringer
+     */
+    @XmlTransient
+    @OneToMany(mappedBy = "treatmentCase", fetch=FetchType.LAZY, cascade = CascadeType.ALL )
+    private List<Approval> approvals;
+
+    /**
+     * Status Freigegeben durch das Sekretariat
      */
     private Boolean released;
     
@@ -216,6 +223,23 @@ public class TreatmentCase implements Serializable {
         this.activities.add(leistung);
     }
 
+    /**
+     * Gibt die Freigaben durch die Leistungserbringer zurueck
+     * @return approvals
+     */
+    public List<Approval> getApprovals() {
+        return approvals;
+    }
+
+    /**
+     * Setzt die Freigaben durch die Leistungserbringer
+     * @param approvals 
+     */
+    public void setApprovals(List<Approval> approvals) {
+        this.approvals = approvals;
+    }
+
+    
     /**
      * Gibt den Freigabestatus des Behandlungsfalls zurueck
      * @return released
