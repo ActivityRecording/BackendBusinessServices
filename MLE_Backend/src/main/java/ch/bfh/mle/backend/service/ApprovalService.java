@@ -4,9 +4,11 @@ import ch.bfh.mle.backend.model.Approval;
 import ch.bfh.mle.backend.model.Supplier;
 import ch.bfh.mle.backend.model.TreatmentCase;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.TypedQuery;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -60,6 +62,16 @@ public class ApprovalService extends GenericService{
             throw new IllegalArgumentException("Treatmentcase must not be released");
         }
         
+        TypedQuery<Approval> query = entityManager.createNamedQuery("Approval.SelectByTreatmentIdAndEmployeeId", Approval.class);
+        query.setParameter("supplierId", supplier.getId());
+        query.setParameter("treatmentId", treatment.getId());
+        List<Approval> result;
+        result = query.getResultList();
+        if (result.size() > 0){
+            // Es ist bereits eine Freigabe für den Leistungserbringer und den Fall vorhanden
+            throw new IllegalStateException("Approval already exists");
+        }
+
         Approval approval = new Approval(supplier, treatment);
         Date actualDate = new Date();
         approval.setApprovedAt(actualDate);

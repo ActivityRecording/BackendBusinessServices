@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -22,6 +24,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
  */
 @Entity
 @Access(AccessType.FIELD)
+@NamedQueries({
+    @NamedQuery(
+            name="Approval.SelectByTreatmentIdAndEmployeeId", 
+            query="SELECT a from Approval AS a WHERE a.treatmentCase.id = :treatmentId AND a.supplier.id = :supplierId")
+})
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Approval implements Serializable{
     

@@ -11,7 +11,9 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 
 /**
- * REST Web Service fuer die Ressource Freigabe durch den Leistungserbringer
+ * REST Web Service fuer die Ressource Freigabe durch den Leistungserbringer.
+ * Mit diesem Service kann ein Leistungserbringer einen Behandlungsfall freigeben.
+ * Durch die Freigabe erscheint der Fall nicht mehr in der Liste seiner aktuellen Faelle.
  * 
  * @author Stefan Walle
  */
