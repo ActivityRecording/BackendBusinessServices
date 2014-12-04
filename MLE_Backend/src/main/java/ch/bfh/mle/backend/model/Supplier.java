@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
             query="SELECT s FROM Supplier AS s WHERE s.employeeID = :employeeId"),
 })
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Supplier implements Serializable{
+public class Supplier implements Serializable, Comparable<Supplier>{
 
     /**
      * Default Konstruktor fuer JPA
@@ -250,6 +250,14 @@ public class Supplier implements Serializable{
     @Override
     public String toString() {
         return "Supplier{" + "employeeID=" + employeeID + ", lastname=" + lastname + ", firstname=" + firstname + '}';
+    }
+
+    @Override
+    public int compareTo(Supplier s) {
+        int result;
+        result = lastname.toUpperCase().compareTo(s.lastname.toUpperCase());
+        result = (result != 0 ? result : firstname.toUpperCase().compareTo(s.firstname.toUpperCase()));
+        return result;
     }
 
     

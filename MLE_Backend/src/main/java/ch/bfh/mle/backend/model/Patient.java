@@ -40,27 +40,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(
             name="Patient.FindByPatientNumber", 
             query="SELECT p FROM Patient AS p WHERE p.patientNumber = :patientNumber"),
-//    @NamedQuery(
-//            name="Patient.FindAllWithOpenTreatment", 
-//            query="SELECT NEW ch.bfh.mle.backend.service.dto.PatientListItemDto(p.id, p.patientNumber, p.lastName, p.firstName, p.dateOfBirth, t.id, t.treatmentNumber, 1) FROM Patient AS p JOIN p.treatmentCases AS t WHERE t.released = FALSE AND t.activities IS EMPTY "
-//                    + "UNION SELECT p.id, p.patientNumber, p.lastName, p.firstName, p.dateOfBirth, t.id, t.treatmentNumber, 2 FROM Patient AS p JOIN p.treatmentCases AS t WHERE t.released = FALSE AND t.activities IS NOT EMPTY"),
- //    @NamedQuery(
-//            name="Patient.FindByEmployeeWithOpenTreatment", 
-//            query="SELECT NEW ch.bfh.mle.backend.service.dto.PatientListItemDto(p.id, p.patientNumber, p.lastName, p.firstName, p.dateOfBirth, t.id, t.treatmentNumber, 0) FROM Patient AS p JOIN p.treatmentCases AS t WHERE t.released = FALSE AND EXISTS (SELECT z.id FROM TimePeriod AS z WHERE z.treatmentCase.id = t.id and z.supplier.employeeID = :employeeId)"),
-//    @NamedQuery(
-//            name="Patient.FindByEmployeeWithOpenTreatmentWithoutActivities", 
-//            query="SELECT NEW ch.bfh.mle.backend.service.dto.PatientListItemDto(p.id, p.patientNumber, p.lastName, p.firstName, p.dateOfBirth, t.id, t.treatmentNumber, 1) FROM Patient AS p JOIN p.treatmentCases AS t WHERE t.released = FALSE AND t.activities IS EMPTY AND EXISTS (SELECT z.id FROM TimePeriod AS z WHERE z.treatmentCase.id = t.id and z.supplier.employeeID = :employeeId)"),
-//    @NamedQuery(
-//            name="Patient.FindByEmployeeWithOpenTreatmentAndActivities", 
-//            query="SELECT NEW ch.bfh.mle.backend.service.dto.PatientListItemDto(p.id, p.patientNumber, p.lastName, p.firstName, p.dateOfBirth, t.id, t.treatmentNumber, 2) FROM Patient AS p JOIN p.treatmentCases AS t WHERE t.released = FALSE AND t.activities IS NOT EMPTY AND EXISTS (SELECT z.id FROM TimePeriod AS z WHERE z.treatmentCase.id = t.id and z.supplier.employeeID = :employeeId)"),
-
-//    @NamedQuery(
-//            name="Patient.FindByEmployeeWithOpenTreatmentWithoutActivitiesToday", 
-//            query="SELECT NEW ch.bfh.mle.backend.service.dto.PatientListItemDto(p.id, p.patientNumber, p.lastName, p.firstName, p.dateOfBirth, t.id, t.treatmentNumber, 1) FROM Patient AS p JOIN p.treatmentCases AS t WHERE t.released = FALSE AND t.activities IS EMPTY AND EXISTS (SELECT z.id FROM TimePeriod AS z WHERE z.treatmentCase.id = t.id and z.supplier.employeeID = :employeeId)"),
-//    @NamedQuery(
-//            name="Patient.FindByEmployeeWithOpenTreatmentAndActivitiesToday", 
-//            query="SELECT NEW ch.bfh.mle.backend.service.dto.PatientListItemDto(p.id, p.patientNumber, p.lastName, p.firstName, p.dateOfBirth, t.id, t.treatmentNumber, 2) FROM Patient AS p JOIN p.treatmentCases AS t WHERE t.released = FALSE AND t.activities IS NOT EMPTY AND EXISTS (SELECT z.id FROM TimePeriod AS z WHERE z.treatmentCase.id = t.id and z.supplier.employeeID = :employeeId)"),    
-//      
     @NamedQuery(
             name="Patient.FindAllWithOpenTreatmentWithoutActivitiesToday", 
             query="SELECT NEW ch.bfh.mle.backend.service.dto.PatientListItemDto(p.id, p.patientNumber, p.lastName, p.firstName, p.dateOfBirth, t.id, t.treatmentNumber, 1) FROM Patient AS p JOIN p.treatmentCases AS t WHERE t.released = FALSE AND t.activities IS EMPTY AND t.startTime >= :today"),
@@ -178,10 +157,6 @@ public class Patient implements Serializable {
         return id;
     }
     
-//    protected void setId(Long id){
-//        this.id = id;
-//    }
-
     /**
      * gibt den Vornamen zurueck.
      * @return firstName

@@ -2,6 +2,7 @@ package ch.bfh.mle.backend.rest;
 
 import ch.bfh.mle.backend.model.Supplier;
 import ch.bfh.mle.backend.service.SupplierService;
+import java.util.Collections;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -35,7 +36,9 @@ public class SupplierRessource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Supplier> getAll() {
-        return srv.read();
+        List<Supplier> result = srv.read();
+        Collections.sort(result);
+        return result;
     }
     
 }
