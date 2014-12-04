@@ -33,7 +33,10 @@ import javax.xml.bind.annotation.XmlTransient;
             query="SELECT a FROM Activity AS a WHERE a.id = :id" ),
     @NamedQuery(
             name="Activity.CumulatedTimesByEmployeeAndTreatmentCase", 
-            query="SELECT SUM(m.duration) FROM TreatmentCase as t JOIN t.activities AS a JOIN a.supplier AS s JOIN a.tarmedActivity AS m WHERE t.treatmentNumber = :treatmentNumber AND s.employeeID = :employeeId")
+            query="SELECT SUM(m.duration) FROM TreatmentCase as t JOIN t.activities AS a JOIN a.supplier AS s JOIN a.tarmedActivity AS m WHERE t.treatmentNumber = :treatmentNumber AND s.employeeID = :employeeId"),
+    @NamedQuery(
+            name="Activity.CumulatedTimesByTreatmentCase", 
+            query="SELECT SUM(m.duration) FROM TreatmentCase as t JOIN t.activities AS a JOIN a.tarmedActivity AS m WHERE t.treatmentNumber = :treatmentNumber")
 })
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Activity implements Serializable{

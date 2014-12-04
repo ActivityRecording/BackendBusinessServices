@@ -22,7 +22,7 @@ public class TreatmentCaseService extends GenericService<TreatmentCase>{
     public TreatmentCaseService(){
         super(TreatmentCase.class);
     }
-    
+
     /**
      * Gibt einen Behandlungsfall mit der Behandlungsfallnummer treatmentNumber zurueck.
      * Die Behandlungsfallnummer ist unique.
@@ -44,7 +44,4 @@ public class TreatmentCaseService extends GenericService<TreatmentCase>{
             return result.get(0);
         }
     }
-    
-    
-    
 }

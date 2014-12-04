@@ -92,6 +92,13 @@ public class TreatmentCaseRessource {
         return treatmentSrv.read();
     }
 
+    /**
+     * Gibt die kumulierten geleisteten und erfassten Zeiten fuer einen
+     * Leistungserbringer zu einem Behandlungsfall zurueck.
+     * @param treatementNr
+     * @param employeeId
+     * @return CumulatedTimeDto
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/times/{treatmentNr}/{employeeId}")

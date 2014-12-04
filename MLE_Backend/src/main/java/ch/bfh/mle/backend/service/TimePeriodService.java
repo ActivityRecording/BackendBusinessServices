@@ -103,6 +103,13 @@ public class TimePeriodService extends GenericService<TimePeriod>{
          }
      }
      
+     /**
+      * Gibt die geleistete Zeit eines Leistungeserbringers fuer einen Behandlungsfall
+      * in Sekunden zurueck
+      * @param treatmentNumber
+      * @param employeeId
+      * @return Long kumulierte Zeit in Sekunden
+      */
      public Long getCumulatedTime(@NotNull Long treatmentNumber, @NotNull Long employeeId){
          TypedQuery<BigDecimal> query = entityManager.createNamedQuery("TimePeriod.CumulatedTimesByEmployeeAndTreatmentCase", BigDecimal.class);
          query.setParameter(1, treatmentNumber);
@@ -116,4 +123,24 @@ public class TimePeriodService extends GenericService<TimePeriod>{
          measuredTime = result.longValue();
          return measuredTime;
      }
+     
+     /**
+      * Gibt die geleistete Zeit fuer einen Behandlungsfall
+      * in Sekunden zurueck
+      * @param treatmentNumber
+      * @return Long kumulierte Zeit in Sekunden
+      */
+     public Long getCumulatedTimeForTreatmentCase(@NotNull Long treatmentNumber){
+         TypedQuery<BigDecimal> query = entityManager.createNamedQuery("TimePeriod.CumulatedTimesByTreatmentCase", BigDecimal.class);
+         query.setParameter(1, treatmentNumber);
+         Long measuredTime;
+         BigDecimal result;
+         result = query.getSingleResult();
+         if (result == null){
+             result = BigDecimal.ZERO;
+         }
+         measuredTime = result.longValue();
+         return measuredTime;
+     }
+     
 }

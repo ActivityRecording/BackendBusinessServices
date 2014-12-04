@@ -65,13 +65,28 @@ public class ActivityRessource {
     /**
      * Gibt alle Leistungen per Behandlungsfall zurueck.
      * @param fid
-     * @return List<Activity>
+     * @return List<ActivityDto>
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{fid}")
     public Response get(@PathParam("fid") @NotNull Long fid) {
         List<ActivityDto> dtos = srv.readAllByTreatmentNumber(fid);
+        GenericEntity entity = new GenericEntity<List<ActivityDto>>(dtos) {};
+        return Response.ok(entity).build();
+    }
+
+    /**
+     * Gibt alle Leistungen inklusive der automatisch generierten fuer die
+     * Freigabe zurueck.
+     * @param fid
+     * @return List<ActivityDto>
+     */
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/approval/{fid}")
+    public Response getApprovalActivites(@PathParam("fid") @NotNull Long fid) {
+        List<ActivityDto> dtos = srv.getActivitiesForApproval(fid);
         GenericEntity entity = new GenericEntity<List<ActivityDto>>(dtos) {};
         return Response.ok(entity).build();
     }

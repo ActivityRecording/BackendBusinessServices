@@ -41,7 +41,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 @NamedNativeQueries({
     @NamedNativeQuery(
             name="TimePeriod.CumulatedTimesByEmployeeAndTreatmentCase", 
-            query="SELECT SUM(TIMESTAMPDIFF(SECOND, tp.starttime, tp.endtime)) as time FROM treatmentcase as tc JOIN timeperiod as tp ON tp.TREATMENTCASE_ID = tc.ID JOIN supplier as s ON tp.SUPPLIER_ID = s.ID WHERE tc.treatmentNumber = ? and s.employeeID = ?")
+            query="SELECT SUM(TIMESTAMPDIFF(SECOND, tp.starttime, tp.endtime)) as time FROM treatmentcase as tc JOIN timeperiod as tp ON tp.TREATMENTCASE_ID = tc.ID JOIN supplier as s ON tp.SUPPLIER_ID = s.ID WHERE tc.treatmentNumber = ? and s.employeeID = ?"),
+    @NamedNativeQuery(
+            name="TimePeriod.CumulatedTimesByTreatmentCase", 
+            query="SELECT SUM(TIMESTAMPDIFF(SECOND, tp.starttime, tp.endtime)) as time FROM treatmentcase as tc JOIN timeperiod as tp ON tp.TREATMENTCASE_ID = tc.ID WHERE tc.treatmentNumber = ?")
+
 })
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TimePeriod implements Serializable {

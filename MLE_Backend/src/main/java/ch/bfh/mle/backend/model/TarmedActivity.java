@@ -9,6 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,6 +25,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 @Entity
 @Access(AccessType.FIELD)
 @Table(name="TARMEDACTIVITY")
+@NamedQueries({
+    @NamedQuery(
+            name="TarmedActivity.AutomaticActivities", 
+            query="SELECT t FROM TarmedActivity as t WHERE t.id IN :idList")
+})
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TarmedActivity implements Serializable{
 
