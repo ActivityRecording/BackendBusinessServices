@@ -15,6 +15,12 @@ public class ActivityContainerDto {
     public ActivityContainerDto() {
     }
 
+    public ActivityContainerDto(Long employeeId, Long treatmentNumber, List<SimpleActivityDto> activities) {
+        this.employeeId = employeeId;
+        this.treatmentNumber = treatmentNumber;
+        this.activities = activities;
+    }
+    
     /**
      * Fachliche Mitarbeiternummer des Leistungserbrigers
      */

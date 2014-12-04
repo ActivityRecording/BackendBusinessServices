@@ -84,12 +84,20 @@ public class ActivityRessource {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/approval/{fid}")
-    public Response getApprovalActivites(@PathParam("fid") @NotNull Long fid) {
-        List<ActivityDto> dtos = srv.getActivitiesForApproval(fid);
+    @Path("/approval/{treatmentNr}")
+    public Response getApprovalActivites(@PathParam("treatmentNr") @NotNull Long treatmentNr) {
+        List<ActivityDto> dtos = srv.getActivitiesForApproval(treatmentNr);
         GenericEntity entity = new GenericEntity<List<ActivityDto>>(dtos) {};
         return Response.ok(entity).build();
     }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/approval/{treatmentNr}")
+    public void approve(@PathParam("treatmentNr") @NotNull Long treatementNr) {
+        srv.approveTreatmentCase(treatementNr);
+    }
+    
 
    /*
     * Löscht einen Activity-Eintrag in der Datenbank anhand technischen ID

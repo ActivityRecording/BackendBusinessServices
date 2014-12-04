@@ -12,6 +12,12 @@ public class SimpleActivityDto {
 
     public SimpleActivityDto() {
     }
+
+    public SimpleActivityDto(String tarmedActivityId, Integer number) {
+        this.tarmedActivityId = tarmedActivityId;
+        this.number = number;
+    }
+    
     /**
      * ID der erbrachten Tarmedleistung
      */

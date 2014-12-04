@@ -278,4 +278,34 @@ public class ActivityService extends GenericService{
         return result;
     }
 
+    /**
+     * Gibt einen Behandlungsfall frei. Dabei werden automatische Leistungen generiert 
+     * und gespeichert.
+     * @param treatmentNumber 
+     */
+    public void approveTreatmentCase(@NotNull Long treatmentNumber){
+        // Lies den Behandlungsfall
+        TreatmentCase treatment;
+        treatment = treatmentService.readByTreatmentNumber(treatmentNumber);
+        if (treatment == null){
+            throw new IllegalArgumentException("No Treatmentcase found with treatmentNumber " + treatmentNumber);
+        }
+        if (treatment.isReleased()){
+            // Der Behandlungsfall darf nicht freigegeben sein.
+            throw new IllegalArgumentException("Treatmentcase allready released");
+        }
+        // Berechne die generierten Leistungen und speichere sie
+        List<ActivityDto> calculatedActivities = getCalculatedActivities(treatmentNumber);
+        List<SimpleActivityDto> activities = new ArrayList<>();
+        for (ActivityDto calculatedActivity: calculatedActivities){
+            SimpleActivityDto sad = new SimpleActivityDto(calculatedActivity.getTarmedActivityId(), calculatedActivity.getNumber());
+            activities.add(sad);
+        }
+        ActivityContainerDto container = new ActivityContainerDto(10101L, treatmentNumber, activities);
+        create(container);
+        // Gib den Behandlungsfall frei
+        treatment.setReleased(Boolean.TRUE);
+        this.update(treatment);        
+    }
+
 }
