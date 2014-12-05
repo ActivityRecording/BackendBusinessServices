@@ -25,7 +25,9 @@ public class TimePeriodDto {
         Date startTime,
         Date endTime,
         Long treatmentNumber,
-        Long employeeId
+        Long employeeId,
+        String supplierFirstname,
+        String supplierLastname
     ){
         this.timePeriodId = timePeriodId;
         this.type = type;
@@ -33,6 +35,8 @@ public class TimePeriodDto {
         this.endTime = endTime;
         this.treatmentNumber = treatmentNumber;
         this.employeeId = employeeId;
+        this.supplierFirstname = supplierFirstname;
+        this.supplierLastname = supplierLastname;
     }
     
     /**
@@ -66,6 +70,16 @@ public class TimePeriodDto {
      */
     private Long employeeId;
 
+    /**
+     * Vorname des Leistungserbringers
+     */
+    private String supplierFirstname;
+    
+    /**
+     * Nachname des Leistungserbringers
+     */
+    private String supplierLastname;
+    
     public Long getTimePeriodId() {
         return timePeriodId;
     }
@@ -90,5 +104,11 @@ public class TimePeriodDto {
         return employeeId;
     }
 
-    
+    public String getSupplierFirstname() {
+        return supplierFirstname;
+    }
+
+    public String getSupplierLastname() {
+        return supplierLastname;
+    }
 }

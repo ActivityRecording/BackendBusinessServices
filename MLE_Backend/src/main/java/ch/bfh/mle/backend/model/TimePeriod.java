@@ -33,10 +33,10 @@ import javax.xml.bind.annotation.XmlAccessorType;
 @NamedQueries({
     @NamedQuery(
             name="TimePeriod.FindByTreatmentNumber", 
-            query="SELECT NEW ch.bfh.mle.backend.service.dto.TimePeriodDto(p.id, p.type, p.startTime, p.endTime, t.treatmentNumber, s.employeeID) FROM TreatmentCase as t JOIN t.timePeriods as p JOIN p.supplier as s WHERE t.treatmentNumber = :treatmentNumber ORDER BY p.startTime"),
+            query="SELECT NEW ch.bfh.mle.backend.service.dto.TimePeriodDto(p.id, p.type, p.startTime, p.endTime, t.treatmentNumber, s.employeeID, s.firstname, s.lastname) FROM TreatmentCase as t JOIN t.timePeriods as p JOIN p.supplier as s WHERE t.treatmentNumber = :treatmentNumber ORDER BY p.startTime"),
     @NamedQuery(
             name="TimePeriod.FindByTreatmentNumberAndEmployee", 
-            query="SELECT NEW ch.bfh.mle.backend.service.dto.TimePeriodDto(p.id, p.type, p.startTime, p.endTime, t.treatmentNumber, s.employeeID) FROM TreatmentCase as t JOIN t.timePeriods as p JOIN p.supplier as s WHERE t.treatmentNumber = :treatmentNumber AND s.employeeID = :employeeId ORDER BY p.startTime"),
+            query="SELECT NEW ch.bfh.mle.backend.service.dto.TimePeriodDto(p.id, p.type, p.startTime, p.endTime, t.treatmentNumber, s.employeeID, s.firstname, s.lastname) FROM TreatmentCase as t JOIN t.timePeriods as p JOIN p.supplier as s WHERE t.treatmentNumber = :treatmentNumber AND s.employeeID = :employeeId ORDER BY p.startTime"),
     @NamedQuery(
             name="TimePeriod.FindTimePeriodById", 
             query="SELECT t FROM TimePeriod as t  WHERE t.id = :id")
