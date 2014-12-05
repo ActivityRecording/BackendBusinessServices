@@ -4,9 +4,7 @@ import ch.bfh.mle.backend.model.Activity;
 import ch.bfh.mle.backend.model.Supplier;
 import ch.bfh.mle.backend.model.TarmedActivity;
 import ch.bfh.mle.backend.model.TreatmentCase;
-import ch.bfh.mle.backend.service.dto.ActivityContainerDto;
 import ch.bfh.mle.backend.service.dto.ActivityDto;
-import ch.bfh.mle.backend.service.dto.SimpleActivityDto;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -68,9 +66,9 @@ public class ActivityService extends GenericService{
      * - Die Anzahl der Leistungen darf nicht 0 sein 
      *   und die negativen Leistungen nicht grösser als die Summe der Leistung.
      *   Dies wir aber bereits im UI abgefangen.   
-     * @param ActivityContainerDto 
+     * @param ActivityDto 
      */
-    public void create(@NotNull ActivityContainerDto dto){
+    public void create(@NotNull ActivityDto dto){
         // Prüfe die Input-Daten
         Long employeeId = dto.getEmployeeId();
         Long treatmentNumber = dto.getTreatmentNumber();
@@ -95,36 +93,33 @@ public class ActivityService extends GenericService{
             // Der Behandlungsfall darf nicht freigegeben sein.
             throw new IllegalArgumentException("Treatmentcase must not be released");
         }
-        
-        for ( SimpleActivityDto activityDto : dto.getActivities()){
-            
-            // Finde die Tarmedleistung
-            String tarmedId = activityDto.getTarmedActivityId();
-            if (tarmedId == null){
-            // Schlüssel die Tarmedleistung ist null
-                throw new IllegalArgumentException("Tarmedid must not be null");
-            }
-            if (activityDto.getNumber() == null || activityDto.getNumber() == 0){
-                // Die Anzahl Leistungen muss <> 0 sein.
-                throw new IllegalArgumentException("Number of activities must be greater than 0");
-            }
-            TarmedActivity tarmedActivity;
-            tarmedActivity = entityManager.find(TarmedActivity.class, tarmedId);
-            if (tarmedActivity == null){
-                throw new IllegalArgumentException("No Tarmedactivity found with id " + tarmedId);
-            }
-
-            // Erstelle und speichere die Leistung
-            Activity activity = new Activity(tarmedActivity, supplier, treatment);
-            activity.setNumber(activityDto.getNumber());
-            this.create(activity);
+        // Finde die Tarmedleistung
+        String tarmedId = dto.getTarmedActivityId();
+        if (tarmedId == null){
+        // Schlüssel die Tarmedleistung ist null
+            throw new IllegalArgumentException("Tarmedid must not be null");
         }
+        if (dto.getNumber() == null || dto.getNumber() == 0){
+            // Die Anzahl Leistungen muss <> 0 sein.
+            throw new IllegalArgumentException("Number of activities must be greater than 0");
+        }
+        TarmedActivity tarmedActivity;
+        tarmedActivity = entityManager.find(TarmedActivity.class, tarmedId);
+        if (tarmedActivity == null){
+            throw new IllegalArgumentException("No Tarmedactivity found with id " + tarmedId);
+        }
+
+        // Erstelle und speichere die Leistung
+        Activity activity = new Activity(tarmedActivity, supplier, treatment);
+        activity.setNumber(dto.getNumber());
+        this.create(activity);
     }
     
     /**
      * Liefert eine Liste von ActivityDto's zurück, welche
      * via Named Query und den Parameter FID ermittelt werden
      * @param treatmentNumber
+     * @return List<ActivityDto>
      */
     public List<ActivityDto> readAllByTreatmentNumber(@NotNull Long treatmentNumber) {
         TypedQuery<ActivityDto> query = entityManager.createNamedQuery("Activity.FindAllActivitiesByTreatmentNumber", ActivityDto.class);
@@ -140,6 +135,7 @@ public class ActivityService extends GenericService{
      * Leistungserbringer zurueck
      * @param treatmentNumber
      * @param employeeId
+     * @return List<ActivityDto>
      */
     public List<ActivityDto> readAllByTreatmentAndEmployee(@NotNull Long treatmentNumber, @NotNull Long employeeId) {
         TypedQuery<ActivityDto> query = entityManager.createNamedQuery("Activity.FindAllActivitiesByTreatmentNumberAndEmployee", ActivityDto.class);
@@ -314,13 +310,9 @@ public class ActivityService extends GenericService{
         }
         // Berechne die generierten Leistungen und speichere sie
         List<ActivityDto> calculatedActivities = getCalculatedActivities(treatmentNumber);
-        List<SimpleActivityDto> activities = new ArrayList<>();
-        for (ActivityDto calculatedActivity: calculatedActivities){
-            SimpleActivityDto sad = new SimpleActivityDto(calculatedActivity.getTarmedActivityId(), calculatedActivity.getNumber());
-            activities.add(sad);
+        for (ActivityDto calculatedActivity : calculatedActivities){
+            create(calculatedActivity);
         }
-        ActivityContainerDto container = new ActivityContainerDto(10101L, treatmentNumber, activities);
-        create(container);
         // Gib den Behandlungsfall frei
         treatment.setReleased(Boolean.TRUE);
         this.update(treatment);        

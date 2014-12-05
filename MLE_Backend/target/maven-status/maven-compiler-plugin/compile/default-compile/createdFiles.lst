@@ -1,4 +1,3 @@
-ch\bfh\mle\backend\service\dto\ActivityContainerDto.class
 ch\bfh\mle\backend\model\AllocationRule.class
 ch\bfh\mle\backend\model\AllocationRule_.class
 ch\bfh\mle\backend\rest\PatientResource$2.class
@@ -20,7 +19,6 @@ ch\bfh\mle\backend\model\TarmedActivity.class
 ch\bfh\mle\backend\service\TreatmentCaseService.class
 ch\bfh\mle\backend\model\TarmedActivity_.class
 ch\bfh\mle\backend\model\Supplier.class
-ch\bfh\mle\backend\service\dto\SimpleActivityDto.class
 ch\bfh\mle\backend\rest\ActivityRessource$1.class
 ch\bfh\mle\backend\service\ActivityService.class
 ch\bfh\mle\backend\service\dto\PatientWithTreatementCaseDto.class

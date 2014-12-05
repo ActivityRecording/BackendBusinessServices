@@ -129,6 +129,41 @@ public class TreatmentCaseRessource {
     }
 
     /**
+     * Gibt die kumulierten geleisteten und erfassten Zeiten fuer einen
+     * Behandlungsfall zurueck.
+     * @param treatementNr
+     * @return CumulatedTimeDto
+     */
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/times/{treatmentNr}")
+    public CumulatedTimeDto getTimeForTreatmentCase(@PathParam("treatmentNr") @NotNull Long treatementNr) {
+        Long measuredTime;
+        Long allocatedTime;
+        measuredTime = timePeriodSrv.getCumulatedTimeForTreatmentCase(treatementNr);
+        allocatedTime = activitySrv.getCumulatedTimeForTreatmentCase(treatementNr);
+        
+        Long measuredHours;
+        Long measuredMinutes;
+        Long measuredSeconds;
+        Long allocatedHours;
+        Long allocatedMinutes;
+        Long allocatedSeconds;
+        Long rest;
+        
+        measuredHours = measuredTime / 3600;
+        rest = measuredTime % 3600;
+        measuredMinutes = rest / 60;
+        measuredSeconds = rest % 60;
+        
+        allocatedHours = allocatedTime / 60;
+        allocatedMinutes = allocatedTime % 60;
+        allocatedSeconds = 0L;
+
+        return new CumulatedTimeDto(measuredHours, measuredMinutes, measuredSeconds, allocatedHours, allocatedMinutes, allocatedSeconds); 
+    }
+
+    /**
      * Loescht den Behandlungsfall mit id von der Datenbank.
      * @param id 
      */
