@@ -17,11 +17,13 @@ public class ActivityDto {
     public ActivityDto() {
     }
 
-    public ActivityDto(Long activityId, Integer number, Long employeeId, String tarmedActivityId,
+    public ActivityDto(Long activityId, Integer number, Long employeeId, String supplierFirstname, String supplierLastname, String tarmedActivityId,
                         Long treatmentNumber, String description, Integer duration) {
         this.activityId = activityId;
         this.number = number;
         this.employeeId = employeeId;
+        this.supplierFirstname = supplierFirstname;
+        this.supplierLastname = supplierLastname;
         this.tarmedActivityId = tarmedActivityId;
         this.treatmentNumber = treatmentNumber;
         this.description = description;
@@ -43,6 +45,16 @@ public class ActivityDto {
      * Fachliche Mitarbeiternummer des Leistungserbrigers
      */
     private Long employeeId;
+    
+    /**
+     * Vorname des Leistungserbringers
+     */
+    private String supplierFirstname;
+    
+    /**
+     * Nachname des Leistungserbringers
+     */
+    private String supplierLastname;
     
     /**
      * ID der erbrachten Tarmedleistung
@@ -91,6 +103,12 @@ public class ActivityDto {
     public Integer getDuration(){
         return duration;
     }
-    
-    
+
+    public String getSupplierFirstname() {
+        return supplierFirstname;
+    }
+
+    public String getSupplierLastname() {
+        return supplierLastname;
+    }
 }

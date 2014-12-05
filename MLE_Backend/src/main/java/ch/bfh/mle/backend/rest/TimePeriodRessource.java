@@ -43,7 +43,6 @@ public class TimePeriodRessource {
      * @param TimePeriodDto - darf nicht null sein
      */
     @POST
-    @Path("/treatment/")
     @Consumes(MediaType.APPLICATION_JSON)
     public void create(@NotNull TimePeriodDto dto) {
         srv.create(dto);
@@ -59,29 +58,16 @@ public class TimePeriodRessource {
         List<TimePeriod> timePeriods = srv.read();
         return timePeriods;
     }
-    
-    /**
-     * Gibt den Zeitraum mit id zurueck.
-     * @param id
-     * @return TimePeriod
-     */
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/{id}")
-    public TimePeriod get(@PathParam("id") @NotNull Long id) {
-        TimePeriod timePeriod = srv.read(id);
-        return timePeriod;
-    }  
+
     /**
      * Löscht einen TimeDuration-Eintrag in der Datenbank anhand technischen ID
      */
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/treatment/{id}")
+    @Path("/{id}")
     public void deleteTimePeriodeByID(@PathParam("id") @NotNull Long id) {
         srv.deleteTimePeriodeByID(id);
     }
-    
     
     /**
      * Gibt eine Liste erfasster Zeitraeume fuer einen Behandlungsfall zurueck.
@@ -90,9 +76,25 @@ public class TimePeriodRessource {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/treatment/{treatmentNumber}")
+    @Path("/{treatmentNumber}")
     public List<TimePeriodDto> getByTreatmentNumber(@PathParam("treatmentNumber") @NotNull Long treatmentNumber) {
         List<TimePeriodDto> timePeriods = srv.readByTreatmentNumber(treatmentNumber);
         return timePeriods;
     }
+    
+    /**
+     * Gibt eine Liste erfasster Zeitraeume fuer einen Behandlungsfall und einen
+     * Leistungserbringer zurueck.
+     * @param treatmentNumber - darf nicht null sein
+     * @param employeeId - darf nicht null sein
+     * @return List<TimePeriodDto>
+     */
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/{treatmentNumber}/{employeeId}")
+    public List<TimePeriodDto> getByTreatmentNumberAndEmployee(@PathParam("treatmentNumber") @NotNull Long treatmentNumber, @PathParam("employeeId") @NotNull Long employeeId) {
+        List<TimePeriodDto> timePeriods = srv.readByTreatmentNumberAndEmployee(treatmentNumber, employeeId);
+        return timePeriods;
+    }
+
 }

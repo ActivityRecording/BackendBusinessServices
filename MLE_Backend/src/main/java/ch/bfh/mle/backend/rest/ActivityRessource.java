@@ -77,6 +77,21 @@ public class ActivityRessource {
     }
 
     /**
+     * Gibt alle Leistungen per Behandlungsfall und Leistungsebringer zurueck.
+     * @param treatmentNumber
+     * @param employeeId
+     * @return List<ActivityDto>
+     */
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/{treatmentNumber}/{employeeId}")
+    public Response get(@PathParam("treatmentNumber") @NotNull Long treatmentNumber, @PathParam("employeeId") @NotNull Long employeeId) {
+        List<ActivityDto> dtos = srv.readAllByTreatmentAndEmployee(treatmentNumber, employeeId);
+        GenericEntity entity = new GenericEntity<List<ActivityDto>>(dtos) {};
+        return Response.ok(entity).build();
+    }
+
+    /**
      * Gibt alle Leistungen inklusive der automatisch generierten fuer die
      * Freigabe zurueck.
      * @param fid

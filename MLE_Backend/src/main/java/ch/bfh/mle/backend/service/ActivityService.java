@@ -122,9 +122,10 @@ public class ActivityService extends GenericService{
     }
     
     /**
-    * Liefert eine Liste von ActivityDto's zurück, welche
-    * via Named Query und den Parameter FID ermittelt werden
-    */
+     * Liefert eine Liste von ActivityDto's zurück, welche
+     * via Named Query und den Parameter FID ermittelt werden
+     * @param treatmentNumber
+     */
     public List<ActivityDto> readAllByTreatmentNumber(@NotNull Long treatmentNumber) {
         TypedQuery<ActivityDto> query = entityManager.createNamedQuery("Activity.FindAllActivitiesByTreatmentNumber", ActivityDto.class);
         query.setParameter("treatmentNumber", treatmentNumber);
@@ -132,10 +133,27 @@ public class ActivityService extends GenericService{
         result = query.getResultList();
         return result;
     }
-    
-   /**
-    * Findet eine Activity Entity anhand der ID und löscht diese anschliessend
-    */
+
+        
+    /**
+     * Liefert eine Liste von ActivityDto's zu einem Behandlungsfall und
+     * Leistungserbringer zurueck
+     * @param treatmentNumber
+     * @param employeeId
+     */
+    public List<ActivityDto> readAllByTreatmentAndEmployee(@NotNull Long treatmentNumber, @NotNull Long employeeId) {
+        TypedQuery<ActivityDto> query = entityManager.createNamedQuery("Activity.FindAllActivitiesByTreatmentNumberAndEmployee", ActivityDto.class);
+        query.setParameter("treatmentNumber", treatmentNumber);
+        query.setParameter("employeeId", employeeId);
+        List<ActivityDto> result;
+        result = query.getResultList();
+        return result;
+    }
+
+    /**
+     * Findet eine Activity Entity anhand der ID und löscht diese anschliessend
+     * @param id
+     */
     public void deleteActivityById(@NotNull Long id){
         TypedQuery<Activity> query = entityManager.createNamedQuery("Activity.FindActivitiyById", Activity.class);
         query.setParameter("id", id);
@@ -238,7 +256,7 @@ public class ActivityService extends GenericService{
         }
 // TODO: technischer User ?
         Long employeeId = 10101L;
-        ActivityDto reportActivity = new ActivityDto(null, 1, employeeId, report.getId(), treatmentNumber, report.getDescription(), report.getDuration());
+        ActivityDto reportActivity = new ActivityDto(null, 1, employeeId, null, null, report.getId(), treatmentNumber, report.getDescription(), report.getDuration());
         result.add(reportActivity);
         timeDiff = timeDiff - report.getDuration();
         if (timeDiff <= 0){
@@ -249,7 +267,7 @@ public class ActivityService extends GenericService{
         if (consultation1 == null){
             throw new IllegalStateException("Tarmed activity " + CONSULTATION_1_ID + " not found");
         }
-        ActivityDto consultationActivity1 = new ActivityDto(null, 1, employeeId, consultation1.getId(), treatmentNumber, consultation1.getDescription(), consultation1.getDuration());
+        ActivityDto consultationActivity1 = new ActivityDto(null, 1, employeeId, null, null, consultation1.getId(), treatmentNumber, consultation1.getDescription(), consultation1.getDuration());
         result.add(consultationActivity1);
         timeDiff = timeDiff - consultation1.getDuration();
         if (timeDiff <= 0){
@@ -260,7 +278,7 @@ public class ActivityService extends GenericService{
         if (consultation3 == null){
             throw new IllegalStateException("Tarmed activity " + CONSULTATION_3_ID + " not found");
         }
-        ActivityDto consultationActivity3 = new ActivityDto(null, 1, employeeId, consultation3.getId(), treatmentNumber, consultation3.getDescription(), consultation3.getDuration());
+        ActivityDto consultationActivity3 = new ActivityDto(null, 1, employeeId, null, null, consultation3.getId(), treatmentNumber, consultation3.getDescription(), consultation3.getDuration());
         result.add(consultationActivity3);
         timeDiff = timeDiff - consultation3.getDuration();
         if (timeDiff <= 0){
@@ -272,7 +290,7 @@ public class ActivityService extends GenericService{
             throw new IllegalStateException("Tarmed activity " + CONSULTATION_2_ID + " not found");
         }
         Long count = (timeDiff + consultation2.getDuration() - 1) / consultation2.getDuration();
-        ActivityDto consultationActivity2 = new ActivityDto(null, count.intValue(), employeeId, consultation2.getId(), treatmentNumber, consultation2.getDescription(), consultation2.getDuration());
+        ActivityDto consultationActivity2 = new ActivityDto(null, count.intValue(), employeeId, null, null, consultation2.getId(), treatmentNumber, consultation2.getDescription(), consultation2.getDuration());
         result.add(consultationActivity2);
 
         return result;
