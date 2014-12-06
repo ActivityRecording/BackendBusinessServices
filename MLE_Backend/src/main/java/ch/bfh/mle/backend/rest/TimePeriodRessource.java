@@ -11,6 +11,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -21,7 +22,7 @@ import javax.ws.rs.core.UriInfo;
 /**
  * REST Web Service fuer die Ressource Zeitraum
  *
- * @author Stefan Walle
+ * @author Stefan Walle & Boris Haueter
  */
 @Stateless
 @Path("timePeriods")
@@ -48,6 +49,16 @@ public class TimePeriodRessource {
         srv.create(dto);
     }
 
+    /**
+     * Update eines Zeitraums per ActivityDTO.
+     * @param TimePeriodDto
+     */
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void update(@NotNull TimePeriodDto dto) {
+            srv.updateTimePeriodByDto(dto);
+    }
+    
     /**
      * Gibt alle Zeitraeume zurueck.
      * @return List<TimePeriod>

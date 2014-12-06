@@ -79,6 +79,9 @@ public class TimePeriodService extends GenericService<TimePeriod>{
         this.create(timePeriod);
     }
     
+    
+    
+    
     /**
      * Gibt eine Liste von Zeitraum-DTO zurueck fuer den Behandlungsfall treatmentNumber.
      * @param treatmentNumber - darf nicht null sein.
@@ -160,5 +163,23 @@ public class TimePeriodService extends GenericService<TimePeriod>{
          measuredTime = result.longValue();
          return measuredTime;
      }
+     
+     
+     /**
+     * Update eines Zeitperiode
+     * @param TimePeriodDto 
+     */
+    public void updateTimePeriodByDto(TimePeriodDto dto){
+     TypedQuery<TimePeriod> query = entityManager.createNamedQuery("TimePeriod.FindTimePeriodById", TimePeriod.class);
+        query.setParameter("id", dto.getTimePeriodId());
+        TimePeriod result;
+        result = query.getSingleResult();
+        if(result != null){
+            result.setStartTime(dto.getStartTime());
+            result.setEndTime(dto.getEndTime()); 
+//            result.setEmployeeId(dto.getEmployeeId()); //no setter available
+            entityManager.merge(result);
+        }
+    }
      
 }

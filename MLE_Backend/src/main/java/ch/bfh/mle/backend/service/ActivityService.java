@@ -321,5 +321,21 @@ public class ActivityService extends GenericService{
         treatment.setReleased(Boolean.TRUE);
         this.update(treatment);        
     }
-
+    
+    /**
+     * Update eines Behandlungsfalls
+     * @param ActivityDto 
+     */
+    public void updateActivityDto(ActivityDto dto){
+     TypedQuery<Activity> query = entityManager.createNamedQuery("Activity.FindActivitiyById", Activity.class);
+        query.setParameter("id", dto.getActivityId());
+        Activity result;
+        result = query.getSingleResult();
+        if(result != null){
+            result.setNumber(dto.getNumber());
+//            result.setTarmedActivity(dto.getTarmedActivityId()); //no setter available
+            entityManager.merge(result);
+        }
+    }
+    
 }

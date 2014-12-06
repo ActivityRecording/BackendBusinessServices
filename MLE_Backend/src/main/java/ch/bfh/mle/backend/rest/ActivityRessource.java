@@ -11,6 +11,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -23,7 +24,7 @@ import javax.ws.rs.core.UriInfo;
 /**
  * REST Web Service fuer die Ressource Leistung
  *
- * @author Stefan Walle
+ * @author Stefan Walle & Boris Haueter
  */
 @Stateless
 @Path("activities")
@@ -51,6 +52,16 @@ public class ActivityRessource {
     }
     
     /**
+     * Update des Leistung per ActivityDTO.
+     * @param ActivityDto
+     */
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void update(@NotNull ActivityDto dto) {
+            srv.updateActivityDto(dto);
+    }
+    
+    /**
      * Gibt alle Leistungen zurueck.
      * @return List<Activity>
      */
@@ -60,6 +71,7 @@ public class ActivityRessource {
         return srv.read();
     }
     
+   
     
     /**
      * Gibt alle Leistungen per Behandlungsfall zurueck.
