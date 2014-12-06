@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
  * @author Stefan Walle
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ActivityDto {
+public class ActivityDto implements Comparable<ActivityDto>{
 
     public ActivityDto() {
     }
@@ -110,5 +110,11 @@ public class ActivityDto {
 
     public String getSupplierLastname() {
         return supplierLastname;
+    }
+
+    @Override
+    public int compareTo(ActivityDto a) {
+        
+        return tarmedActivityId.compareTo(a.tarmedActivityId);
     }
 }

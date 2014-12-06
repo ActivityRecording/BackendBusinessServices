@@ -5,6 +5,7 @@ import ch.bfh.mle.backend.model.TimePeriod;
 import ch.bfh.mle.backend.model.TreatmentCase;
 import ch.bfh.mle.backend.service.dto.TimePeriodDto;
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -86,7 +87,9 @@ public class TimePeriodService extends GenericService<TimePeriod>{
     public List<TimePeriodDto> readByTreatmentNumber(@NotNull Long treatmentNumber){
         TypedQuery<TimePeriodDto> query = entityManager.createNamedQuery("TimePeriod.FindByTreatmentNumber", TimePeriodDto.class);
         query.setParameter("treatmentNumber", treatmentNumber);
-	return query.getResultList();
+        List<TimePeriodDto> result = query.getResultList();
+        Collections.sort(result);
+	return result;
     }
 
     /**
@@ -99,7 +102,9 @@ public class TimePeriodService extends GenericService<TimePeriod>{
         TypedQuery<TimePeriodDto> query = entityManager.createNamedQuery("TimePeriod.FindByTreatmentNumberAndEmployee", TimePeriodDto.class);
         query.setParameter("treatmentNumber", treatmentNumber);
         query.setParameter("employeeId", employeeId);
-	return query.getResultList();
+        List<TimePeriodDto> result = query.getResultList();
+        Collections.sort(result);
+	return result;
     }
 
     /**

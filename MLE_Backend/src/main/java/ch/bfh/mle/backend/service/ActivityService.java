@@ -7,6 +7,7 @@ import ch.bfh.mle.backend.model.TreatmentCase;
 import ch.bfh.mle.backend.service.dto.ActivityDto;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -126,6 +127,7 @@ public class ActivityService extends GenericService{
         query.setParameter("treatmentNumber", treatmentNumber);
         List<ActivityDto> result;
         result = query.getResultList();
+        Collections.sort(result);
         return result;
     }
 
@@ -143,6 +145,7 @@ public class ActivityService extends GenericService{
         query.setParameter("employeeId", employeeId);
         List<ActivityDto> result;
         result = query.getResultList();
+        Collections.sort(result);
         return result;
     }
 
@@ -216,6 +219,7 @@ public class ActivityService extends GenericService{
         List<ActivityDto> activities = readAllByTreatmentNumber(treatmentNumber);
         List<ActivityDto> calculatedActivities = getCalculatedActivities(treatmentNumber);
         activities.addAll(calculatedActivities);
+        Collections.sort(activities);
         return activities;
     }
 

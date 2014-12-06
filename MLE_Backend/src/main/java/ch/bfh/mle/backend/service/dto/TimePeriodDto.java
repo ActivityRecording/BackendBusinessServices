@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
  * @author Stefan Walle
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class TimePeriodDto {
+public class TimePeriodDto implements Comparable<TimePeriodDto>{
 
     public TimePeriodDto() {
         //required for JAXB
@@ -110,5 +110,10 @@ public class TimePeriodDto {
 
     public String getSupplierLastname() {
         return supplierLastname;
+    }
+
+    @Override
+    public int compareTo(TimePeriodDto t) {
+        return startTime.compareTo(t.startTime);
     }
 }
