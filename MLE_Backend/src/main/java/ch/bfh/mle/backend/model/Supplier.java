@@ -35,6 +35,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(
             name="Supplier.FindByEmployeeId", 
             query="SELECT s FROM Supplier AS s WHERE s.employeeID = :employeeId"),
+    @NamedQuery(
+            name="Supplier.FindByRoletype", 
+            query="SELECT s FROM Supplier AS s WHERE s.role.type = :roleType")
 })
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Supplier implements Serializable, Comparable<Supplier>{

@@ -222,7 +222,7 @@ public class ActivityService extends GenericService{
         Collections.sort(activities);
         return activities;
     }
-
+    
     /**
      * Gibt die berechneten Leistungen aufgrund der nicht verbuchten Restzeit (Geleistete - Verrechnete Zeit)
      * fuer einen Behandlungsfall zurueck
@@ -249,14 +249,14 @@ public class ActivityService extends GenericService{
         for (TarmedActivity a : automaticActivities) {
             autActMap.put(a.getId(), a);
         }
+        Supplier supplier = supplierService.getTechnicalSupplier();
+        Long generatorId = supplier.getEmployeeID();
         // Bericht
         TarmedActivity report = autActMap.get(REPORT_ID);
         if (report == null){
             throw new IllegalStateException("Tarmed activity " + REPORT_ID + " not found");
         }
-// TODO: technischer User ?
-        Long employeeId = 10101L;
-        ActivityDto reportActivity = new ActivityDto(null, 1, employeeId, null, null, report.getId(), treatmentNumber, report.getDescription(), report.getDuration());
+        ActivityDto reportActivity = new ActivityDto(null, 1, generatorId, null, null, report.getId(), treatmentNumber, report.getDescription(), report.getDuration());
         result.add(reportActivity);
         timeDiff = timeDiff - report.getDuration();
         if (timeDiff <= 0){
@@ -267,7 +267,7 @@ public class ActivityService extends GenericService{
         if (consultation1 == null){
             throw new IllegalStateException("Tarmed activity " + CONSULTATION_1_ID + " not found");
         }
-        ActivityDto consultationActivity1 = new ActivityDto(null, 1, employeeId, null, null, consultation1.getId(), treatmentNumber, consultation1.getDescription(), consultation1.getDuration());
+        ActivityDto consultationActivity1 = new ActivityDto(null, 1, generatorId, null, null, consultation1.getId(), treatmentNumber, consultation1.getDescription(), consultation1.getDuration());
         result.add(consultationActivity1);
         timeDiff = timeDiff - consultation1.getDuration();
         if (timeDiff <= 0){
@@ -278,7 +278,7 @@ public class ActivityService extends GenericService{
         if (consultation3 == null){
             throw new IllegalStateException("Tarmed activity " + CONSULTATION_3_ID + " not found");
         }
-        ActivityDto consultationActivity3 = new ActivityDto(null, 1, employeeId, null, null, consultation3.getId(), treatmentNumber, consultation3.getDescription(), consultation3.getDuration());
+        ActivityDto consultationActivity3 = new ActivityDto(null, 1, generatorId, null, null, consultation3.getId(), treatmentNumber, consultation3.getDescription(), consultation3.getDuration());
         result.add(consultationActivity3);
         timeDiff = timeDiff - consultation3.getDuration();
         if (timeDiff <= 0){
@@ -290,7 +290,7 @@ public class ActivityService extends GenericService{
             throw new IllegalStateException("Tarmed activity " + CONSULTATION_2_ID + " not found");
         }
         Long count = (timeDiff + consultation2.getDuration() - 1) / consultation2.getDuration();
-        ActivityDto consultationActivity2 = new ActivityDto(null, count.intValue(), employeeId, null, null, consultation2.getId(), treatmentNumber, consultation2.getDescription(), consultation2.getDuration());
+        ActivityDto consultationActivity2 = new ActivityDto(null, count.intValue(), generatorId, null, null, consultation2.getId(), treatmentNumber, consultation2.getDescription(), consultation2.getDuration());
         result.add(consultationActivity2);
 
         return result;

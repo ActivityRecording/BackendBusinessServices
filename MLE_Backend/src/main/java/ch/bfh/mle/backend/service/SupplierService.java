@@ -1,5 +1,6 @@
 package ch.bfh.mle.backend.service;
 
+import ch.bfh.mle.backend.model.RoleType;
 import ch.bfh.mle.backend.model.Supplier;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -45,4 +46,19 @@ public class SupplierService extends GenericService{
         }
      }
     
+    public Supplier getTechnicalSupplier(){
+        TypedQuery<Supplier> query = entityManager.createNamedQuery("Supplier.FindByRoletype", Supplier.class);
+        query.setParameter("roleType", RoleType.SYSTEM);
+        List<Supplier> result;
+        result = query.getResultList();
+        if (result.isEmpty()){
+            // Technischer Leistungserbringer nicht vorhanden.
+            throw new IllegalStateException("Technical Supplier not found ");
+        }
+        if (result.size() > 1){
+            // Es kann nur einen technischen Leistungserbringer geben.
+            throw new IllegalStateException("More than one technical Supplier found ");
+        }
+        return result.get(0);
+    }
 }

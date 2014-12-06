@@ -6,5 +6,7 @@ package ch.bfh.mle.backend.model;
  */
 public enum RoleType {
     DOCTOR,
-    NURSE
+    NURSE,
+    APPROVER,
+    SYSTEM
 }
