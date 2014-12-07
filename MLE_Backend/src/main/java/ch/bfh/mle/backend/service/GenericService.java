@@ -25,6 +25,10 @@ public abstract class GenericService<E> implements IService<E> {
             this.entityClass = entityClass;
         }
         
+        public void setEntityManager(EntityManager entityManager){
+            this.entityManager = entityManager;
+        }
+        
         /**
          * Speichert eine Entitaet auf der Datenbank.
          * @param entity 

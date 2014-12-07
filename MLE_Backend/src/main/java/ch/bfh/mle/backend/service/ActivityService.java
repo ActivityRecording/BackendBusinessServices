@@ -70,6 +70,9 @@ public class ActivityService extends GenericService{
      * @param ActivityDto 
      */
     public void create(@NotNull ActivityDto dto){
+        if (dto == null){
+            throw new IllegalArgumentException("ActivityDto cannot be null");
+        }
         // Prüfe die Input-Daten
         Long employeeId = dto.getEmployeeId();
         Long treatmentNumber = dto.getTreatmentNumber();
@@ -123,6 +126,9 @@ public class ActivityService extends GenericService{
      * @return List<ActivityDto>
      */
     public List<ActivityDto> readAllByTreatmentNumber(@NotNull Long treatmentNumber) {
+        if (treatmentNumber == null){
+            throw new IllegalArgumentException("TreatmentNumber cannot be null");
+        }
         TypedQuery<ActivityDto> query = entityManager.createNamedQuery("Activity.FindAllActivitiesByTreatmentNumber", ActivityDto.class);
         query.setParameter("treatmentNumber", treatmentNumber);
         List<ActivityDto> result;
@@ -140,6 +146,12 @@ public class ActivityService extends GenericService{
      * @return List<ActivityDto>
      */
     public List<ActivityDto> readAllByTreatmentAndEmployee(@NotNull Long treatmentNumber, @NotNull Long employeeId) {
+        if (treatmentNumber == null){
+            throw new IllegalArgumentException("TreatmentNumber cannot be null");
+        }
+        if (employeeId == null){
+            throw new IllegalArgumentException("EmployeeId cannot be null");
+        }
         TypedQuery<ActivityDto> query = entityManager.createNamedQuery("Activity.FindAllActivitiesByTreatmentNumberAndEmployee", ActivityDto.class);
         query.setParameter("treatmentNumber", treatmentNumber);
         query.setParameter("employeeId", employeeId);
@@ -154,6 +166,9 @@ public class ActivityService extends GenericService{
      * @param id
      */
     public void deleteActivityById(@NotNull Long id){
+        if (id == null){
+            throw new IllegalArgumentException("ActivityId cannot be null");
+        }
         TypedQuery<Activity> query = entityManager.createNamedQuery("Activity.FindActivitiyById", Activity.class);
         query.setParameter("id", id);
         Activity result;
@@ -171,6 +186,12 @@ public class ActivityService extends GenericService{
      * @return 
      */
     public Long getCumulatedTime(@NotNull Long treatmentNumber, @NotNull Long employeeId){
+        if (treatmentNumber == null){
+            throw new IllegalArgumentException("TreatmentNumber cannot be null");
+        }
+        if (employeeId == null){
+            throw new IllegalArgumentException("EmployeeId cannot be null");
+        }
         TypedQuery<Long> query = entityManager.createNamedQuery("Activity.CumulatedTimesByEmployeeAndTreatmentCase", Long.class);
         query.setParameter("treatmentNumber", treatmentNumber);
         query.setParameter("employeeId", employeeId);
@@ -189,6 +210,9 @@ public class ActivityService extends GenericService{
      * @return Long Kumulierte Zeit in Minuten
      */
     public Long getCumulatedTimeForTreatmentCase(@NotNull Long treatmentNumber){
+        if (treatmentNumber == null){
+            throw new IllegalArgumentException("TreatmentNumber cannot be null");
+        }
         TypedQuery<Long> query = entityManager.createNamedQuery("Activity.CumulatedTimesByTreatmentCase", Long.class);
         query.setParameter("treatmentNumber", treatmentNumber);
         Long measuredTime;
@@ -206,6 +230,9 @@ public class ActivityService extends GenericService{
      * @return List<ActivityDto>
      */
     public List<ActivityDto> getActivitiesForApproval(@NotNull Long treatmentNumber){
+        if (treatmentNumber == null){
+            throw new IllegalArgumentException("TreatmentNumber cannot be null");
+        }
         TreatmentCase treatment;
         treatment = treatmentService.readByTreatmentNumber(treatmentNumber);
         if (treatment == null){
@@ -229,8 +256,10 @@ public class ActivityService extends GenericService{
      * @param treatmentNumber
      * @return List<ActivityDto>
      */
-    public List<ActivityDto> getCalculatedActivities(Long treatmentNumber){
-        
+    public List<ActivityDto> getCalculatedActivities(@NotNull Long treatmentNumber){
+        if (treatmentNumber == null){
+            throw new IllegalArgumentException("TreatmentNumber cannot be null");
+        }
         // Verrechnete Zeit in Minuten
         Long treatmentTime = getCumulatedTimeForTreatmentCase(treatmentNumber);
         // Geleistete Zeit in Minuten (aufgerundet)
@@ -302,6 +331,9 @@ public class ActivityService extends GenericService{
      * @param treatmentNumber 
      */
     public void approveTreatmentCase(@NotNull Long treatmentNumber){
+        if (treatmentNumber == null){
+            throw new IllegalArgumentException("TreatmentNumber cannot be null");
+        }
         // Lies den Behandlungsfall
         TreatmentCase treatment;
         treatment = treatmentService.readByTreatmentNumber(treatmentNumber);
@@ -326,8 +358,11 @@ public class ActivityService extends GenericService{
      * Update eines Behandlungsfalls
      * @param ActivityDto 
      */
-    public void updateActivityDto(ActivityDto dto){
-     TypedQuery<Activity> query = entityManager.createNamedQuery("Activity.FindActivitiyById", Activity.class);
+    public void updateActivityDto(@NotNull ActivityDto dto){
+        if (dto == null){
+            throw new IllegalArgumentException("ActivityDto cannot be null");
+        }
+        TypedQuery<Activity> query = entityManager.createNamedQuery("Activity.FindActivitiyById", Activity.class);
         query.setParameter("id", dto.getActivityId());
         Activity result;
         result = query.getSingleResult();
