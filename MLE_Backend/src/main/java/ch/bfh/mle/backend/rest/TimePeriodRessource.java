@@ -56,7 +56,7 @@ public class TimePeriodRessource {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(@NotNull TimePeriodDto dto) {
-            srv.updateTimePeriodByDto(dto);
+        srv.updateTimePeriodByDto(dto);
     }
     
     /**
