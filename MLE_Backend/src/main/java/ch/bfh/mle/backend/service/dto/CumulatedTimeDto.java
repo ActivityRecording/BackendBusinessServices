@@ -14,13 +14,17 @@ public class CumulatedTimeDto {
     public CumulatedTimeDto() {
     }
 
-    public CumulatedTimeDto(Long measuredHours, Long measuredMinutes, Long measuredSeconds, Long allocatedHours, Long allocatedMinutes, Long allocatedSeconds) {
-        this.measuredHours = measuredHours;
-        this.measuredMinutes = measuredMinutes;
-        this.measuredSeconds = measuredSeconds;
-        this.allocatedHours = allocatedHours;
-        this.allocatedMinutes = allocatedMinutes;
-        this.allocatedSeconds = allocatedSeconds;
+    public CumulatedTimeDto(Long measuredTime, Long allocatedTime){
+        Long rest;
+        
+        this.measuredHours = measuredTime / 3600;
+        rest = measuredTime % 3600;
+        this.measuredMinutes = rest / 60;
+        this.measuredSeconds = rest % 60;
+        
+        this.allocatedHours = allocatedTime / 60;
+        this.allocatedMinutes = allocatedTime % 60;
+        this.allocatedSeconds = 0L;
     }
     
     /**

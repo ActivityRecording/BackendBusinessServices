@@ -37,6 +37,19 @@ public class TimePeriodDto implements Comparable<TimePeriodDto>{
         this.employeeId = employeeId;
         this.supplierFirstname = supplierFirstname;
         this.supplierLastname = supplierLastname;
+        if (endTime != null && startTime != null){
+            Long duration;
+            duration = (endTime.getTime() - startTime.getTime()) / 1000;
+            this.durationHours = duration / 3600;
+            Long rest = duration % 3600;
+            this.durationMinutes = rest / 60;
+            this.durationSeconds = rest % 60;
+        } else {
+            this.durationHours = 0L;
+            this.durationMinutes = 0L;
+            this.durationSeconds = 0L;
+        }
+            
     }
     
     /**
@@ -80,6 +93,21 @@ public class TimePeriodDto implements Comparable<TimePeriodDto>{
      */
     private String supplierLastname;
     
+    /**
+     * Stunden der Zeitraumdauer
+     */
+    private Long durationHours;
+    
+    /**
+     * Minuten der Zeitraumdauer
+     */
+    private Long durationMinutes;
+    
+    /**
+     * Sekunden der Zeitraumdauer
+     */
+    private Long durationSeconds;
+    
     public Long getTimePeriodId() {
         return timePeriodId;
     }
@@ -110,6 +138,18 @@ public class TimePeriodDto implements Comparable<TimePeriodDto>{
 
     public String getSupplierLastname() {
         return supplierLastname;
+    }
+
+    public Long getDurationHours() {
+        return durationHours;
+    }
+
+    public Long getDurationMinutes() {
+        return durationMinutes;
+    }
+
+    public Long getDurationSeconds() {
+        return durationSeconds;
     }
 
     @Override

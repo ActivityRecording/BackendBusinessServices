@@ -2,11 +2,13 @@ ch\bfh\mle\backend\model\AllocationRule.class
 ch\bfh\mle\backend\model\AllocationRule_.class
 ch\bfh\mle\backend\rest\PatientResource$2.class
 ch\bfh\mle\backend\model\Approval.class
+ch\bfh\mle\backend\rest\ActivityRessource$2.class
 ch\bfh\mle\backend\rest\ApplicationConfig.class
 ch\bfh\mle\backend\model\RoleType.class
 ch\bfh\mle\backend\rest\TimePeriodRessource.class
 ch\bfh\mle\backend\service\TarmedActivityService.class
 ch\bfh\mle\backend\service\PatientService.class
+ch\bfh\mle\backend\rest\TarmedActivityRessource.class
 ch\bfh\mle\backend\service\GenericService.class
 ch\bfh\mle\backend\rest\StandardActivityRessource$2.class
 ch\bfh\mle\backend\model\Patient_.class
@@ -16,6 +18,7 @@ ch\bfh\mle\backend\model\TimePeriod_.class
 ch\bfh\mle\backend\service\dto\ActivityCountDto.class
 ch\bfh\mle\backend\rest\StandardActivityRessource.class
 ch\bfh\mle\backend\model\TarmedActivity.class
+ch\bfh\mle\backend\rest\SupplierRessource.class
 ch\bfh\mle\backend\service\TreatmentCaseService.class
 ch\bfh\mle\backend\model\TarmedActivity_.class
 ch\bfh\mle\backend\model\Supplier.class
@@ -46,6 +49,9 @@ ch\bfh\mle\backend\model\Activity_.class
 ch\bfh\mle\backend\model\TreatmentCase_.class
 ch\bfh\mle\backend\service\dto\PatientListItemDto.class
 ch\bfh\mle\backend\model\Favorite_.class
+ch\bfh\mle\backend\rest\ApprovalRessource.class
 ch\bfh\mle\backend\model\StandardActivity_.class
+ch\bfh\mle\backend\rest\ActivityRessource$3.class
 ch\bfh\mle\backend\rest\PatientResource.class
 ch\bfh\mle\backend\model\TimePeriod.class
+ch\bfh\mle\backend\service\ApprovalService.class

@@ -102,30 +102,12 @@ public class TreatmentCaseRessource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/times/{treatmentNr}/{employeeId}")
-    public CumulatedTimeDto getTime(@PathParam("treatmentNr") @NotNull Long treatementNr, @PathParam("employeeId") @NotNull Long employeeId) {
+    public CumulatedTimeDto getTimeForTreatmentCaseAndEmployee(@PathParam("treatmentNr") @NotNull Long treatementNr, @PathParam("employeeId") @NotNull Long employeeId) {
         Long measuredTime;
         Long allocatedTime;
         measuredTime = timePeriodSrv.getCumulatedTime(treatementNr, employeeId);
         allocatedTime = activitySrv.getCumulatedTime(treatementNr, employeeId);
-        
-        Long measuredHours;
-        Long measuredMinutes;
-        Long measuredSeconds;
-        Long allocatedHours;
-        Long allocatedMinutes;
-        Long allocatedSeconds;
-        Long rest;
-        
-        measuredHours = measuredTime / 3600;
-        rest = measuredTime % 3600;
-        measuredMinutes = rest / 60;
-        measuredSeconds = rest % 60;
-        
-        allocatedHours = allocatedTime / 60;
-        allocatedMinutes = allocatedTime % 60;
-        allocatedSeconds = 0L;
-
-        return new CumulatedTimeDto(measuredHours, measuredMinutes, measuredSeconds, allocatedHours, allocatedMinutes, allocatedSeconds); 
+        return new CumulatedTimeDto(measuredTime, allocatedTime); 
     }
 
     /**
@@ -142,25 +124,7 @@ public class TreatmentCaseRessource {
         Long allocatedTime;
         measuredTime = timePeriodSrv.getCumulatedTimeForTreatmentCase(treatementNr);
         allocatedTime = activitySrv.getCumulatedTimeForTreatmentCase(treatementNr);
-        
-        Long measuredHours;
-        Long measuredMinutes;
-        Long measuredSeconds;
-        Long allocatedHours;
-        Long allocatedMinutes;
-        Long allocatedSeconds;
-        Long rest;
-        
-        measuredHours = measuredTime / 3600;
-        rest = measuredTime % 3600;
-        measuredMinutes = rest / 60;
-        measuredSeconds = rest % 60;
-        
-        allocatedHours = allocatedTime / 60;
-        allocatedMinutes = allocatedTime % 60;
-        allocatedSeconds = 0L;
-
-        return new CumulatedTimeDto(measuredHours, measuredMinutes, measuredSeconds, allocatedHours, allocatedMinutes, allocatedSeconds); 
+        return new CumulatedTimeDto(measuredTime, allocatedTime); 
     }
 
     /**
