@@ -280,17 +280,13 @@ public class ActivityService extends GenericService{
         }
         Supplier supplier = supplierService.getTechnicalSupplier();
         Long generatorId = supplier.getEmployeeID();
-        // Bericht
+        // Bericht - Kein Zeit subtrabieren, da die Zeit für den Bericht nicht gemessen wird
         TarmedActivity report = autActMap.get(REPORT_ID);
         if (report == null){
             throw new IllegalStateException("Tarmed activity " + REPORT_ID + " not found");
         }
         ActivityDto reportActivity = new ActivityDto(null, 1, generatorId, null, null, report.getId(), treatmentNumber, report.getDescription(), report.getDuration());
         result.add(reportActivity);
-        timeDiff = timeDiff - report.getDuration();
-        if (timeDiff <= 0){
-            return result;
-        }
         // Konsultation erste 5 Minuten
         TarmedActivity consultation1 = autActMap.get(CONSULTATION_1_ID);
         if (consultation1 == null){

@@ -27,10 +27,10 @@ import javax.xml.bind.annotation.XmlTransient;
             query="SELECT NEW ch.bfh.mle.backend.service.dto.ActivityCountDto(m.id, SUM(a.number)) FROM TreatmentCase as t JOIN t.activities AS a JOIN a.tarmedActivity as m JOIN a.supplier as s WHERE t.treatmentNumber = :treatmentNumber AND s.employeeID = :employeeId GROUP BY m.id"),
     @NamedQuery(
             name="Activity.FindAllActivitiesByTreatmentNumber", 
-            query="SELECT NEW ch.bfh.mle.backend.service.dto.ActivityDto(a.id, a.number, s.employeeID, s.firstname, s.lastname, a.tarmedActivity.id, t.treatmentNumber, ta.description, ta.duration) FROM TreatmentCase AS t JOIN t.activities AS a JOIN a.tarmedActivity AS ta JOIN a.supplier AS s WHERE t.treatmentNumber = :treatmentNumber"),
+            query="SELECT NEW ch.bfh.mle.backend.service.dto.ActivityDto(SUM(a.number), s.employeeID, s.firstname, s.lastname, a.tarmedActivity.id, t.treatmentNumber, ta.description, ta.duration) FROM TreatmentCase AS t JOIN t.activities AS a JOIN a.tarmedActivity AS ta JOIN a.supplier AS s WHERE t.treatmentNumber = :treatmentNumber GROUP BY s.employeeID, a.tarmedActivity.id HAVING SUM(a.number) > 0"),
     @NamedQuery(
             name="Activity.FindAllActivitiesByTreatmentNumberAndEmployee", 
-            query="SELECT NEW ch.bfh.mle.backend.service.dto.ActivityDto(a.id, a.number, s.employeeID, s.firstname, s.lastname, a.tarmedActivity.id, t.treatmentNumber, ta.description, ta.duration) FROM TreatmentCase AS t JOIN t.activities AS a JOIN a.tarmedActivity AS ta JOIN a.supplier AS s WHERE t.treatmentNumber = :treatmentNumber AND s.employeeID = :employeeId"),
+            query="SELECT NEW ch.bfh.mle.backend.service.dto.ActivityDto(SUM(a.number), s.employeeID, s.firstname, s.lastname, a.tarmedActivity.id, t.treatmentNumber, ta.description, ta.duration) FROM TreatmentCase AS t JOIN t.activities AS a JOIN a.tarmedActivity AS ta JOIN a.supplier AS s WHERE t.treatmentNumber = :treatmentNumber AND s.employeeID = :employeeId GROUP BY a.tarmedActivity.id HAVING SUM(a.number) > 0"),
     @NamedQuery(
             name="Activity.FindActivitiyById", 
             query="SELECT a FROM Activity AS a WHERE a.id = :id" ),

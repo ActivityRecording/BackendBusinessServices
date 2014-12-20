@@ -29,7 +29,12 @@ public class ActivityDto implements Comparable<ActivityDto>{
         this.description = description;
         this.duration = duration;
     }
-    
+
+    public ActivityDto(Long number, Long employeeId, String supplierFirstname, String supplierLastname, String tarmedActivityId,
+                        Long treatmentNumber, String description, Integer duration) {
+        this(null, number.intValue(), employeeId, supplierFirstname, supplierLastname, tarmedActivityId, treatmentNumber, description, duration);    
+    }
+
     /**
      * Technische Datenbank-ID der Leistung.
      * Diese muss fuer einen POST-Request (neue Leistung) null sein.
