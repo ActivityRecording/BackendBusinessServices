@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
 /**
- * Repraesentiert eine Regel fur die Aufteilung der Leistungen auf die gemessene Zeit <br />
+ * Repraesentiert eine Regel fur die Aufteilung der Leistungen auf die gemessene Zeit <br>
  * Je Tarmedleistung kann eine Regel zugeordnet werden, die bei der Auswahl und Verrechnung
  * der Leistungen beruecksichtigt werden muss.
  * @author Stefan Walle
@@ -42,7 +42,7 @@ public class AllocationRule implements Serializable{
     private TarmedActivity tarmedActivity;
     
     /**
-     * ID mit der Tarmedleistungen gruppiert werden koennen. <br />
+     * ID mit der Tarmedleistungen gruppiert werden koennen. <br>
      * Aus einer Gruppe kann nur eine Leistung ausgewaehlt werden.
      */
     private Integer groupId;
@@ -58,7 +58,7 @@ public class AllocationRule implements Serializable{
     private Boolean requiresTime;
     
     /**
-     * Waehlbarkeit der Leistung. Wenn ja, kann die Leistung nicht manuell ausgewaehlt werden. <br />
+     * Waehlbarkeit der Leistung. Wenn ja, kann die Leistung nicht manuell ausgewaehlt werden. <br>
      * Die Leistung wird automatisch hinzugefuegt.
      */
     private Boolean notSelectable;
@@ -184,7 +184,7 @@ public class AllocationRule implements Serializable{
     }
 
     /**
-     * Vergleicht zwei Zuteilungsregeln, ob sie gleich sind. <br />
+     * Vergleicht zwei Zuteilungsregeln, ob sie gleich sind. <br>
      * Fuer den Vergleich wird die technische Datenbank-ID verwendet.
      * @param object
      * @return boolean
@@ -209,7 +209,7 @@ public class AllocationRule implements Serializable{
     
     /**
      * Gibt eine String-Repraesentation der Zuteilungsregel zurueck
-     * @return 
+     * @return String
      */
    @Override
     public String toString() {

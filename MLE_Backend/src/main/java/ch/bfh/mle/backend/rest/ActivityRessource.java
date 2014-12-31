@@ -24,7 +24,7 @@ import javax.ws.rs.core.UriInfo;
 /**
  * REST Web Service fuer die Ressource Leistung
  *
- * @author Stefan Walle & Boris Haueter
+ * @author Stefan Walle - Boris Haueter
  */
 @Stateless
 @Path("activities")
@@ -43,7 +43,7 @@ public class ActivityRessource {
     
     /**
      * Speichert eine Liste von Leistungen in der Datenbank.
-     * @param ActivityDto - darf nicht null sein
+     * @param dto - darf nicht null sein
      */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -53,7 +53,7 @@ public class ActivityRessource {
     
     /**
      * Update des Leistung per ActivityDTO.
-     * @param ActivityDto
+     * @param dto
      */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
@@ -63,7 +63,7 @@ public class ActivityRessource {
     
     /**
      * Gibt alle Leistungen zurueck.
-     * @return List<Activity>
+     * @return Liste von Activity
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -76,8 +76,8 @@ public class ActivityRessource {
     /**
      * Gibt alle Leistungen per Behandlungsfall zurueck.
      * @param fid
-     * @return List<ActivityDto>
-     */
+     * @return List of ActivityDTO
+    */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{fid}")
@@ -91,7 +91,7 @@ public class ActivityRessource {
      * Gibt alle Leistungen per Behandlungsfall und Leistungsebringer zurueck.
      * @param treatmentNumber
      * @param employeeId
-     * @return List<ActivityDto>
+     * @return List of ActivityDTO
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -105,8 +105,8 @@ public class ActivityRessource {
     /**
      * Gibt alle Leistungen inklusive der automatisch generierten fuer die
      * Freigabe zurueck.
-     * @param fid
-     * @return List<ActivityDto>
+     * @param treatmentNr
+     * @return List of ActivityDTO
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)

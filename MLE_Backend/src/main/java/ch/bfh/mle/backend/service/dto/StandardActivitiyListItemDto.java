@@ -78,7 +78,7 @@ public class StandardActivitiyListItemDto {
     private Integer duration;
 
     /**
-     * ID mit der Tarmedleistungen gruppiert werden koennen. <br />
+     * ID mit der Tarmedleistungen gruppiert werden koennen. <br>
      * Aus einer Gruppe kann nur eine Leistung ausgewaehlt werden.
      */
     private Integer groupId;
@@ -94,7 +94,7 @@ public class StandardActivitiyListItemDto {
     private Boolean requiresTime;
     
     /**
-     * Waehlbarkeit der Leistung. Wenn ja, kann die Leistung nicht manuell ausgewaehlt werden. <br />
+     * Waehlbarkeit der Leistung. Wenn ja, kann die Leistung nicht manuell ausgewaehlt werden. <br>
      * Die Leistung wird automatisch hinzugefuegt.
      */
     private Boolean notSelectable;

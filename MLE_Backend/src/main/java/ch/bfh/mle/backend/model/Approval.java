@@ -147,7 +147,7 @@ public class Approval implements Serializable{
     }
 
     /**
-     * Vergleicht zwei Freigaben, ob sie gleich sind. <br />
+     * Vergleicht zwei Freigaben, ob sie gleich sind. <br>
      * Fuer den Vergleich wird die technische Datenbank-ID verwendet.
      * @param object
      * @return boolean

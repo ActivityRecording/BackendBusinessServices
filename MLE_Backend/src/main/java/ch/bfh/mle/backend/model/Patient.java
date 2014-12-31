@@ -243,7 +243,7 @@ public class Patient implements Serializable {
     }
 
     /**
-     * Vergleicht zwei Patienten, ob sie gleich sind. <br />
+     * Vergleicht zwei Patienten, ob sie gleich sind. <br>
      * Fuer den Vergleich wird die technische Datenbank-ID erwendet.
      * @param object
      * @return boolean
@@ -268,7 +268,7 @@ public class Patient implements Serializable {
 
     /**
      * Gibt eine String-Repraesentation des Patienten zurueck
-     * @return 
+     * @return String
      */
     @Override
     public String toString() {

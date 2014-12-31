@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- * Repraesentiert eine Mitarbeiterrolle <br />
+ * Repraesentiert eine Mitarbeiterrolle <br>
  * Die Rolle kann ein Arzt oder Pflegeperson sein.
  * @author Stefan Walle
  */
@@ -60,7 +60,7 @@ public class Role implements Serializable{
     private RoleType type;
     
     /**
-     * Standardkatalog der Rolle. <br />
+     * Standardkatalog der Rolle. <br>
      * Jeder Rolle ist ein Katalog mit Standardleistungen zugeteilt.
      */
     @XmlTransient
@@ -135,7 +135,7 @@ public class Role implements Serializable{
     }
 
     /**
-     * Vergleicht zwei Rollen, ob sie gleich sind. <br />
+     * Vergleicht zwei Rollen, ob sie gleich sind. <br>
      * Fuer den Vergleich wird die technische Datenbank-ID verwendet.
      * @param object
      * @return boolean

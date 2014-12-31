@@ -73,7 +73,7 @@ public class TreatmentCase implements Serializable {
     private Long id;
     
     /**
-     * Fachliche Identifikation des Behandlungsfalles. <br />
+     * Fachliche Identifikation des Behandlungsfalles. <br>
      * Die Fall-ID wird von der Patientenadministration vergeben.
      */
     @NotNull
@@ -81,14 +81,14 @@ public class TreatmentCase implements Serializable {
     private Long treatmentNumber;
     
     /**
-     * Datum und Zeit des Eintritts des Patienten. <br />
+     * Datum und Zeit des Eintritts des Patienten. <br>
      * Sollte nich null sein.
      */
     @Temporal(TemporalType.TIMESTAMP)
     private Date startTime;
     
     /**
-     * Datum und Zeit des Austritts des Patienten. <br />
+     * Datum und Zeit des Austritts des Patienten. <br>
      * Das Datum kann null sein.
      */
     @Temporal(TemporalType.TIMESTAMP)
@@ -193,7 +193,7 @@ public class TreatmentCase implements Serializable {
 
     /**
      * Gibt die Zeitraeume des Behandlungsfalls zurueck.
-     * @return 
+     * @return Liste von TimePeriod
      */
     public List<TimePeriod> getTimePeriods() {
         return timePeriods;
@@ -269,7 +269,7 @@ public class TreatmentCase implements Serializable {
     }
  
     /**
-     * Vergleicht zwei Behandlungsfaelle, ob sie gleich sind. <br />
+     * Vergleicht zwei Behandlungsfaelle, ob sie gleich sind. <br>
      * Fuer den Vergleich wird die technische Datenbank-ID verwendet.
      * @param object
      * @return boolean

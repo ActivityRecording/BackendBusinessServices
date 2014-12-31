@@ -24,7 +24,7 @@ import javax.ws.rs.core.UriInfo;
 /**
  * REST Web Service fuer die Ressource Behandlungsfall
  * 
- * @author Stefan Walle & Boris Haueter
+ * @author Stefan Walle - Boris Haueter
  */
 @Stateless
 @Path("treatmentCases")
@@ -48,8 +48,8 @@ public class TreatmentCaseRessource {
     private ActivityService activitySrv;
 
     /**
-     * Speichert einen Behandlungsfall in der Datenbank.
-     * @param TreatmentCase 
+     * Speichert einen Behandlungsfall in der Datenbank. 
+     * @param entity
      */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -60,7 +60,7 @@ public class TreatmentCaseRessource {
     /**
      * Mutiert einen Behandlungsfall auf der Datenbank.
      * Wird für die Freigabe der Leistungen verwendet
-     * @param TreatmentCase
+     * @param entity
      * @return TreatmentCase - Mutierter Behandlungsfall
      */
     @PUT
@@ -84,7 +84,7 @@ public class TreatmentCaseRessource {
 
     /**
      * Gibt alle Behandlungsfaelle zurueck.
-     * @return List<TreatmentCase>
+     * @return Liste von TreatmentCase
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)

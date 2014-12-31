@@ -22,7 +22,7 @@ import javax.ws.rs.core.UriInfo;
 /**
  * REST Web Service fuer die Ressource Zeitraum
  *
- * @author Stefan Walle & Boris Haueter
+ * @author Stefan Walle - Boris Haueter
  */
 @Stateless
 @Path("timePeriods")
@@ -41,7 +41,7 @@ public class TimePeriodRessource {
     
     /**
      * Speichert einen Zeitraum in der Datenbank.
-     * @param TimePeriodDto - darf nicht null sein
+     * @param dto - darf nicht null sein
      */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -51,7 +51,7 @@ public class TimePeriodRessource {
 
     /**
      * Update eines Zeitraums per ActivityDTO.
-     * @param TimePeriodDto
+     * @param dto
      */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
@@ -61,7 +61,7 @@ public class TimePeriodRessource {
     
     /**
      * Gibt alle Zeitraeume zurueck.
-     * @return List<TimePeriod>
+     * @return Liste von TimePeriod
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -83,7 +83,7 @@ public class TimePeriodRessource {
     /**
      * Gibt eine Liste erfasster Zeitraeume fuer einen Behandlungsfall zurueck.
      * @param treatmentNumber - darf nicht null sein
-     * @return List<TimePeriodDto>
+     * @return Liste von TimePeriodDto
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -98,7 +98,7 @@ public class TimePeriodRessource {
      * Leistungserbringer zurueck.
      * @param treatmentNumber - darf nicht null sein
      * @param employeeId - darf nicht null sein
-     * @return List<TimePeriodDto>
+     * @return Liste von TimePeriodDto
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)

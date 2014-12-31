@@ -39,7 +39,7 @@ public class TarmedActivityRessource {
 
     /**
      * Gibt alle Zeitraeume zurueck.
-     * @return List<TimePeriod>
+     * @return Liste von TimePeriod
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)

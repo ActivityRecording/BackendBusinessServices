@@ -66,8 +66,8 @@ public class ActivityService extends GenericService{
      * - Der Behandlungsfall darf nicht freigegeben sein <br>
      * - Die Anzahl der Leistungen darf nicht 0 sein 
      *   und die negativen Leistungen nicht grösser als die Summe der Leistung.
-     *   Dies wir aber bereits im UI abgefangen.   
-     * @param ActivityDto 
+     *   Dies wir aber bereits im UI abgefangen. 
+     * @param dto
      */
     public void create(@NotNull ActivityDto dto){
         if (dto == null){
@@ -123,7 +123,7 @@ public class ActivityService extends GenericService{
      * Liefert eine Liste von ActivityDto's zurück, welche
      * via Named Query und den Parameter FID ermittelt werden
      * @param treatmentNumber
-     * @return List<ActivityDto>
+     * @return Liste von ActivityDto
      */
     public List<ActivityDto> readAllByTreatmentNumber(@NotNull Long treatmentNumber) {
         if (treatmentNumber == null){
@@ -143,7 +143,7 @@ public class ActivityService extends GenericService{
      * Leistungserbringer zurueck
      * @param treatmentNumber
      * @param employeeId
-     * @return List<ActivityDto>
+     * @return Liste von ActivityDto
      */
     public List<ActivityDto> readAllByTreatmentAndEmployee(@NotNull Long treatmentNumber, @NotNull Long employeeId) {
         if (treatmentNumber == null){
@@ -183,7 +183,7 @@ public class ActivityService extends GenericService{
      * fuer einen Behandlungsfall zurueck. 
      * @param treatmentNumber
      * @param employeeId
-     * @return 
+     * @return Long
      */
     public Long getCumulatedTime(@NotNull Long treatmentNumber, @NotNull Long employeeId){
         if (treatmentNumber == null){
@@ -227,7 +227,7 @@ public class ActivityService extends GenericService{
      * Gibt eine Liste von Leistungen fuer einen Behandlungsfall zurueck, als Uebersicht 
      * fuer die Freigabe. Die nicht verbuchte Zeit wird auf generierte Leistungen verteilt.
      * @param treatmentNumber
-     * @return List<ActivityDto>
+     * @return Liste von ActivityDto
      */
     public List<ActivityDto> getActivitiesForApproval(@NotNull Long treatmentNumber){
         if (treatmentNumber == null){
@@ -254,7 +254,7 @@ public class ActivityService extends GenericService{
      * Gibt die berechneten Leistungen aufgrund der nicht verbuchten Restzeit (Geleistete - Verrechnete Zeit)
      * fuer einen Behandlungsfall zurueck
      * @param treatmentNumber
-     * @return List<ActivityDto>
+     * @return Liste von ActivityDto
      */
     public List<ActivityDto> getCalculatedActivities(@NotNull Long treatmentNumber){
         if (treatmentNumber == null){
@@ -351,8 +351,8 @@ public class ActivityService extends GenericService{
     }
     
     /**
-     * Update eines Behandlungsfalls
-     * @param ActivityDto 
+     * Update eines Behandlungsfalls 
+     * @param dto
      */
     public void updateActivityDto(@NotNull ActivityDto dto){
         if (dto == null){

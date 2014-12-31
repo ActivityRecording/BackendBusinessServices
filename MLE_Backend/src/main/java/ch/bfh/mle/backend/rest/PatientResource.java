@@ -27,7 +27,7 @@ import javax.ws.rs.core.Response;
 /**
  * REST Web Service fuer die Ressource Patient
  *
- * @author Stefan & Boris
+ * @author Stefan Walle - Boris Haueter
  */
 @Stateless
 @Path("patients")
@@ -71,7 +71,7 @@ public class PatientResource {
     /**
      * Gibt einen Patienten aufgrund der Datenbank-ID zurueck.
      * @param id
-     * @return 
+     * @return Patient
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -88,7 +88,7 @@ public class PatientResource {
      * Status 1 = Behandlungsfaelle ohne erfasste Leistungen
      * Status 2 = Behandlungsfaelle mit erfassten Leistungen
      * @param state Status zur Einschraenkung der Behandlungsfaelle
-     * @return List<PatientListItemDto> Liste von Patienten- und Behandlungsfallinformationen
+     * @return Liste von Patienten- und Behandlungsfallinformationen
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -139,7 +139,7 @@ public class PatientResource {
      * Status 2 = Behandlungsfaelle mit erfassten Leistungen
      * @param employeeId Mitarbeiternummer des Leistungserbringers
      * @param state Status zur Einschraenkung der Behandlungsfaelle
-     * @return List<PatientListItemDto> Liste von Patienten- und Behandlungsfallinformationen
+     * @return Liste von Patienten- und Behandlungsfallinformationen
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)

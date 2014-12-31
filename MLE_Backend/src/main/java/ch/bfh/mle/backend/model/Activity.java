@@ -51,7 +51,7 @@ public class Activity implements Serializable{
     }
     
     /**
-     * Konstruktor zum Erstellen einer neuen Leistung <br />
+     * Konstruktor zum Erstellen einer neuen Leistung <br>
      * Für die Erstellung wird die Tarmedleistung, der Behandlungsfall und der Leistungserbringer benötigt.
      * @param tarmedActivity
      * @param supplier 
@@ -99,7 +99,7 @@ public class Activity implements Serializable{
     
     /**
      * Git die technische Datenbank-ID zurueck.
-     * @return 
+     * @return id
      */
     public Long getId() {
         return id;
@@ -114,7 +114,7 @@ public class Activity implements Serializable{
     }
 
     /**
-     * Setzt die Anzahl, die oft diese Leistung erbracht wurde.
+     * Setzt die Anzahl der erbrachten Leistung.
      * @param number 
      */
     public void setNumber(Integer number) {
@@ -157,7 +157,7 @@ public class Activity implements Serializable{
     }
 
     /**
-     * Vergleicht zwei Leistungen, ob sie gleich sind. <br />
+     * Vergleicht zwei Leistungen, ob sie gleich sind. <br>
      * Fuer den Vergleich wird die technische Datenbank-ID verwendet.
      * @param object
      * @return boolean

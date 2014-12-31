@@ -85,7 +85,7 @@ public class TimePeriodService extends GenericService<TimePeriod>{
     /**
      * Gibt eine Liste von Zeitraum-DTO zurueck fuer den Behandlungsfall treatmentNumber.
      * @param treatmentNumber - darf nicht null sein.
-     * @return List<TimePeriodDto>
+     * @return Liste von TimePeriodDto
      */
     public List<TimePeriodDto> readByTreatmentNumber(@NotNull Long treatmentNumber){
         TypedQuery<TimePeriodDto> query = entityManager.createNamedQuery("TimePeriod.FindByTreatmentNumber", TimePeriodDto.class);
@@ -99,7 +99,7 @@ public class TimePeriodService extends GenericService<TimePeriod>{
      * Gibt eine Liste von Zeitraum-DTO zurueck fuer den Behandlungsfall treatmentNumber
      * und den Leistungserbringer employeeId.
      * @param treatmentNumber - darf nicht null sein.
-     * @return List<TimePeriodDto>
+     * @return Liste von TimePeriodDto
      */
     public List<TimePeriodDto> readByTreatmentNumberAndEmployee(@NotNull Long treatmentNumber, @NotNull Long employeeId){
         TypedQuery<TimePeriodDto> query = entityManager.createNamedQuery("TimePeriod.FindByTreatmentNumberAndEmployee", TimePeriodDto.class);
@@ -166,8 +166,8 @@ public class TimePeriodService extends GenericService<TimePeriod>{
      
      
      /**
-     * Update eines Zeitperiode
-     * @param TimePeriodDto 
+     * Update eines Zeitperiode 
+     * @param dto
      */
     public void updateTimePeriodByDto(TimePeriodDto dto){
      TypedQuery<TimePeriod> query = entityManager.createNamedQuery("TimePeriod.FindTimePeriodById", TimePeriod.class);

@@ -31,7 +31,7 @@ public class SupplierRessource {
 
     /**
      * Gibt alle Leistungserbringer zurueck.
-     * @return List<Supplier>
+     * @return List von Supplier
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)

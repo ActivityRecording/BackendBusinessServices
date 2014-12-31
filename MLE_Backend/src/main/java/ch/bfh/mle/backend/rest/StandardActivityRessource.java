@@ -39,7 +39,7 @@ public class StandardActivityRessource {
 
     /**
      * Gibt alle Standard-Leistungen zurueck.
-     * @return List<StandardActivity>
+     * @return Liste von StandardActivity
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -65,7 +65,7 @@ public class StandardActivityRessource {
      * Gibt den Standardkatalog fur den Leistungserbringer mit der 
      * Mitarbeiternummer employeeId zurueck.
      * @param employeeId Mitarbeiternummer - darf nicht null sein.
-     * @return List<StandardActivity>
+     * @return Liste von StandardActivity
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -81,7 +81,8 @@ public class StandardActivityRessource {
      * Gibt den Standardkatalog fur den Leistungserbringer mit der 
      * Mitarbeiternummer employeeId zurueck.
      * @param employeeId Mitarbeiternummer - darf nicht null sein.
-     * @return List<StandardActivity>
+     * @param treatmentNumber Behandlungsfallnummer - darf nicht null sein.
+     * @return Liste von StandardActivity
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)

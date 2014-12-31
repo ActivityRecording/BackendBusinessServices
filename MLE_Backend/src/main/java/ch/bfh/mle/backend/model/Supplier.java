@@ -223,7 +223,7 @@ public class Supplier implements Serializable, Comparable<Supplier>{
     }
 
      /**
-     * Vergleicht zwei Leistungserbringer, ob sie gleich sind. <br />
+     * Vergleicht zwei Leistungserbringer, ob sie gleich sind. <br>
      * Fuer den Vergleich wird die technische Datenbank-ID verwendet.
      * @param object
      * @return boolean

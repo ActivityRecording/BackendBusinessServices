@@ -97,7 +97,7 @@ public class Favorite implements Serializable {
     }
 
     /**
-     * Vergleicht zwei Favoriten, ob sie gleich sind. <br />
+     * Vergleicht zwei Favoriten, ob sie gleich sind. <br>
      * Fuer den Vergleich wird die technische Datenbank-ID verwendet.
      * @param object
      * @return boolean
