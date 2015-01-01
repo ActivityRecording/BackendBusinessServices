@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(
             name="Patient.FindByTreatmentNumber", 
-            query="SELECT NEW ch.bfh.mle.backend.service.dto.PatientWithTreatementCaseDto(p.id, p.patientNumber, p.lastName, p.firstName, p.dateOfBirth, t.id, t.treatmentNumber, t.startTime, t.endTime, t.released) FROM Patient AS p JOIN p.treatmentCases AS t WHERE t.treatmentNumber = :treatmentNumber"),
+            query="SELECT NEW ch.bfh.mle.backend.service.dto.PatientWithTreatementCaseDto(p.id, p.patientNumber, p.lastName, p.firstName, p.dateOfBirth, t.id, t.treatmentNumber, t.startTime, t.endTime, t.released, false) FROM Patient AS p JOIN p.treatmentCases AS t WHERE t.treatmentNumber = :treatmentNumber"),
     @NamedQuery(
             name="Patient.FindByPatientNumber", 
             query="SELECT p FROM Patient AS p WHERE p.patientNumber = :patientNumber"),

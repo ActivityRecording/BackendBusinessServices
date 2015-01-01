@@ -33,7 +33,7 @@ public class ApprovalRessource {
     private ApprovalService approvalSrv;
 
     /**
-     * Speichert einen Zeitraum in der Datenbank.
+     * Speichert eine Freigabe in der Datenbank.
      * @param employeeId - darf nicht null sein
      * @param treatmentNumber - darf nicht null sein
       */

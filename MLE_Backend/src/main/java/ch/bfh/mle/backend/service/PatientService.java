@@ -1,5 +1,6 @@
 package ch.bfh.mle.backend.service;
 
+import ch.bfh.mle.backend.model.Approval;
 import ch.bfh.mle.backend.model.Patient;
 import ch.bfh.mle.backend.service.dto.PatientListItemDto;
 import ch.bfh.mle.backend.service.dto.PatientWithTreatementCaseDto;
@@ -8,6 +9,7 @@ import java.util.Date;
 import java.util.Collections;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
@@ -28,6 +30,10 @@ public class PatientService extends GenericService<Patient> {
      public PatientService() {
         super(Patient.class);
     }
+     
+    @Inject
+    private ApprovalService approvalService;
+     
     /**
      * Gibt alle Patienten mit noch nicht freigegebenen Behandlungsfaellen, gefiltert nach Status zurueck.
      * @param state Status 0 = Faelle der letzten 24 Stunden, 1 = Faelle der aktuellen Woche, 2 = Alle offenen Faelle - darf nicht null sein
@@ -149,7 +155,38 @@ public class PatientService extends GenericService<Patient> {
             return result.get(0);
         }
     }
-	
+
+    /**
+     * Gibt einen Patienten mit Behandlungfall in Form eines PatientWithTreatementCaseDto fuer die 
+     * Behandlungsfallnummer treatmentNumber und den Leistungserbringer employeeId zurueck.
+     * Wird nichts gefunden, wird null zurueckgegeben.
+     * @param treatmentNumber Behandlungsfallnummer - darf nicht null sein
+     * @param employeeId Mitarbeiternummer des Leistungserbringers -darf nicht null sein
+     * @return PatientWithTreatementCaseDto Patient mit Behandlungsfall
+     */
+    public PatientWithTreatementCaseDto readByTreatmentNumberAndEmployeeId(@NotNull Long treatmentNumber, @NotNull Long employeeId) {
+        TypedQuery<PatientWithTreatementCaseDto> query = entityManager.createNamedQuery("Patient.FindByTreatmentNumber", PatientWithTreatementCaseDto.class);
+        query.setParameter("treatmentNumber", treatmentNumber);
+        List<PatientWithTreatementCaseDto> result;
+        result = query.getResultList();
+        if (result.size() > 1){
+            // Die Behandlungsfallnummer ist unique. Es darf nur ein Patient zurueckgegeben werden.
+            throw new IllegalStateException("More than one Patient found ");
+        }
+        if (result.isEmpty()){
+            return null;
+        } else {
+            PatientWithTreatementCaseDto dto = result.get(0);
+            Approval approval = approvalService.readByEmpolyeeIdAndTreatmentNumber(employeeId, treatmentNumber);
+            if (approval == null){
+                dto.setReleasedBySupplier(Boolean.FALSE);
+            } else {
+                dto.setReleasedBySupplier(Boolean.TRUE);
+            }
+            return dto;
+        }
+    }
+    
     /**
      * Gibt einen Patienten mit der fachlichen Patientennummer patientNumber zurueck.
      * Wir kein Patient gefunden wird eine leere Liste zurueckgegeben..

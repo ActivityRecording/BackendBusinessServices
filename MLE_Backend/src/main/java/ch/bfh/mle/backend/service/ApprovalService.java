@@ -77,5 +77,42 @@ public class ApprovalService extends GenericService{
         approval.setApprovedAt(actualDate);
         this.create(approval);
      }
-    
+
+    /**
+     * Liest eine Freigabe fuer einen Behandlungsfall und einen Leistungserbringer.
+     * @param employeeId
+     * @param treatmentNumber
+     * @return Approval oder null
+    */
+     public Approval readByEmpolyeeIdAndTreatmentNumber(@NotNull Long employeeId, @NotNull Long treatmentNumber){
+        // Finde den Listungserbringer
+        Supplier supplier;
+        supplier = supplierService.readByEmployeeId(employeeId);
+        if (supplier == null){
+            throw new IllegalArgumentException("No Supplier found with employeeId " + employeeId);
+        }
+        
+        // Finde den Behandlungsfall 
+        TreatmentCase treatment;
+        treatment = treatmentService.readByTreatmentNumber(treatmentNumber);
+        if (treatment == null){
+            throw new IllegalArgumentException("No Treatmentcase found with treatmentNumber " + treatmentNumber);
+        }
+        TypedQuery<Approval> query = entityManager.createNamedQuery("Approval.SelectByTreatmentIdAndEmployeeId", Approval.class);
+        query.setParameter("supplierId", supplier.getId());
+        query.setParameter("treatmentId", treatment.getId());
+        List<Approval> result;
+        result = query.getResultList();
+        if (result.size() > 1){
+            // Es sind mehrere Freigaben für den Leistungserbringer und den Fall vorhanden
+            throw new IllegalStateException("More than one approval found");
+        }
+        if (result.isEmpty()){
+            return null;
+        } else {
+            return result.get(0);
+        }
+
+     }
+     
 }

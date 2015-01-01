@@ -26,7 +26,8 @@ public class PatientWithTreatementCaseDto {
         Long treatmentNumber,
         Date startTime,
         Date endTime,
-        Boolean released
+        Boolean released,
+        Boolean releasedBySupplier
     ) {
         
             this.patientId = patientId;
@@ -39,6 +40,7 @@ public class PatientWithTreatementCaseDto {
             this.startTime = startTime;
             this.endTime = endTime;
             this.released = released;
+            this.releasedBySupplier = releasedBySupplier;
     }
     
     /**
@@ -91,4 +93,57 @@ public class PatientWithTreatementCaseDto {
      */
     private Boolean released;
     
+    /**
+     * Status Freigegeben durch den Leistungserbringer, falls beim Service eine
+     * Mitarbeiternummer als Parameter mitgegeben wurde.
+     */
+    private Boolean releasedBySupplier;
+
+    public Long getPatientId() {
+        return patientId;
+    }
+
+    public Long getPatientNumber() {
+        return patientNumber;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public Long getTreatmentId() {
+        return treatmentId;
+    }
+
+    public Long getTreatmentNumber() {
+        return treatmentNumber;
+    }
+
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public Boolean getReleased() {
+        return released;
+    }
+
+    public Boolean getReleasedBySupplier() {
+        return releasedBySupplier;
+    }
+
+    public void setReleasedBySupplier(Boolean releasedBySupplier) {
+        this.releasedBySupplier = releasedBySupplier;
+    }
 }

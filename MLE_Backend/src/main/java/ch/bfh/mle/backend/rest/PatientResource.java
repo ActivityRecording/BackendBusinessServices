@@ -128,6 +128,20 @@ public class PatientResource {
     public PatientWithTreatementCaseDto getByTreatment(@PathParam("treatmentNr") @NotNull Long treatementNr ) {
         return srv.readByTreatmentNumber(treatementNr);
     }
+
+    /**
+     * Gibt Informationen zu einem Patienten und Behandlungsfall mit
+     * Behandlungsfallnummer treatmentNr und Leistungserbringer employeeId zurueck.
+     * @param treatementNr
+     * @param employeeId
+     * @return PatientWithTreatementCaseDto
+     */
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/treatment/{treatmentNr}/{employeeId}")
+    public PatientWithTreatementCaseDto getByTreatment(@PathParam("treatmentNr") @NotNull Long treatementNr, @PathParam("employeeId") @NotNull Long employeeId) {
+        return srv.readByTreatmentNumberAndEmployeeId(treatementNr, employeeId);
+    }
     
     /**
      * Gibt Patient- und Behandlungsfallinformationen zurueck zu allen nicht 
