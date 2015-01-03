@@ -30,13 +30,16 @@ public class TreatmentCaseService extends GenericService<TreatmentCase>{
      * @return TratementCase
      */
     public TreatmentCase readByTreatmentNumber(@NotNull Long treatmentNumber){
+        if (treatmentNumber == null){
+            throw new IllegalArgumentException("TreatementNumer cannot be null");
+        }
         TypedQuery<TreatmentCase> query = entityManager.createNamedQuery("TreatmentCase.FindByTreatmentNumber", TreatmentCase.class);
         query.setParameter("treatmentNumber", treatmentNumber);
         List<TreatmentCase> result;
 	result = query.getResultList();
         if (result.size() > 1){
             // Die Mitarbeiternummer ist unique.
-            throw new IllegalStateException("More than one Treatmentcase found ");
+            throw new IllegalStateException("More than one Treatmentcase found");
         }
         if (result.isEmpty()){
             return null;

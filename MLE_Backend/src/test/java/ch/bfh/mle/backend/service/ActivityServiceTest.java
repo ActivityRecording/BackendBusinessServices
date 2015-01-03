@@ -18,7 +18,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 /**
  *
- * @author Stefan
+ * @author Stefan Walle
  */
 @RunWith(MockitoJUnitRunner.class)
 public class ActivityServiceTest {

@@ -114,5 +114,13 @@ public class ApprovalService extends GenericService{
         }
 
      }
+
+    public void setSupplierService(SupplierService supplierService) {
+        this.supplierService = supplierService;
+    }
+
+    public void setTreatmentService(TreatmentCaseService treatmentService) {
+        this.treatmentService = treatmentService;
+    }
      
 }

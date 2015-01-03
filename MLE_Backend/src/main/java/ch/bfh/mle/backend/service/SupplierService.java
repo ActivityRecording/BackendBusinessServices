@@ -31,13 +31,16 @@ public class SupplierService extends GenericService{
      * @return 
      */
     public Supplier readByEmployeeId(@NotNull Long employeeId){
+        if (employeeId == null){
+            throw new IllegalArgumentException("EmployeeId cannot be null");
+        }
         TypedQuery<Supplier> query = entityManager.createNamedQuery("Supplier.FindByEmployeeId", Supplier.class);
         query.setParameter("employeeId", employeeId);
         List<Supplier> result;
         result = query.getResultList();
         if (result.size() > 1){
             // Die Mitarbeiternummer ist unique.
-            throw new IllegalStateException("More than one Supplier found ");
+            throw new IllegalStateException("More than one Supplier found");
         }
         if (result.isEmpty()){
             return null;
@@ -53,11 +56,11 @@ public class SupplierService extends GenericService{
         result = query.getResultList();
         if (result.isEmpty()){
             // Technischer Leistungserbringer nicht vorhanden.
-            throw new IllegalStateException("Technical Supplier not found ");
+            throw new IllegalStateException("Technical Supplier not found");
         }
         if (result.size() > 1){
             // Es kann nur einen technischen Leistungserbringer geben.
-            throw new IllegalStateException("More than one technical Supplier found ");
+            throw new IllegalStateException("More than one technical Supplier found");
         }
         return result.get(0);
     }
