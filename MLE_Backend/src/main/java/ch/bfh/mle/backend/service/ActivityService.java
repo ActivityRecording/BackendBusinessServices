@@ -368,5 +368,21 @@ public class ActivityService extends GenericService{
             entityManager.merge(result);
         }
     }
+
+    public void setSupplierService(SupplierService supplierService) {
+        this.supplierService = supplierService;
+    }
+
+    public void setTarmedService(TarmedActivityService tarmedService) {
+        this.tarmedService = tarmedService;
+    }
+
+    public void setTreatmentService(TreatmentCaseService treatmentService) {
+        this.treatmentService = treatmentService;
+    }
+
+    public void setTimePeriodService(TimePeriodService timePeriodService) {
+        this.timePeriodService = timePeriodService;
+    }
     
 }

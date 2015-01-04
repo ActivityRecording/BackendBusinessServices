@@ -35,6 +35,9 @@ public class StandardActivityService extends GenericService<StandardActivity>{
      * @return List von StandardActivitiyListItemDto
      */
     public List<StandardActivitiyListItemDto> readByEmployeeId(@NotNull Long employeeId){
+        if (employeeId == null){
+            throw new IllegalArgumentException("EmployeeId cannot be null");
+        }
         TypedQuery<StandardActivitiyListItemDto> query = entityManager.createNamedQuery("StandardActivity.FindByEmployeeId", StandardActivitiyListItemDto.class);
         query.setParameter("employeeId", employeeId);
 	return query.getResultList();
@@ -50,6 +53,12 @@ public class StandardActivityService extends GenericService<StandardActivity>{
      * @return List von StandardActivitiyListItemDto
      */
     public List<StandardActivitiyListItemDto> readByEmployeeAndTreatment(@NotNull Long employeeId, @NotNull Long treatmentNumber){
+        if (employeeId == null){
+            throw new IllegalArgumentException("EmployeeId cannot be null");
+        }
+        if (treatmentNumber == null){
+            throw new IllegalArgumentException("TreatmentNumber cannot be null");
+        }
         
         // Lies den Standardkatalog fuer die gegebene Mitarbeiternummer employeeId
         TypedQuery<StandardActivitiyListItemDto> query1 = entityManager.createNamedQuery("StandardActivity.FindByEmployeeId", StandardActivitiyListItemDto.class);

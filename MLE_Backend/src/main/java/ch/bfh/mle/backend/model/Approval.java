@@ -35,7 +35,7 @@ public class Approval implements Serializable{
     /**
      * Default-Konstruktor fuer JPA
      */
-    protected Approval() {
+    public Approval() {
     }
 
     /**

@@ -36,9 +36,6 @@ public class SupplierServiceTest {
     @Mock
     EntityManager em;
     
-    @Mock
-    TypedQuery<Supplier> typedQuery;
-
     @Before
     public void init() {
         cut = new SupplierService();
@@ -71,11 +68,10 @@ public class SupplierServiceTest {
         list.add(createSupplier(EMPLOYEE_ID, "Hans", "Muster"));
         result = cut.readByEmployeeId(EMPLOYEE_ID);
         assertNotNull(result);
-        assertEquals(list.size(), 1);
         assertSame(list.get(0), result);
-        assertEquals(list.get(0).getFirstname(), "Hans");
-        assertEquals(list.get(0).getLastname(), "Muster");
-        assertEquals(list.get(0).getEmployeeID(), EMPLOYEE_ID);
+        assertEquals("Hans", result.getFirstname());
+        assertEquals("Muster", result.getLastname());
+        assertEquals(EMPLOYEE_ID, result.getEmployeeID());
         // Test more than one result
         list.add(createSupplier(EMPLOYEE_ID, "Anne", "Meier"));
         list.add(createSupplier(EMPLOYEE_ID, "Fritz", "König"));
@@ -101,12 +97,11 @@ public class SupplierServiceTest {
         list.add(createSupplier(EMPLOYEE_ID, "Tech", "User"));
         result = cut.getTechnicalSupplier();
         assertNotNull(result);
-        assertEquals(list.size(), 1);
         assertSame(list.get(0), result);
-        assertEquals(list.get(0).getFirstname(), "Tech");
-        assertEquals(list.get(0).getLastname(), "User");
-        assertEquals(list.get(0).getEmployeeID(), EMPLOYEE_ID);
-        // Testt more then one supplier
+        assertEquals("Tech", result.getFirstname());
+        assertEquals("User", result.getLastname());
+        assertEquals(EMPLOYEE_ID, list.get(0).getEmployeeID());
+        // Test more then one supplier
         list.add(createSupplier(EMPLOYEE_ID, "Tech", "User"));
         try {
             cut.getTechnicalSupplier();

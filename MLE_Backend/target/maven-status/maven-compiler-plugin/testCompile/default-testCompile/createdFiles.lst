@@ -1,1 +1,6 @@
+ch\bfh\mle\backend\service\TarmedActivityServiceTest.class
 ch\bfh\mle\backend\service\ActivityServiceTest.class
+ch\bfh\mle\backend\service\StandardActivityServiceTest.class
+ch\bfh\mle\backend\service\TreatmentCaseServiceTest.class
+ch\bfh\mle\backend\service\ApprovalServiceTest.class
+ch\bfh\mle\backend\service\SupplierServiceTest.class

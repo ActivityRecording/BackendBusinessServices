@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Named;
 import javax.persistence.TypedQuery;
+import javax.validation.constraints.NotNull;
 
 /**
  * Die Klasse TarmedActivityService stellt Applikationsfunktionalitaeten 
@@ -26,7 +27,10 @@ public class TarmedActivityService extends GenericService{
         return entityManager.find(TarmedActivity.class, id);
     }
     
-    public List<TarmedActivity> readIdList(List<String> idList){
+    public List<TarmedActivity> readIdList(@NotNull List<String> idList){
+        if (idList == null){
+            throw new IllegalArgumentException("ID-List cannot be null");
+        }
         TypedQuery<TarmedActivity> query = entityManager.createNamedQuery("TarmedActivity.AutomaticActivities", TarmedActivity.class);
         query.setParameter("idList", idList);
         List<TarmedActivity> result;

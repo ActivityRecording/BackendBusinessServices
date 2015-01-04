@@ -44,6 +44,12 @@ public class ApprovalService extends GenericService{
      * @param treatmentNumber
     */
      public void approve(@NotNull Long employeeId, @NotNull Long treatmentNumber){
+        if (employeeId == null){
+            throw new IllegalArgumentException("EmployeeId cannot be null");
+        }
+        if (treatmentNumber == null){
+            throw new IllegalArgumentException("TreatmentNumber cannot be null");
+        }
         // Finde den Listungserbringer
         Supplier supplier;
         supplier = supplierService.readByEmployeeId(employeeId);
@@ -85,6 +91,12 @@ public class ApprovalService extends GenericService{
      * @return Approval oder null
     */
      public Approval readByEmpolyeeIdAndTreatmentNumber(@NotNull Long employeeId, @NotNull Long treatmentNumber){
+        if (employeeId == null){
+            throw new IllegalArgumentException("EmployeeId cannot be null");
+        }
+        if (treatmentNumber == null){
+            throw new IllegalArgumentException("TreatmentNumber cannot be null");
+        }
         // Finde den Listungserbringer
         Supplier supplier;
         supplier = supplierService.readByEmployeeId(employeeId);

@@ -32,7 +32,14 @@ import javax.xml.bind.annotation.XmlAccessorType;
 })
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TarmedActivity implements Serializable{
-
+    
+    /**
+     * Default Konstruktor fuer JPA
+     */
+    public TarmedActivity(){
+        
+    }
+    
     /**
      * Serial-ID
      */

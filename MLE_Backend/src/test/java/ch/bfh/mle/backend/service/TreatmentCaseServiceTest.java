@@ -1,9 +1,7 @@
 package ch.bfh.mle.backend.service;
 
 import ch.bfh.mle.backend.model.Patient;
-import ch.bfh.mle.backend.model.Supplier;
 import ch.bfh.mle.backend.model.TreatmentCase;
-import ch.bfh.mle.backend.service.dto.ActivityDto;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,9 +36,6 @@ public class TreatmentCaseServiceTest {
     @Mock
     EntityManager em;
     
-    @Mock
-    TypedQuery<TreatmentCase> typedQuery;
-
     @Before
     public void init() {
         cut = new TreatmentCaseService();
@@ -74,9 +69,8 @@ public class TreatmentCaseServiceTest {
         list.add(c);
         result = cut.readByTreatmentNumber(TREATMENT_NUMER);
         assertNotNull(result);
-        assertEquals(list.size(), 1);
-        assertSame(list.get(0), result);
-        assertEquals(list.get(0).getTreatmentNumber(), TREATMENT_NUMER);
+        assertSame(c, result);
+        assertEquals(TREATMENT_NUMER, result.getTreatmentNumber());
         // Test more than one result
         list.add(createTreatmentCase(TREATMENT_NUMER));
         try {
