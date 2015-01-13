@@ -267,10 +267,6 @@ public class ActivityService extends GenericService{
         // Zu verteilende Restzeit
         Long timeDiff = measuredTime - treatmentTime;
         List<ActivityDto> result = new ArrayList<>();
-        // Differenz ist 0 -> Keine Verteilung mehr moeglich
-        if (timeDiff <= 0){
-            return result;
-        }
         // Lies die Tarmedleistungen, die automatisch auf die Restzeit verteilt werden sollen
         List<String> idList = Arrays.asList(REPORT_ID, CONSULTATION_1_ID, CONSULTATION_2_ID, CONSULTATION_3_ID);
         List<TarmedActivity> automaticActivities = tarmedService.readIdList(idList);
@@ -280,19 +276,23 @@ public class ActivityService extends GenericService{
         }
         Supplier supplier = supplierService.getTechnicalSupplier();
         Long generatorId = supplier.getEmployeeID();
-        // Bericht - Kein Zeit subtrabieren, da die Zeit für den Bericht nicht gemessen wird
+        // Bericht - Keine Zeit subtrabieren, da die Zeit für den Bericht nicht gemessen wird
         TarmedActivity report = autActMap.get(REPORT_ID);
         if (report == null){
             throw new IllegalStateException("Tarmed activity " + REPORT_ID + " not found");
         }
-        ActivityDto reportActivity = new ActivityDto(null, 1, generatorId, null, null, report.getId(), treatmentNumber, report.getDescription(), report.getDuration());
+        ActivityDto reportActivity = new ActivityDto(null, 1, generatorId, supplier.getFirstname(), supplier.getLastname(), report.getId(), treatmentNumber, report.getDescription(), report.getDuration());
         result.add(reportActivity);
+        // Differenz ist 0 -> Keine Verteilung mehr moeglich
+        if (timeDiff <= 0){
+            return result;
+        }
         // Konsultation erste 5 Minuten
         TarmedActivity consultation1 = autActMap.get(CONSULTATION_1_ID);
         if (consultation1 == null){
             throw new IllegalStateException("Tarmed activity " + CONSULTATION_1_ID + " not found");
         }
-        ActivityDto consultationActivity1 = new ActivityDto(null, 1, generatorId, null, null, consultation1.getId(), treatmentNumber, consultation1.getDescription(), consultation1.getDuration());
+        ActivityDto consultationActivity1 = new ActivityDto(null, 1, generatorId, supplier.getFirstname(), supplier.getLastname(), consultation1.getId(), treatmentNumber, consultation1.getDescription(), consultation1.getDuration());
         result.add(consultationActivity1);
         timeDiff = timeDiff - consultation1.getDuration();
         if (timeDiff <= 0){
@@ -303,7 +303,7 @@ public class ActivityService extends GenericService{
         if (consultation3 == null){
             throw new IllegalStateException("Tarmed activity " + CONSULTATION_3_ID + " not found");
         }
-        ActivityDto consultationActivity3 = new ActivityDto(null, 1, generatorId, null, null, consultation3.getId(), treatmentNumber, consultation3.getDescription(), consultation3.getDuration());
+        ActivityDto consultationActivity3 = new ActivityDto(null, 1, generatorId, supplier.getFirstname(), supplier.getLastname(), consultation3.getId(), treatmentNumber, consultation3.getDescription(), consultation3.getDuration());
         result.add(consultationActivity3);
         timeDiff = timeDiff - consultation3.getDuration();
         if (timeDiff <= 0){
@@ -315,7 +315,7 @@ public class ActivityService extends GenericService{
             throw new IllegalStateException("Tarmed activity " + CONSULTATION_2_ID + " not found");
         }
         Long count = (timeDiff + consultation2.getDuration() - 1) / consultation2.getDuration();
-        ActivityDto consultationActivity2 = new ActivityDto(null, count.intValue(), generatorId, null, null, consultation2.getId(), treatmentNumber, consultation2.getDescription(), consultation2.getDuration());
+        ActivityDto consultationActivity2 = new ActivityDto(null, count.intValue(), generatorId, supplier.getFirstname(), supplier.getLastname(), consultation2.getId(), treatmentNumber, consultation2.getDescription(), consultation2.getDuration());
         result.add(consultationActivity2);
 
         return result;
