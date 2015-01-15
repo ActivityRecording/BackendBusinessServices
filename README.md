@@ -1,4 +1,7 @@
-BackendBusinessServices
+MLE Applicationserver
 =======================
 
-Business Layers and Rest Services implented over JPA DAO's
+Java-EE Application for mobile activitiy recording containing:
+- Business model layer
+- Business logic layer
+- Rest Services
